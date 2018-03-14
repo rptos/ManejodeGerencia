@@ -12,7 +12,6 @@ import android.widget.Spinner;
 import java.util.List;
 
 import Adapters.ProductsListFragmentAdapter;
-import Adapters.TakePhotoFragmentAdapter;
 import Model.GetPhoto;
 import Model.INV;
 import Model.PHOTO;
@@ -213,7 +212,7 @@ public class ProductsList {
                 if(response.isSuccessful()) {
                     try {
                         listPhotos = response.body();
-                        list.setAdapter(new TakePhotoFragmentAdapter(context,listPhotos));
+                        //list.setAdapter(new TakePhotoFragmentAdapter(context,listPhotos));
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)

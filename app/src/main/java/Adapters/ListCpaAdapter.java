@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.henryruiz.manejoalmacenmantis.R;
+import com.henry.clientesnuevos.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.henryruiz.manejoalmacenmantis.R;
+import com.henry.clientesnuevos.R;
 
 import java.util.List;
 
