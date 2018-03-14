@@ -5,21 +5,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_AccountsReceivable"
+            android:icon="@drawable/cxc"
+            android:title="@string/navdrawer_AccountsReceivable" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_PaidAccounts"
+            android:icon="@drawable/cp"
+            android:title="@string/navdrawer_PaidAccounts" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_ClientsOnCredit"
+            android:icon="@drawable/credit"
+            android:title="@string/navdrawer_ClientsOnCredit" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_NewClients"
+            android:icon="@drawable/newuser"
+            android:title="@string/navdrawer_NewClients" />
+        <item
+            android:id="@+id/nav_ProvidersDVI"
+            android:icon="@drawable/dvi"
+            android:title="@string/navdrawer_ProvidersDVI" />
+        <item
+            android:id="@+id/nav_Configuration"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="@string/navdrawer_Configuration" />
     </group>
 
     <item android:title="Communicate">
@@ -27,11 +35,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/navdrawer_contact" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_contact"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/navdrawer_share" />
         </menu>
     </item>
 
