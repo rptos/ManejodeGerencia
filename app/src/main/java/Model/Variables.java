@@ -1,0 +1,101 @@
+package Model;
+
+/**
+ * Created by Henry on 22/1/2018.
+ */
+
+public class Variables {
+    private static String bd = "Principal";
+    private static String direccion;
+    private static String direccion_fotos;
+    private static String url = "192.168.1.250";//http://rptoscoreanos.myq-see.com192.168.1.249
+    private static String puerto = "4043";
+    private static String id = "";
+    private static String lanid = "";
+    private static String fragment = "";
+    private static String gruPK = "";
+    private static String CliPK = "";
+    private static String type_gruPK = "";
+    private static String position;
+    private static boolean masVendido = false;
+
+
+    public static String getDireccion() {
+        return direccion= "http://"+ Variables.getUrl()+":"+ Variables.getPuerto()+"/";
+    }
+
+    public static void setDireccion(String direccion) {
+        Variables.direccion = direccion;
+    }
+
+    public static String getDireccion_fotos() {
+        return direccion_fotos = "http://"+ Variables.getUrl()+":8080/catalogo_smith/image.php?image=";
+    }
+
+    public static void setDireccion_fotos(String direccion_fotos) {
+        Variables.direccion_fotos = direccion_fotos;
+    }
+
+    public static String getUrl() {return url;}
+
+    public static void setUrl(String url) {
+        Variables.url = url;}
+
+    public static String getPuerto() {return puerto;}
+
+    public static void setPuerto(String puerto) {
+        Variables.puerto = puerto;}
+
+    public static String getId() {
+        return id;
+    }
+
+    public static void setId(String id) {
+        Variables.id = id;
+    }
+
+    public static String getLanid() {
+        return lanid;
+    }
+
+    public static void setLanid(String lanid) {
+        Variables.lanid = lanid;
+    }
+
+    public static String getFragment() {
+        return fragment;
+    }
+
+    public static void setFragment(String fragment) {
+        Variables.fragment = fragment;
+    }
+
+    public static String getGruPK() {return gruPK;}
+
+    public static void setGruPK(String gruPK) {
+        Variables.gruPK = gruPK;
+    }
+
+    public static boolean getMasVendido() {
+        return masVendido;
+    }
+
+    public static void setMasVendido(boolean masVendido) {
+        Variables.masVendido = masVendido;
+    }
+
+    public static String getType_GruPK() {return type_gruPK;}
+
+    public static void setType_GruPK(String type_gruPK) {
+        Variables.type_gruPK = type_gruPK;}
+
+    public static String getPositionGru() {return position;}
+
+    public static void sePositionGru(String pos) { Variables.position = pos; }
+
+    public static String getCliPK() {return gruPK;}
+
+    public static void setCliPK(String gruPK) {
+        Variables.gruPK = gruPK;
+    }
+}

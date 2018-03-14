@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">Manejo de Gerencia</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Clave</string>
+    <string name="action_sign_in">Iniciar</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="sign_off">Cerrar Sesión</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="Login_nameUser">Usuario</string>
+    <string name="Login_namePassword">Clave</string>
+    <string name="Login_buttonSent">Enviar</string>
+    <string name="title_activity_main">Manejo de Gerencia</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="company_name">Repuestos Coreanos Smith Rodriguez C.A</string>
+
+    <string name="navdrawer_SearchProducts">Buscar Productos</string>
+    <string name="navdrawer_SearchProductsByPurchase">Buscar Productos por Compra</string>
+    <string name="navdrawer_PerformInventory">Realizar Inventario</string>
+    <string name="navdrawer_TakePhoto">Tomar Fotos Cot, Ped, Fac, Com</string>
+    <string name="navdrawer_AccountsReceivable">Cuentas por Cobrar</string>
+    <string name="navdrawer_PaidAccounts">Cuentas Pagadas</string>
+    <string name="navdrawer_ClientsOnCredit">Clientes a Credito</string>
+    <string name="navdrawer_NewClients">Clientes Nuevos</string>
+    <string name="navdrawer_ProvidersDVI">Proveedores DVI</string>
+    <string name="navdrawer_Configuration">Configuracion</string>
+    <string name="navdrawer_contact">Datos de contacto</string>
+    <string name="navdrawer_share">Compartir</string>
+    <string name="modal_search_head">Buscar</string>
+    <string name="toggleButton_cot">COTIZACION</string>
+    <string name="toggleButton_fact">FACTURA</string>
+    <string name="toggleButton_ped">PEDIDO</string>
+    <string name="toggleButton_tra">TRASLADO</string>
+    <string name="TvToolBarListProducts_all">TODOS</string>
+    <string name="title_activity_product_detail">Detalle de producto</string>
+    <string name="activity_product_detail_cod">Codigo:</string>
+    <string name="activity_product_detail_Ubi1">Ubicacion 1:</string>
+    <string name="activity_product_detail_Ubi2">Ubicacion 2:</string>
+    <string name="activity_product_detail_Ubi3">Ubicacion 3:</string>
+    <string name="activity_product_detail_Ubi4">Ubicacion 4:</string>
+    <string name="activity_product_detail_Ubi5">Ubicacion 5:</string>
+    <string name="activity_product_detail_Ubi6">Ubicacion 6:</string>
+    <string name="floatingactionbutton_save">Guardar</string>
+    <string name="floatingactionbutton_audit">Guardar Auditados</string>
+    <string name="floatingactionbutton_label_Large">Etiqueta Grande</string>
+    <string name="floatingactionbutton_label_Small">Etiqueta Pequeña</string>
+    <string name="modal_printlabels_head">Imprimir</string>
+    <string name="modal_quantitylabel">Cantidad de Etiquetas</string>
+    <string name="typeSearch_com">COMPRA</string>
+    <string name="audit">Auditar</string>
+    <string name="update">Actualizar</string>
+    <string name="counted">Condados</string>
+    <string name="audit_quantity">Cantidad de Contados</string>
+    <string name="photo">FOTO:</string>
+    <string name="floatingactionbutton_take_photo">Tomar Foto</string>
+    <string name="floatingactionbutton_update">Actualizar</string>
+    <string name="toggleButton_daily">Diario</string>
+    <string name="toggleButton_monthly">Mensual</string>
+    <string name="toggleButton_full">Completo</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_for_orders">Buscar pedidos</string>
+    <string name="title_activity_client_detail"></string>
+    <string name="percentage">Porcentaje</string>
+    <string name="email01">Ingrese Correo(opcional)</string>
+    <string name="Class">Clase</string>
+    <string name="new_client">Cliente Nuevo</string>
+</resources>
