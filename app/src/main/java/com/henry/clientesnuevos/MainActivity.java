@@ -1,6 +1,7 @@
 package com.henry.clientesnuevos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -175,6 +176,17 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_Configuration) {
 
         } else if (id == R.id.nav_share) {
+            try {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
+                String sAux = "\nPermíteme recomendarte esta aplicación\n\n";
+                sAux = sAux + "https://play.google.com/store/apps/details?id=com.henry.clientesnuevos";
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, "Compartir en"));
+            } catch(Exception e) {
+                //e.toString();
+            }
 
         } else if (id == R.id.nav_contact) {
 

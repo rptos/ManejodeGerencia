@@ -37,8 +37,8 @@
     <string name="navdrawer_NewClients">Clientes Nuevos</string>
     <string name="navdrawer_ProvidersDVI">Proveedores DVI</string>
     <string name="navdrawer_Configuration">Configuracion</string>
-    <string name="navdrawer_contact">Datos de contacto</string>
-    <string name="navdrawer_share">Compartir</string>
+    <string name="navdrawer_contact">Datos de Usuario</string>
+    <string name="navdrawer_share">Compartir Aplicacion</string>
     <string name="modal_search_head">Buscar</string>
     <string name="toggleButton_cot">COTIZACION</string>
     <string name="toggleButton_fact">FACTURA</string>
