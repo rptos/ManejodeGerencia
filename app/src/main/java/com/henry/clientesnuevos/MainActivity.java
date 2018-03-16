@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.henry.clientesnuevos.R;
 
 import Model.Variables;
 
@@ -59,6 +58,49 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             //super.onBackPressed();
+            if (Variables.getFragment().equals("")){
+                super.onBackPressed();
+            }
+            else {
+                if(Variables.getFragment().equals("ClientListFragment") && !Variables.getGruPK().equals("0")){
+                    Variables.setFragment("AccountsReceivableGroupFragment");
+                    AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
+                    Bundle bundle = new Bundle();
+                    if(Variables.getType_GruPK().equals("cxc"))
+                        bundle.putString("param1","cxc");
+
+                    else if(Variables.getType_GruPK().equals("cpa"))
+                        bundle.putString("param1","cpa");
+                    fragment.setArguments(bundle);
+
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frament, fragment)
+                            .commit();
+                }else if(Variables.getFragment().equals("ClientDetailActivity")){
+                    Variables.setFragment("ClientListFragment");
+                }else if(Variables.getFragment().equals("CPAFragment")){
+                    Variables.setFragment("ClientListFragment");
+                    AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("param1",Variables.getPositionGru());
+                    bundle.putString("param2","cpa");
+                    fragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frament, fragment)
+                            .commit();
+                }else if(Variables.getFragment().equals("CheckPriceListFragment")){
+                    Variables.setFragment("ClientListFragment");
+                    Variables.setGruPK("0"); Variables.sePositionGru("0");
+                    ClientListFragment fragment = new ClientListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("param1", Variables.getPositionGru());
+                    bundle.putString("param2", Variables.getGruPK());
+                    fragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frament, fragment)
+                            .commit();
+                }
+            }
         }
     }
 
@@ -91,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_AccountsReceivable) {
-            /*Variables.setFragment("AccountsReceivableGroupFragment");
+            Variables.setFragment("AccountsReceivableGroupFragment");
             Variables.setType_GruPK("cxc");
             AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
             Bundle bundle = new Bundle();
@@ -99,9 +141,9 @@ public class MainActivity extends AppCompatActivity
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
-                    .commit();*/
+                    .commit();
         } else if (id == R.id.nav_PaidAccounts) {
-            /*Variables.setFragment("AccountsReceivableGroupFragment");
+            Variables.setFragment("AccountsReceivableGroupFragment");
             Variables.setType_GruPK("cpa");
             AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
             Bundle bundle = new Bundle();
@@ -109,9 +151,9 @@ public class MainActivity extends AppCompatActivity
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
-                    .commit();*/
+                    .commit();
         } else if (id == R.id.nav_ClientsOnCredit) {
-            /*Variables.setFragment("ClientListFragment");
+            Variables.setFragment("ClientListFragment");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             ClientListFragment fragment = new ClientListFragment();
             Bundle bundle = new Bundle();
@@ -120,14 +162,14 @@ public class MainActivity extends AppCompatActivity
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
-                    .commit();*/
+                    .commit();
         } else if (id == R.id.nav_NewClients) {
-            /*Variables.setFragment("NewClientsFragment");
+            Variables.setFragment("NewClientsFragment");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             NewClientsFragment fragment = new NewClientsFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
-                    .commit();*/
+                    .commit();
         } else if (id == R.id.nav_ProvidersDVI) {
 
         } else if (id == R.id.nav_Configuration) {
