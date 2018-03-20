@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.henry.clientesnuevos.ProviderDVIFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/Linear1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/colorBlueHeaven"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewBrowse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:background="@drawable/ic_background_top"
+                android:padding="5dp"
+                android:text="@string/providers"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+            <TextView
+                android:id="@+id/textViewToolBarSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.3"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="TODOS"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Linear2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/colorBlueHeaven"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewBrowse1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.35"
+                android:background="@drawable/ic_background_top"
+                android:padding="5dp"
+                android:text="@string/providers"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+            <TextView
+                android:id="@+id/textViewToolBarSearch1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.6"
+                android:background="@drawable/ic_background_top"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="TODOS"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textViewToolBarSearchCode1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="BUSQUEDA"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/menu_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:fab_addButtonColorNormal="?attr/colorPrimary"
+        app:fab_addButtonPlusIconColor="@color/white"
+        app:fab_expandDirection="up"
+        app:fab_labelStyle="@style/Etiquetas"
+        app:layout_anchorGravity="center_vertical|right">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/accion_browser3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="?attr/colorPrimary"
+            app:fab_icon="@android:drawable/ic_menu_search"
+            app:fab_size="mini"
+            app:fab_title="@string/modal_search_head" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/accion_newProvider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="?attr/colorPrimary"
+            app:fab_icon="@drawable/ic_new"
+            app:fab_size="mini"
+            app:fab_title="@string/new_client" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    <ImageView
+        android:id="@+id/progress"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        app:srcCompat="@drawable/logo_animado" />
+</RelativeLayout>

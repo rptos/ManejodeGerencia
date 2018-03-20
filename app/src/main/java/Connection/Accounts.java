@@ -16,6 +16,7 @@ import Adapters.ClientDetailActivityAdapter;
 import Adapters.ClientListFragmentAdapter;
 import Adapters.ListCpaAdapter;
 import Adapters.ProductsListFragmentAdapter;
+import Adapters.ProviderDVIFragmentAdapter;
 import Model.CLI;
 import Model.CLN;
 import Model.CPA;
@@ -23,6 +24,7 @@ import Model.CXC;
 import Model.GCL;
 import Model.GRU;
 import Model.INV;
+import Model.PRO;
 import Model.Search;
 import Model.SentEmail;
 import Model.Variables;
@@ -41,6 +43,7 @@ public class Accounts {
     public static List<CXC> listCXC;
     public static List<CPA> listCPA;
     public static List<GRU> listGRU;
+    public static List<PRO> listPRO;
 
     public static void getGroupsCxc(final ListView list, final Context context, final View view, final ImageView p) {
 
@@ -504,6 +507,33 @@ public class Accounts {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void sync_providers(final ListView list, final Context context, final View view, final ImageView p) {
+
+        Factory.getIntance()
+                .syncProviders().enqueue(new Callback<List<PRO>>() {
+            @Override
+            public void onResponse(Call<List<PRO>> call, Response<List<PRO>> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        listPRO = response.body();
+                        list.setAdapter(new ProviderDVIFragmentAdapter(context,listPRO));
+                        p.setVisibility(View.GONE);
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PRO>> call, Throwable t) {
                 Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

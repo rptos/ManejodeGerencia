@@ -119,4 +119,7 @@ public interface APIService {
     @POST("Servicio.svc/GuardarNuevoCliente")
     Call<ResponseBody> SaveNewClient(@Body CLN cln);
 
+    @POST("Servicio.svc/ProveedoresDVI")
+    Call<List<PRO>> syncProviders();
+
 }

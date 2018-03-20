@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
             }
             else {
                 if(Variables.getFragment().equals("AccountsReceivableGroupFragment")||Variables.getFragment().equals("ClientListFragment")
-                        ||Variables.getFragment().equals("NewClientsFragment")){
+                        ||Variables.getFragment().equals("NewClientsFragment")||Variables.getFragment().equals("ProviderDVIFragment")){
                     Variables.setFragment("");
                     Variables.setEmailCliN("");
                     HomeFragment fragment = new HomeFragment();
@@ -204,7 +204,12 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_ProvidersDVI) {
-
+            Variables.setFragment("ProviderDVIFragment");Variables.setEmailCliN("");
+            Variables.setGruPK(""); Variables.sePositionGru("0");
+            ProviderDVIFragment fragment = new ProviderDVIFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frament, fragment)
+                    .commit();
         } else if (id == R.id.nav_Configuration) {
 
         } else if (id == R.id.nav_share) {

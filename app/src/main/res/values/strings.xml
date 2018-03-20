@@ -86,5 +86,6 @@
     <string name="address">Dirección</string>
     <string name="observation">Observación</string>
     <string name="save">Guardar</string>
+    <string name="providers">Proveedores DVI</string>
 
 </resources>
