@@ -116,4 +116,7 @@ public interface APIService {
     @POST("Servicio.svc/ClienteN/{pk}")
     Call<List<CLI>> syncNewClients(@Path("pk") String pk, @Body Search search);
 
+    @POST("Servicio.svc/GuardarNuevoCliente")
+    Call<ResponseBody> SaveNewClient(@Body CLN cln);
+
 }

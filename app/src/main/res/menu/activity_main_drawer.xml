@@ -38,11 +38,11 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_contact"
                 android:icon="@drawable/ic_menu_send"
                 android:title="@string/navdrawer_contact" />
             <item
-                android:id="@+id/nav_contact"
+                android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/navdrawer_share" />
         </menu>

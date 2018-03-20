@@ -77,4 +77,14 @@
     <string name="email01">Ingrese Correo(opcional)</string>
     <string name="Class">Clase</string>
     <string name="new_client">Cliente Nuevo</string>
+    <string name="accept">Aceptar</string>
+    <string name="rif">Rif</string>
+    <string name="first_name">Nombre</string>
+    <string name="group_by_zone">Grupo por Zona</string>
+    <string name="phone">Teléfono</string>
+    <string name="email">Email</string>
+    <string name="address">Dirección</string>
+    <string name="observation">Observación</string>
+    <string name="save">Guardar</string>
+
 </resources>

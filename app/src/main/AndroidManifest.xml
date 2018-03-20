@@ -37,6 +37,12 @@
             android:label="@string/title_activity_main"
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ClientDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label=""
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

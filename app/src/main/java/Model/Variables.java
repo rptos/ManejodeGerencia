@@ -18,6 +18,7 @@ public class Variables {
     private static String type_gruPK = "";
     private static String position;
     private static boolean masVendido = false;
+    private static String emailCliN = "";
 
 
     public static String getDireccion() {
@@ -97,5 +98,13 @@ public class Variables {
 
     public static void setCliPK(String gruPK) {
         Variables.gruPK = gruPK;
+    }
+
+    public static String getEmailCliN() {
+        return emailCliN;
+    }
+
+    public static void setEmailCliN(String emailCliN) {
+        Variables.emailCliN = emailCliN;
     }
 }

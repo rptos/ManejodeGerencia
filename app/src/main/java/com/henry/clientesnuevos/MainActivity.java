@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 import Model.Variables;
 
@@ -63,7 +67,15 @@ public class MainActivity extends AppCompatActivity
                 super.onBackPressed();
             }
             else {
-                if(Variables.getFragment().equals("ClientListFragment") && !Variables.getGruPK().equals("0")){
+                if(Variables.getFragment().equals("AccountsReceivableGroupFragment")||Variables.getFragment().equals("ClientListFragment")
+                        ||Variables.getFragment().equals("NewClientsFragment")){
+                    Variables.setFragment("");
+                    Variables.setEmailCliN("");
+                    HomeFragment fragment = new HomeFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frament, fragment)
+                            .commit();
+                }else if(Variables.getFragment().equals("ClientListFragment") && !Variables.getGruPK().equals("0")){
                     Variables.setFragment("AccountsReceivableGroupFragment");
                     AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
                     Bundle bundle = new Bundle();
@@ -90,13 +102,29 @@ public class MainActivity extends AppCompatActivity
                             .replace(R.id.frament, fragment)
                             .commit();
                 }else if(Variables.getFragment().equals("CheckPriceListFragment")){
-                    Variables.setFragment("ClientListFragment");
+                    if(!Variables.getEmailCliN().equals("")){
+                        Variables.setFragment("NewClientsFragment");Variables.setEmailCliN("");
+                        Variables.setGruPK("0"); Variables.sePositionGru("0");
+                        NewClientsFragment fragment = new NewClientsFragment();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.frament, fragment)
+                                .commit();
+                    }else{
+                        Variables.setFragment("ClientListFragment");
+                        Variables.setGruPK("0"); Variables.sePositionGru("0");
+                        ClientListFragment fragment = new ClientListFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("param1", Variables.getPositionGru());
+                        bundle.putString("param2", Variables.getGruPK());
+                        fragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.frament, fragment)
+                                .commit();
+                    }
+                }else if(Variables.getFragment().equals("RegisterClientFragment")){
+                    Variables.setFragment("NewClientsFragment");Variables.setEmailCliN("");
                     Variables.setGruPK("0"); Variables.sePositionGru("0");
-                    ClientListFragment fragment = new ClientListFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("param1", Variables.getPositionGru());
-                    bundle.putString("param2", Variables.getGruPK());
-                    fragment.setArguments(bundle);
+                    NewClientsFragment fragment = new NewClientsFragment();
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.frament, fragment)
                             .commit();
@@ -120,8 +148,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.sign_off) {
+            SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
+            settings.edit().clear().apply();
+            Intent intent = new Intent(context, LoginActivity.class);
+            startActivity(intent);
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -135,7 +167,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_AccountsReceivable) {
             Variables.setFragment("AccountsReceivableGroupFragment");
-            Variables.setType_GruPK("cxc");
+            Variables.setType_GruPK("cxc");Variables.setEmailCliN("");
             AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
             Bundle bundle = new Bundle();
             bundle.putString("param1","cxc");
@@ -145,7 +177,7 @@ public class MainActivity extends AppCompatActivity
                     .commit();
         } else if (id == R.id.nav_PaidAccounts) {
             Variables.setFragment("AccountsReceivableGroupFragment");
-            Variables.setType_GruPK("cpa");
+            Variables.setType_GruPK("cpa");Variables.setEmailCliN("");
             AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
             Bundle bundle = new Bundle();
             bundle.putString("param1","cpa");
@@ -154,7 +186,7 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_ClientsOnCredit) {
-            Variables.setFragment("ClientListFragment");
+            Variables.setFragment("ClientListFragment");Variables.setEmailCliN("");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             ClientListFragment fragment = new ClientListFragment();
             Bundle bundle = new Bundle();
@@ -165,7 +197,7 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_NewClients) {
-            Variables.setFragment("NewClientsFragment");
+            Variables.setFragment("NewClientsFragment");Variables.setEmailCliN("");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             NewClientsFragment fragment = new NewClientsFragment();
             getSupportFragmentManager().beginTransaction()
@@ -189,11 +221,33 @@ public class MainActivity extends AppCompatActivity
             }
 
         } else if (id == R.id.nav_contact) {
-
+            ViewUserData();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void ViewUserData(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View layout = inflater.inflate(R.layout.user_data, null);
+        builder.setView(layout);
+        final AlertDialog alert = builder.create();
+        android.support.design.widget.TextInputEditText id = (android.support.design.widget.TextInputEditText) layout.findViewById(R.id.id_user);
+        Button accept = (Button) layout.findViewById(R.id.buttonAccept);
+        id.setText(Variables.getLanid().toString().trim());
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(id.getWindowToken(), 0);
+        accept.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alert.cancel();
+                    }
+                }
+        );
+        alert.show();
+
     }
 }

@@ -17,6 +17,7 @@ import Adapters.ClientListFragmentAdapter;
 import Adapters.ListCpaAdapter;
 import Adapters.ProductsListFragmentAdapter;
 import Model.CLI;
+import Model.CLN;
 import Model.CPA;
 import Model.CXC;
 import Model.GCL;
@@ -437,6 +438,72 @@ public class Accounts {
 
             @Override
             public void onFailure(Call<List<CLI>> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void getGroupsbyEstate(final Spinner sp, final Context context, final View view) {
+        Factory.getIntance()
+                .getGroupCxc().enqueue(new Callback<List<GCL>>() {
+            @Override
+            public void onResponse(Call<List<GCL>> call, Response<List<GCL>> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        listGroup = response.body();
+                        String array_spinner[]=new String[Accounts.listGroup.size()];
+                        for (int i = 0; i< Accounts.listGroup.size(); i++){
+                            array_spinner[i] = Accounts.listGroup.get(i).getGCLNOMBRE();
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, array_spinner);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        sp.setAdapter(adapter);
+                        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                                Variables.setGruPK(String.valueOf(Accounts.listGroup.get(sp.getSelectedItemPosition()).getGCLPK()));
+
+                            }
+                            @Override
+                            public void onNothingSelected(AdapterView<?> arg0) {
+                                // TODO Auto-generated method stub
+                            }
+                        });
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GCL>> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void SaveClient(CLN cln, final View view){
+        Factory.getIntance()
+                .SaveNewClient(cln).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        Snackbar.make(view, response.body().string().trim().replace("\"",""), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

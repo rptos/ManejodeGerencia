@@ -2,14 +2,17 @@ package com.henry.clientesnuevos;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import Connection.Accounts;
+import Model.CLI;
 import Model.Search;
 import Model.Variables;
 
@@ -68,7 +72,7 @@ public class NewClientsFragment extends Fragment {
         list = (ListView) view.findViewById(R.id.list);
         final FloatingActionsMenu floatingActionsMenu = (FloatingActionsMenu) view.findViewById(R.id.menu_fab);
         final com.getbase.floatingactionbutton.FloatingActionButton fab_search = (com.getbase.floatingactionbutton.FloatingActionButton) view.findViewById(R.id.accion_browser2);
-        final com.getbase.floatingactionbutton.FloatingActionButton fab_send = (com.getbase.floatingactionbutton.FloatingActionButton) view.findViewById(R.id.accion_newClient);
+        final com.getbase.floatingactionbutton.FloatingActionButton fab_new = (com.getbase.floatingactionbutton.FloatingActionButton) view.findViewById(R.id.accion_newClient);
         linear1 = (LinearLayout) view.findViewById(R.id.Linear1);
         tvToolBarSearch = (TextView) view.findViewById(R.id.textViewToolBarSearch);
 
@@ -86,6 +90,21 @@ public class NewClientsFragment extends Fragment {
         search.setValor("");
         Accounts.Sync_ListNewClients(pk, search, list,context,view, progressView);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+                Variables.setFragment("CheckPriceListFragment");
+                final CLI posActual = Accounts.listClient.get(position);
+                Variables.setCliPK(String.valueOf(posActual.getCLIPK()));
+                Variables.setEmailCliN(posActual.getCLIEMAIL().toString().trim());
+                CheckPriceListFragment fragment = new CheckPriceListFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frament, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
         fab_search.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -96,10 +115,16 @@ public class NewClientsFragment extends Fragment {
                 }
         );
 
-        fab_send.setOnClickListener(
+        fab_new.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Variables.setFragment("RegisterClientFragment");
+                        RegisterClientFragment fragment = new RegisterClientFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frament, fragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                         floatingActionsMenu.collapse();
                     }
                 }

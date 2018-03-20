@@ -54,6 +54,9 @@ public class CheckPriceListFragment extends Fragment {
         // Inflate the layout for this fragment
         Accounts.Sync_Group(spinMark, context, view);
 
+        if (!Variables.getEmailCliN().equals(""))
+            etEemail.setText(Variables.getEmailCliN());
+
         fab_search.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
