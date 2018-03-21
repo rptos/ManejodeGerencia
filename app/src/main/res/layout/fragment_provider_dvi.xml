@@ -110,6 +110,7 @@
             android:id="@+id/accion_browser3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:fab_colorNormal="?attr/colorPrimary"
             app:fab_icon="@android:drawable/ic_menu_search"
             app:fab_size="mini"
@@ -122,7 +123,7 @@
             app:fab_colorNormal="?attr/colorPrimary"
             app:fab_icon="@drawable/ic_new"
             app:fab_size="mini"
-            app:fab_title="@string/new_client" />
+            app:fab_title="Agregar" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

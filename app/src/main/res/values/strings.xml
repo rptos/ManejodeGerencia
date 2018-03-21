@@ -87,5 +87,8 @@
     <string name="observation">Observación</string>
     <string name="save">Guardar</string>
     <string name="providers">Proveedores DVI</string>
+    <string name="title_url_remote">Remoto</string>
+    <string name="title_url_local">Local</string>
+    <string name="url_conection">CONEXIÓN</string>
 
 </resources>

@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.henry.clientesnuevos.ConfigurationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="@string/navdrawer_Configuration" />
+
+    <Switch
+        android:id="@+id/switchUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:text="@string/url_conection"
+        android:textOff="@string/title_url_local"
+        android:textOn="@string/title_url_remote" />
+</LinearLayout>

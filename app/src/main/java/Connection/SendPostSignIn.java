@@ -33,9 +33,11 @@ public class SendPostSignIn {
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putString("USR_LANID", String.valueOf(response.body().getUSRLANID()));
                     editor.putString("USR_PK", String.valueOf(response.body().getUSRNOTES()));
+                    editor.putString("Conection", Variables.getUrl_local());
                     editor.commit();
                     Variables.setId(response.body().getUSRNOTES());
                     Variables.setLanid(response.body().getUSRLANID());
+                    Variables.setUrl(Variables.getUrl_local());
                     loginActivity.goMain();
                 }
             }

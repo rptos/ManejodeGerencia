@@ -2,12 +2,21 @@ package com.henry.clientesnuevos;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,8 +26,12 @@ import com.bumptech.glide.Glide;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import Connection.Accounts;
+import Model.CLI;
+import Model.PRO;
 import Model.Search;
 import Model.Variables;
+
+import static android.view.View.GONE;
 
 
 /**
@@ -73,11 +86,65 @@ public class ProviderDVIFragment extends Fragment {
         // Inflate the layout for this fragment
         linear1.setVisibility(View.VISIBLE);
         linear2.setVisibility(View.GONE);
-        final Search search = new Search();
-        search.setValor("");
+
         Accounts.sync_providers(list, context, view, progressView);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+                Variables.setFragment("CheckPriceListFragment");
+                final PRO posActual = Accounts.listPRO.get(position);
+                final CharSequence colors[] = new CharSequence[]{"Editar", "Detalles de pago", "Enviar Correo"};
+
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+                builder.setTitle("Proveedor " + posActual.getPRONOMBRE());
+                builder.setItems(colors, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //colors[which];
+                        switch (which) {
+                            case 0:
+                                Variables.setIdDVI(posActual.getPRODVIPK());
+                                //CrearDVIFragment fragment2 = new CrearDVIFragment();
+                                FragmentManager fragmentManager = getFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                //fragmentTransaction.replace(R.id.frament, fragment2);
+                                fragmentTransaction.commit();
+                                break;
+                            case 1:
+                                //DetallePagoDVIFragment fragment1 = new DetallePagoDVIFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()));
+                                FragmentManager fragmentManager1 = getFragmentManager();
+                                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                                //fragmentTransaction1.replace(R.id.frament, fragment1);
+                                fragmentTransaction1.commit();
+                                break;
+                            case 2:
+                                Variables.setIdDVI(posActual.getPRODVIPK());
+                                //new Correo().execute("");
+                                break;
+                        }
+                    }
+                });
+            }
+        });
+
+        fab_new.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /*Variables.setFragment("RegisterClientFragment");
+                        RegisterClientFragment fragment = new RegisterClientFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frament, fragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();*/
+                        floatingActionsMenu.collapse();
+                    }
+                }
+        );
+
+
 
         return view;
     }
-
 }

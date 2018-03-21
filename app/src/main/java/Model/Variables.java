@@ -8,17 +8,19 @@ public class Variables {
     private static String bd = "Principal";
     private static String direccion;
     private static String direccion_fotos;
-    private static String url = "192.168.1.250";//http://rptoscoreanos.myq-see.com192.168.1.249
+    private static String url_local = "192.168.1.250";
+    private static String url_remote = "200.44.165.222";
+    private static String url = "192.168.1.250";//default local
     private static String puerto = "4043";
     private static String id = "";
     private static String lanid = "";
     private static String fragment = "";
     private static String gruPK = "";
-    private static String CliPK = "";
     private static String type_gruPK = "";
     private static String position;
     private static boolean masVendido = false;
     private static String emailCliN = "";
+    private static String idDVI = "";
 
 
     public static String getDireccion() {
@@ -107,4 +109,15 @@ public class Variables {
     public static void setEmailCliN(String emailCliN) {
         Variables.emailCliN = emailCliN;
     }
+
+    public static String getIdDVI() {return idDVI; }
+
+    public static void setIdDVI(String idDVI) {
+        Variables.idDVI = idDVI;
+    }
+
+    public static String getUrl_remote() {return url_remote; }
+
+    public static String getUrl_local() {return url_local; }
+
 }
