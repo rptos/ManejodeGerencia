@@ -69,11 +69,12 @@ public class MainActivity extends AppCompatActivity
             }
             else {
                 if(Variables.getFragment().equals("AccountsReceivableGroupFragment")
-                        ||Variables.getFragment().equals("ClientListFragment")
+                        ||(Variables.getFragment().equals("ClientListFragment")&&Variables.getType_GruPK().equals(""))
                         ||Variables.getFragment().equals("NewClientsFragment")
                         ||Variables.getFragment().equals("ProviderDVIFragment")
                         ||Variables.getFragment().equals("ConfigurationFragment")){
                     Variables.setFragment("");
+                    Variables.setType_GruPK("");
                     Variables.setEmailCliN("");
                     HomeFragment fragment = new HomeFragment();
                     getSupportFragmentManager().beginTransaction()
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                     Variables.setFragment("ClientListFragment");
                 }else if(Variables.getFragment().equals("CPAFragment")){
                     Variables.setFragment("ClientListFragment");
-                    AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
+                    ClientListFragment fragment = new ClientListFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("param1",Variables.getPositionGru());
                     bundle.putString("param2","cpa");

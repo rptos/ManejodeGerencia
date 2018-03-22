@@ -118,8 +118,8 @@ public class ClientListFragment extends Fragment {
             fab.setVisibility(GONE);
         }else if(type.equals("cxc") || type.equals("0")) {
             if(type.equals("0")){
-                module1.setText("Clientes a Credito");
-                module2.setText("Clientes a Credito");}
+                module1.setText("Clientes Credito");
+                module2.setText("Clientes Credito");}
             Accounts.getClientsCxc(pk,search, list, context, view, progressView);
         }
 

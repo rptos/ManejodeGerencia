@@ -262,6 +262,8 @@ public class ClientDetailActivity extends AppCompatActivity {
 
         if (selectedImagePath!=null)
             Accounts.sent_CPA_photo(selectedImagePath, view);
+        else
+            Accounts.sent_CPA_photo(name, view);
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("application/image");

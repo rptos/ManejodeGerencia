@@ -15,6 +15,7 @@ public class Variables {
     private static String id = "";
     private static String lanid = "";
     private static String fragment = "";
+    private static String cliPK = "";
     private static String gruPK = "";
     private static String type_gruPK = "";
     private static String position;
@@ -96,10 +97,10 @@ public class Variables {
 
     public static void sePositionGru(String pos) { Variables.position = pos; }
 
-    public static String getCliPK() {return gruPK;}
+    public static String getCliPK() {return cliPK;}
 
-    public static void setCliPK(String gruPK) {
-        Variables.gruPK = gruPK;
+    public static void setCliPK(String cliPK) {
+        Variables.cliPK = cliPK;
     }
 
     public static String getEmailCliN() {

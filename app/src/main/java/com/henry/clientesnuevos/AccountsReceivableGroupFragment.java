@@ -82,7 +82,6 @@ public class AccountsReceivableGroupFragment extends Fragment {
                     final GCL posActual = Accounts.listGroup.get(position);
                     Variables.setGruPK(String.valueOf(posActual.getGCLPK()));
                     Variables.sePositionGru(String.valueOf(position));
-                    Variables.setCliPK(String.valueOf(posActual.getGCLPK()));
                     ClientListFragment fragment = new ClientListFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("param1", String.valueOf(position));
