@@ -94,8 +94,10 @@ public class MainActivity extends AppCompatActivity
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.frament, fragment)
                             .commit();
-                }else if(Variables.getFragment().equals("ClientDetailActivity")){
+                }else if(Variables.getFragment().equals("ClientDetailActivity")) {
                     Variables.setFragment("ClientListFragment");
+                }else if(Variables.getFragment().equals("CreateDVIActivity")){
+                    Variables.setFragment(("ProviderDVIFragment"));
                 }else if(Variables.getFragment().equals("CPAFragment")){
                     Variables.setFragment("ClientListFragment");
                     ClientListFragment fragment = new ClientListFragment();
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity
                                 .commit();
                     }else{
                         Variables.setFragment("ClientListFragment");
-                        Variables.setGruPK("0"); Variables.sePositionGru("0");
+                       Variables.setGruPK("0"); Variables.sePositionGru("0");
                         ClientListFragment fragment = new ClientListFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString("param1", Variables.getPositionGru());

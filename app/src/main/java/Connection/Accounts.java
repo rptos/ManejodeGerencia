@@ -21,6 +21,7 @@ import Model.CLI;
 import Model.CLN;
 import Model.CPA;
 import Model.CXC;
+import Model.DVI;
 import Model.GCL;
 import Model.GRU;
 import Model.INV;
@@ -44,6 +45,7 @@ public class Accounts {
     public static List<CPA> listCPA;
     public static List<GRU> listGRU;
     public static List<PRO> listPRO;
+    public static List<DVI> listDVI;
 
     public static void getGroupsCxc(final ListView list, final Context context, final View view, final ImageView p) {
 
@@ -524,6 +526,47 @@ public class Accounts {
                         listPRO = response.body();
                         list.setAdapter(new ProviderDVIFragmentAdapter(context,listPRO));
                         p.setVisibility(View.GONE);
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PRO>> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void sync_proAll(final Spinner sp, final Context context, final View view) {
+        Factory.getIntance()
+                .sync_proAll().enqueue(new Callback<List<PRO>>() {
+            @Override
+            public void onResponse(Call<List<PRO>> call, Response<List<PRO>> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        listPRO = response.body();
+                        String array_spinner[]=new String[Accounts.listGroup.size()];
+                        for (int i = 0; i< Accounts.listGroup.size(); i++){dfdsf
+                            array_spinner[i] = Accounts.listGroup.get(i).getGCLNOMBRE();
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, array_spinner);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        sp.setAdapter(adapter);
+                        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                                Variables.setGruPK(String.valueOf(Accounts.listGroup.get(sp.getSelectedItemPosition()).getGCLPK()));
+
+                            }
+                            @Override
+                            public void onNothingSelected(AdapterView<?> arg0) {
+                                // TODO Auto-generated method stub
+                            }
+                        });
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)

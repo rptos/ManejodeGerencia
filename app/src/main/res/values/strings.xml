@@ -90,5 +90,8 @@
     <string name="title_url_remote">Remoto</string>
     <string name="title_url_local">Local</string>
     <string name="url_conection">CONEXIÓN</string>
+    <string name="title_activity_create_dvi">CreateDVIActivity</string>
+    <string name="balance_in_dollar">Monto en $</string>
+    <string name="balance_in_Bs">Monto en Bs.</string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.henry.clientesnuevos;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -92,7 +93,7 @@ public class ProviderDVIFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                Variables.setFragment("CheckPriceListFragment");
+                //Variables.setFragment("CheckPriceListFragment");
                 final PRO posActual = Accounts.listPRO.get(position);
                 final CharSequence colors[] = new CharSequence[]{"Editar", "Detalles de pago", "Enviar Correo"};
 
@@ -104,12 +105,15 @@ public class ProviderDVIFragment extends Fragment {
                         //colors[which];
                         switch (which) {
                             case 0:
+                                Variables.setFragment("CreateDVIActivity");
                                 Variables.setIdDVI(posActual.getPRODVIPK());
+                                Intent intent = new Intent(context, CreateDVIActivity.class);
+                                startActivity(intent);
                                 //CrearDVIFragment fragment2 = new CrearDVIFragment();
-                                FragmentManager fragmentManager = getFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                //FragmentManager fragmentManager = getFragmentManager();
+                                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 //fragmentTransaction.replace(R.id.frament, fragment2);
-                                fragmentTransaction.commit();
+                                //fragmentTransaction.commit();
                                 break;
                             case 1:
                                 //DetallePagoDVIFragment fragment1 = new DetallePagoDVIFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()));
@@ -125,6 +129,7 @@ public class ProviderDVIFragment extends Fragment {
                         }
                     }
                 });
+                builder.show();
             }
         });
 

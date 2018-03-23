@@ -122,4 +122,7 @@ public interface APIService {
     @POST("Servicio.svc/ProveedoresDVI")
     Call<List<PRO>> syncProviders();
 
+    @POST("Servicio.svc/Proveedores")
+    Call<List<PRO>> sync_proAll();
+
 }
