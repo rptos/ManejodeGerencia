@@ -22,6 +22,10 @@ public class Variables {
     private static boolean masVendido = false;
     private static String emailCliN = "";
     private static String idDVI = "";
+    private static int j_dvi = 0;
+    private static int pro_dvi = 0;
+
+
 
 
     public static String getDireccion() {
@@ -120,5 +124,15 @@ public class Variables {
     public static String getUrl_remote() {return url_remote; }
 
     public static String getUrl_local() {return url_local; }
+
+    public static int get_j_dvi() {return j_dvi; }
+
+    public static void set_j_dvi(int j_dvi) {Variables.j_dvi = j_dvi;}
+
+    public static int get_pro_dvi() {return pro_dvi; }
+
+    public static void set_pro_dvi(int pro_dvi) {
+        Variables.pro_dvi = pro_dvi;
+    }
 
 }

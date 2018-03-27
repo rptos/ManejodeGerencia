@@ -1,13 +1,19 @@
 package Connection;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import com.henry.clientesnuevos.CreateDVIActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,6 +52,8 @@ public class Accounts {
     public static List<GRU> listGRU;
     public static List<PRO> listPRO;
     public static List<DVI> listDVI;
+    private static int j=0;
+    private static int pro=-1;
 
     public static void getGroupsCxc(final ListView list, final Context context, final View view, final ImageView p) {
 
@@ -550,17 +558,36 @@ public class Accounts {
                 if(response.isSuccessful()) {
                     try {
                         listPRO = response.body();
-                        String array_spinner[]=new String[Accounts.listGroup.size()];
-                        for (int i = 0; i< Accounts.listGroup.size(); i++){dfdsf
-                            array_spinner[i] = Accounts.listGroup.get(i).getGCLNOMBRE();
+                        String array_spinner[]=new String[Accounts.listPRO.size()+1];
+                        array_spinner[0] = "Seleccione Proveedor";
+                        for (int i = 0; i< Accounts.listPRO.size(); i++){
+                            array_spinner[i+1] = Accounts.listPRO.get(i).getPRONOMBRE();
+                            //if(listDVI.size()>0 && Integer.parseInt(listPRO.get(i).getPROPK()) == Integer.parseInt(listDVI.get(0).getDVIPROFK()) ){
+                            if(listDVI.size()>0 && listPRO.get(i).getPROPK().equals(listDVI.get(0).getDVIPROFK()) ){
+                                Accounts.j=i+1;
+                                Variables.set_j_dvi(j);
+                            }
                         }
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, array_spinner);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         sp.setAdapter(adapter);
+                        sp.setSelection(j);
                         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                                Variables.setGruPK(String.valueOf(Accounts.listGroup.get(sp.getSelectedItemPosition()).getGCLPK()));
+                                try{
+                                    pro = Integer.parseInt(listPRO.get(sp.getSelectedItemPosition()-1).getPROPK());
 
+                                    AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+                                    alertDialog.setTitle(listPRO.get(sp.getSelectedItemPosition()-1).getPRONOMBRE());
+                                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            return;
+                                        }
+                                    });
+                                    alertDialog.show();
+
+                                    Variables.set_pro_dvi(pro);
+                                }catch (Exception e){}
                             }
                             @Override
                             public void onNothingSelected(AdapterView<?> arg0) {
@@ -577,6 +604,34 @@ public class Accounts {
 
             @Override
             public void onFailure(Call<List<PRO>> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void sync_dvi(final TextInputEditText balance_bolivar, final TextInputEditText balance_dollar, String pk, final ImageView image, final Context context, final View view) {
+        Factory.getIntance()
+                .sync_dvi(pk).enqueue(new Callback<List<DVI>>() {
+            @Override
+            public void onResponse(Call<List<DVI>> call, Response<List<DVI>> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        listDVI = response.body();
+                        if(listDVI.size() > 0){
+                            balance_bolivar.setText(listDVI.get(0).getDVIMONTOB());
+                            balance_dollar.setText(listDVI.get(0).getDVIMONTOD());
+                        }
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DVI>> call, Throwable t) {
                 Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

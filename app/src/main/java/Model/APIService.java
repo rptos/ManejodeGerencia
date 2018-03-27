@@ -125,4 +125,7 @@ public interface APIService {
     @POST("Servicio.svc/Proveedores")
     Call<List<PRO>> sync_proAll();
 
+    @POST("Servicio.svc/DivisasPC/{pk}")
+    Call<List<DVI>> sync_dvi(@Path("pk") String pk);
+
 }
