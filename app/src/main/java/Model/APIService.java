@@ -128,4 +128,10 @@ public interface APIService {
     @POST("Servicio.svc/DivisasPC/{pk}")
     Call<List<DVI>> sync_dvi(@Path("pk") String pk);
 
+    @POST("Servicio.svc/SetDivisas")
+    Call<ResponseBody> save_dvi(@Body DVI dvi);
+
+    @POST("Servicio.svc/SetDivisasF/{archive}/{pk}")
+    Call<ResponseBody> uploadDVI(@Path("archive") String archive, @Path("pk") String pk,@Body DVI dvi);
+
 }

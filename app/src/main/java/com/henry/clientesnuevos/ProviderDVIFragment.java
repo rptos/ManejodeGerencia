@@ -109,11 +109,6 @@ public class ProviderDVIFragment extends Fragment {
                                 Variables.setIdDVI(posActual.getPRODVIPK());
                                 Intent intent = new Intent(context, CreateDVIActivity.class);
                                 startActivity(intent);
-                                //CrearDVIFragment fragment2 = new CrearDVIFragment();
-                                //FragmentManager fragmentManager = getFragmentManager();
-                                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                //fragmentTransaction.replace(R.id.frament, fragment2);
-                                //fragmentTransaction.commit();
                                 break;
                             case 1:
                                 //DetallePagoDVIFragment fragment1 = new DetallePagoDVIFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()));
