@@ -22,8 +22,11 @@ public class Variables {
     private static boolean masVendido = false;
     private static String emailCliN = "";
     private static String idDVI = "";
+    private static String idDetalleDVI = "";
     private static int j_dvi = 0;
     private static int pro_dvi = 0;
+    private static String iD="";
+    private static String idpro="";
 
 
 
@@ -133,6 +136,23 @@ public class Variables {
 
     public static void set_pro_dvi(int pro_dvi) {
         Variables.pro_dvi = pro_dvi;
+    }
+
+    public static String getIdDetalleDVI() {
+        return idDetalleDVI;
+    }
+
+    public static void setIdDetalleDVI(String idDetalleDVI) {
+        Variables.idDetalleDVI = idDetalleDVI;
+    }
+
+    public static String addZero(int valor){
+        if(valor<10){
+            return "0"+valor;
+        }
+        else {
+            return String.valueOf(valor);
+        }
     }
 
 }

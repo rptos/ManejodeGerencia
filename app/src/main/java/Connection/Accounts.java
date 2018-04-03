@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.henry.clientesnuevos.CreateDVIActivity;
+import com.henry.clientesnuevos.CreateDetailDVIFragment;
+import com.henry.clientesnuevos.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import Adapters.AccountsReceivableGroupFragmentAdapter;
 import Adapters.ClientDetailActivityAdapter;
 import Adapters.ClientListFragmentAdapter;
 import Adapters.ListCpaAdapter;
+import Adapters.PaymentDetailFragmentAdapter;
 import Adapters.ProductsListFragmentAdapter;
 import Adapters.ProviderDVIFragmentAdapter;
 import Model.CLI;
@@ -32,6 +35,7 @@ import Model.DVI;
 import Model.GCL;
 import Model.GRU;
 import Model.INV;
+import Model.MED;
 import Model.PRO;
 import Model.Search;
 import Model.SentEmail;
@@ -53,6 +57,7 @@ public class Accounts {
     public static List<GRU> listGRU;
     public static List<PRO> listPRO;
     public static List<DVI> listDVI;
+    public static List<MED> listMED;
     private static int j=0;
     private static int pro=-1;
 
@@ -683,6 +688,115 @@ public class Accounts {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void Sync_DetailDVI(String id, String detail, final ListView list, final Context context, final View view) {
+
+        Factory.getIntance()
+                .getForeignExchange(id, detail).enqueue(new Callback<List<MED>>() {
+            @Override
+            public void onResponse(Call<List<MED>> call, Response<List<MED>> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        listMED = response.body();
+                        list.setAdapter(new PaymentDetailFragmentAdapter(context,listMED));
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MED>> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void setDVI(MED med, final View view) {
+        Factory.getIntance()
+                .save_DetailDVI(med).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        Snackbar.make(view, response.body().string().trim().replace("\"",""), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void doFileUploadDetailDVI(MED med, String archive, String pk, final View view) {
+        Factory.getIntance()
+                .saveImageMED(pk, archive, med).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        Snackbar.make(view, response.body().string().trim().replace("\"",""), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void GetDVI(String id, String detail, final TextInputEditText balance, final TextInputEditText ref, final TextInputEditText obs, final ImageView image, final Context context,final String id, final String idPro, final View view) {
+
+        Factory.getIntance()
+                .getdetailDvi(id, detail).enqueue(new Callback<MED>() {
+            @Override
+            public void onResponse(Call<MED> call, Response<MED> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        MED med = new MED();
+                        med = (MED) response.body();
+                        balance.setText(med.getMED_MONTO().toString().trim());
+                        ref.setText(med.getMED_REFERENCIA().toString().trim());
+                        obs.setText(med.getMED_FACTURA().toString().trim());
+                        Picasso.with(context).load(Variables.getDireccion_fotos() + "dviDetalle/" + med.getMED_FOTO() + "&width=250").into(image);
+                        id = med.getMED_DVIFK();
+                        idPro = med.getMED_CLIFK();
+
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MED> call, Throwable t) {
                 Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

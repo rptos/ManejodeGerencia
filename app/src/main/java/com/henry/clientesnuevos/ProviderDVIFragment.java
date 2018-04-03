@@ -92,7 +92,7 @@ public class ProviderDVIFragment extends Fragment {
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+            public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long id) {
                 //Variables.setFragment("CheckPriceListFragment");
                 final PRO posActual = Accounts.listPRO.get(position);
                 final CharSequence colors[] = new CharSequence[]{"Editar", "Detalles de pago", "Enviar Correo"};
@@ -102,7 +102,6 @@ public class ProviderDVIFragment extends Fragment {
                 builder.setItems(colors, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //colors[which];
                         switch (which) {
                             case 0:
                                 Variables.setFragment("CreateDVIActivity");
@@ -111,10 +110,10 @@ public class ProviderDVIFragment extends Fragment {
                                 startActivity(intent);
                                 break;
                             case 1:
-                                //DetallePagoDVIFragment fragment1 = new DetallePagoDVIFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()));
+                                PaymentDetailFragment fragment1 = new PaymentDetailFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()), Integer.valueOf(position));
                                 FragmentManager fragmentManager1 = getFragmentManager();
                                 FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-                                //fragmentTransaction1.replace(R.id.frament, fragment1);
+                                fragmentTransaction1.replace(R.id.frament, fragment1);
                                 fragmentTransaction1.commit();
                                 break;
                             case 2:

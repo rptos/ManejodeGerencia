@@ -1,12 +1,24 @@
 package com.henry.clientesnuevos;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import Connection.Accounts;
+import Model.Search;
+import Model.Variables;
 
 
 /**
@@ -17,7 +29,26 @@ public class PaymentDetailFragment extends Fragment {
     View view;
     Context context;
     static LayoutInflater inflater;
+    String id;
+    String idPro;
 
+    private Integer position;
+    private ListView list;
+
+    static LinearLayout linear1;
+    static TextView tvToolBarSearch;
+
+    static LinearLayout linear2;
+    static TextView tvToolBarSearch1;
+    static TextView tvToolBarSearchCode1;
+
+    @SuppressLint("ValidFragment")
+    public PaymentDetailFragment(String pk, String proPk, int pos) {
+        // Required empty public constructor
+        id = pk;
+        idPro = proPk;
+        position = pos;
+    }
 
     public PaymentDetailFragment() {
         // Required empty public constructor
@@ -31,7 +62,46 @@ public class PaymentDetailFragment extends Fragment {
         context = (Context) getActivity();
         this.inflater = LayoutInflater.from(context);
         // Inflate the layout for this fragment
+        list = (ListView) view.findViewById(R.id.list);
+        final FloatingActionsMenu floatingActionsMenu = (FloatingActionsMenu) view.findViewById(R.id.menu_fab);
+        final FloatingActionButton fab_search = (FloatingActionButton) view.findViewById(R.id.accion_browser);
+        final FloatingActionButton fab_add = (FloatingActionButton) view.findViewById(R.id.accion_add);
+        linear1 = (LinearLayout) view.findViewById(R.id.Linear1);
+        tvToolBarSearch = (TextView) view.findViewById(R.id.textViewToolBarSearch);
 
+        linear2 = (LinearLayout) view.findViewById(R.id.Linear2);
+        tvToolBarSearch1 = (TextView) view.findViewById(R.id.textViewToolBarSearch1);
+        tvToolBarSearchCode1 = (TextView) view.findViewById(R.id.textViewToolBarSearchCode1);
+        linear1.setVisibility(View.GONE);
+        linear2.setVisibility(View.VISIBLE);
+        tvToolBarSearchCode1.setText(Accounts.listPRO.get(position).getPRONOMBRE().toString().trim());
+
+        Accounts.Sync_DetailDVI(id,"false", list, context, view);
+
+        fab_search.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        floatingActionsMenu.collapse();
+                    }
+                }
+        );
+
+        fab_add.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        floatingActionsMenu.collapse();
+                        Variables.setIdDetalleDVI("");
+                        CreateDetailDVIFragment fragment2 = new CreateDetailDVIFragment(id, idPro);
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frament, fragment2);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+                    }
+                }
+        );
 
         return view;
     }

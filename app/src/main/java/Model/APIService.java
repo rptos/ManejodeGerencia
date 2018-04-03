@@ -134,4 +134,15 @@ public interface APIService {
     @POST("Servicio.svc/SetDivisasF/{archive}/{pk}")
     Call<ResponseBody> uploadDVI(@Path("archive") String archive, @Path("pk") String pk,@Body DVI dvi);
 
+    @POST("Servicio.svc/GetDivisasDetalle/{id}/{detail}")
+    Call<List<MED>> getForeignExchange(@Path("id") String id,@Path("detail") String detail);
+
+    @POST("Servicio.svc/SetDivisasPagos")
+    Call<ResponseBody> save_DetailDVI(@Body MED med);
+
+    @POST("Servicio.svc/ImagenMED/{pk}/{archivo}")
+    Call<ResponseBody> saveImageMED(@Path("pk") String pk, @Path("archivo") String archivo, @Body MED med);
+
+    @POST("Servicio.svc/GetDivisasDetalle/{id}/{detail}")
+    Call<MED> getdetailDvi(@Path("id") String id, @Path("detail") String detail);
 }
