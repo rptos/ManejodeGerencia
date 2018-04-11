@@ -106,15 +106,6 @@
         app:layout_anchorGravity="center_vertical|right">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/accion_browser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="?attr/colorPrimary"
-            app:fab_icon="@android:drawable/ic_menu_search"
-            app:fab_size="mini"
-            app:fab_title="@string/modal_search_head" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/accion_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

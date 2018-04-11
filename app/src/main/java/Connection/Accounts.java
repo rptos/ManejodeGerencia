@@ -58,8 +58,7 @@ public class Accounts {
     public static List<PRO> listPRO;
     public static List<DVI> listDVI;
     public static List<MED> listMED;
-    private static int j=0;
-    private static int pro=-1;
+    public static List<PRO> listProviders;
 
     public static void getGroupsCxc(final ListView list, final Context context, final View view, final ImageView p) {
 
@@ -219,8 +218,6 @@ public class Accounts {
                     try {
                         ProductsList.listProducts = response.body();
                         list.setAdapter(new ProductsListFragmentAdapter(context,ProductsList.listProducts));
-                        //listProducts = response.body();
-                        //list.setAdapter(new ProductsListFragmentAdapter(context,listProducts));
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
@@ -563,43 +560,7 @@ public class Accounts {
             public void onResponse(Call<List<PRO>> call, Response<List<PRO>> response) {
                 if(response.isSuccessful()) {
                     try {
-                        listPRO = response.body();
-                        String array_spinner[]=new String[Accounts.listPRO.size()+1];
-                        array_spinner[0] = "Seleccione Proveedor";
-                        for (int i = 0; i< Accounts.listPRO.size(); i++){
-                            array_spinner[i+1] = Accounts.listPRO.get(i).getPRONOMBRE();
-                            //if(listDVI.size()>0 && Integer.parseInt(listPRO.get(i).getPROPK()) == Integer.parseInt(listDVI.get(0).getDVIPROFK()) ){
-                            if(listDVI.size()>0 && listPRO.get(i).getPROPK().equals(listDVI.get(0).getDVIPROFK()) ){
-                                Accounts.j=i+1;
-                                Variables.set_j_dvi(j);
-                            }
-                        }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, array_spinner);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        sp.setAdapter(adapter);
-                        sp.setSelection(j);
-                        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                                try{
-                                    pro = Integer.parseInt(listPRO.get(sp.getSelectedItemPosition()-1).getPROPK());
-
-                                    AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                                    alertDialog.setTitle(listPRO.get(sp.getSelectedItemPosition()-1).getPRONOMBRE());
-                                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            return;
-                                        }
-                                    });
-                                    alertDialog.show();
-
-                                    Variables.set_pro_dvi(pro);
-                                }catch (Exception e){}
-                            }
-                            @Override
-                            public void onNothingSelected(AdapterView<?> arg0) {
-                                // TODO Auto-generated method stub
-                            }
-                        });
+                        listProviders = response.body();
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
@@ -624,10 +585,7 @@ public class Accounts {
                 if(response.isSuccessful()) {
                     try {
                         listDVI = response.body();
-                        if(listDVI.size() > 0){
-                            balance_bolivar.setText(listDVI.get(0).getDVIMONTOB());
-                            balance_dollar.setText(listDVI.get(0).getDVIMONTOD());
-                        }
+
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
@@ -770,10 +728,10 @@ public class Accounts {
         });
     }
 
-    public static void GetDVI(String id, String detail, final TextInputEditText balance, final TextInputEditText ref, final TextInputEditText obs, final ImageView image, final Context context,final String id, final String idPro, final View view) {
+    public static void GetDVI(String ID, String detail, final TextInputEditText balance, final TextInputEditText ref, final TextInputEditText obs, final ImageView image, final Context context,final String id, final String idPro, final View view) {
 
         Factory.getIntance()
-                .getdetailDvi(id, detail).enqueue(new Callback<MED>() {
+                .getdetailDvi(ID, detail).enqueue(new Callback<MED>() {
             @Override
             public void onResponse(Call<MED> call, Response<MED> response) {
                 if(response.isSuccessful()) {
@@ -784,9 +742,8 @@ public class Accounts {
                         ref.setText(med.getMED_REFERENCIA().toString().trim());
                         obs.setText(med.getMED_FACTURA().toString().trim());
                         Picasso.with(context).load(Variables.getDireccion_fotos() + "dviDetalle/" + med.getMED_FOTO() + "&width=250").into(image);
-                        id = med.getMED_DVIFK();
-                        idPro = med.getMED_CLIFK();
-
+                        Variables.setiD(med.getMED_DVIFK());
+                        Variables.setidpro(med.getMED_CLIFK());
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
@@ -797,6 +754,31 @@ public class Accounts {
 
             @Override
             public void onFailure(Call<MED> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void sendMAIL(String id, final View view) {
+        Factory.getIntance()
+                .sentMail(id).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        Snackbar.make(view, response.body().string().trim().replace("\"",""), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

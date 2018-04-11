@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import Connection.Accounts;
+import Model.MED;
 import Model.Search;
 import Model.Variables;
 
@@ -64,7 +66,6 @@ public class PaymentDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         list = (ListView) view.findViewById(R.id.list);
         final FloatingActionsMenu floatingActionsMenu = (FloatingActionsMenu) view.findViewById(R.id.menu_fab);
-        final FloatingActionButton fab_search = (FloatingActionButton) view.findViewById(R.id.accion_browser);
         final FloatingActionButton fab_add = (FloatingActionButton) view.findViewById(R.id.accion_add);
         linear1 = (LinearLayout) view.findViewById(R.id.Linear1);
         tvToolBarSearch = (TextView) view.findViewById(R.id.textViewToolBarSearch);
@@ -78,22 +79,14 @@ public class PaymentDetailFragment extends Fragment {
 
         Accounts.Sync_DetailDVI(id,"false", list, context, view);
 
-        fab_search.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        floatingActionsMenu.collapse();
-                    }
-                }
-        );
-
         fab_add.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         floatingActionsMenu.collapse();
+                        Variables.setFragment("CreateDetailDVIFragment");
                         Variables.setIdDetalleDVI("");
-                        CreateDetailDVIFragment fragment2 = new CreateDetailDVIFragment(id, idPro);
+                        CreateDetailDVIFragment fragment2 = new CreateDetailDVIFragment(id, idPro, position);
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
                         transaction.replace(R.id.frament, fragment2);
                         transaction.addToBackStack(null);
@@ -102,6 +95,20 @@ public class PaymentDetailFragment extends Fragment {
                     }
                 }
         );
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long id) {
+                final MED posActual = Accounts.listMED.get(position);
+                Variables.setIdDetalleDVI(posActual.getMED_PK());
+                Variables.setFragment("CreateDetailDVIFragment");
+                CreateDetailDVIFragment fragment2 = new CreateDetailDVIFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frament, fragment2);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         return view;
     }

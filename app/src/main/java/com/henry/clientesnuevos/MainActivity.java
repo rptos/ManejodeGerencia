@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.support.design.widget.NavigationView;
@@ -134,6 +136,21 @@ public class MainActivity extends AppCompatActivity
                     NewClientsFragment fragment = new NewClientsFragment();
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.frament, fragment)
+                            .commit();
+                }else if(Variables.getFragment().equals("CreateDVIActivity")){
+                    Variables.setFragment("ProviderDVIFragment");
+                }else if(Variables.getFragment().equals("PaymentDetailFragment")){
+                    Variables.setFragment("ProviderDVIFragment");Variables.setEmailCliN("");
+                    Variables.setGruPK(""); Variables.sePositionGru("0");
+                    ProviderDVIFragment fragment = new ProviderDVIFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frament, fragment)
+                            .commit();
+                }else if(Variables.getFragment().equals("CreateDetailDVIFragment")){
+                    Variables.setFragment("PaymentDetailFragment");
+                    PaymentDetailFragment fragment1 = new PaymentDetailFragment(Variables.getiD(), Variables.getidpro(), Integer.valueOf(Variables.getPosition()));
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frament, fragment1)
                             .commit();
                 }
             }

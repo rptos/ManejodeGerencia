@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Calendar;
+
+import javax.xml.xpath.XPathVariableResolver;
 
 import Connection.Accounts;
 import Model.BitmapRe;
@@ -55,6 +59,7 @@ public class CreateDetailDVIFragment extends Fragment {
     String id;
     String idPro;
     String msg;
+    private Integer position;
 
     private static String CARPETA = "/sdcard/DCIM/Camera/";
     private String archivo = "foto.jpg";
@@ -65,10 +70,11 @@ public class CreateDetailDVIFragment extends Fragment {
     String foto = "";
 
     @SuppressLint("ValidFragment")
-    public CreateDetailDVIFragment(String pk, String proPk) {
+    public CreateDetailDVIFragment(String pk, String proPk, int pos) {
         // Required empty public constructor
         id = pk;
         idPro = proPk;
+        position = pos;
     }
 
     public CreateDetailDVIFragment() {
@@ -84,7 +90,7 @@ public class CreateDetailDVIFragment extends Fragment {
         this.inflater = LayoutInflater.from(context);
         // Inflate the layout for this fragment
         Button save = (Button) view.findViewById(R.id.buttonGuardar);
-        Button volver = (Button) view.findViewById(R.id.volver);
+        Button back = (Button) view.findViewById(R.id.volver);
         date = (TextInputEditText) view.findViewById(R.id.etDate);
         final TextInputEditText balance = (TextInputEditText) view.findViewById(R.id.etBalanceinBs);
         final TextInputEditText ref = (TextInputEditText) view.findViewById(R.id.etReference);
@@ -148,17 +154,23 @@ public class CreateDetailDVIFragment extends Fragment {
         });
         if (!Variables.getIdDetalleDVI().equals("")) {
             Accounts.GetDVI(Variables.getIdDetalleDVI(), "true", balance, ref, obs, image,context,id, idPro, view);
-            id
+            id = Variables.getiD();
+            idPro = Variables.getidpro();
         }
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PaymentDetailFragment fragment1 = new PaymentDetailFragment(id, idPro, Integer.valueOf(position));
+                FragmentManager fragmentManager1 = getFragmentManager();
+                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+                fragmentTransaction1.replace(R.id.frament, fragment1);
+                fragmentTransaction1.commit();
+            }
+        });
 
         return view;
     }
-
-    public void setID(String id, String idpro){
-
-    }
-
 
     private void setDvi(String balance, String ref, String obs){
         MED med = new MED();
@@ -280,7 +292,7 @@ public class CreateDetailDVIFragment extends Fragment {
         }
         if (resultCode == -1)
         {
-            //PENDIENTE
+            //PENDIENTE-------------------------------------------------------------------------------------------------------------------------------
             MED med = new MED();
             med.setMED_FOTO(encodedImage);
             Accounts.doFileUploadDetailDVI(med,archivo, Variables.getIdDetalleDVI(), view);

@@ -93,7 +93,6 @@ public class ProviderDVIFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long id) {
-                //Variables.setFragment("CheckPriceListFragment");
                 final PRO posActual = Accounts.listPRO.get(position);
                 final CharSequence colors[] = new CharSequence[]{"Editar", "Detalles de pago", "Enviar Correo"};
 
@@ -107,18 +106,23 @@ public class ProviderDVIFragment extends Fragment {
                                 Variables.setFragment("CreateDVIActivity");
                                 Variables.setIdDVI(posActual.getPRODVIPK());
                                 Intent intent = new Intent(context, CreateDVIActivity.class);
+                                intent.putExtra("state", "0");
                                 startActivity(intent);
                                 break;
                             case 1:
+                                Variables.setFragment("PaymentDetailFragment");
                                 PaymentDetailFragment fragment1 = new PaymentDetailFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()), Integer.valueOf(position));
-                                FragmentManager fragmentManager1 = getFragmentManager();
-                                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-                                fragmentTransaction1.replace(R.id.frament, fragment1);
-                                fragmentTransaction1.commit();
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                transaction.replace(R.id.frament, fragment1);
+                                transaction.addToBackStack(null);
+                                transaction.commit();
+                                Variables.setiD(posActual.getPRODVIPK());
+                                Variables.setidpro(posActual.getPROPK());
+                                Variables.setPosition(String.valueOf(position));
                                 break;
                             case 2:
                                 Variables.setIdDVI(posActual.getPRODVIPK());
-                                //new Correo().execute("");
+                                Accounts.sendMAIL(Variables.getIdDVI(), view);
                                 break;
                         }
                     }
@@ -131,12 +135,10 @@ public class ProviderDVIFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /*Variables.setFragment("RegisterClientFragment");
-                        RegisterClientFragment fragment = new RegisterClientFragment();
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frament, fragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();*/
+                        Variables.setFragment("CreateDVIActivity");
+                        Variables.setIdDVI("");
+                        Intent intent = new Intent(context, CreateDVIActivity.class);
+                        startActivity(intent);
                         floatingActionsMenu.collapse();
                     }
                 }

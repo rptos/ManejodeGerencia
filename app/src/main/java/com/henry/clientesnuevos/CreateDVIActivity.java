@@ -20,6 +20,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -43,6 +45,7 @@ public class CreateDVIActivity extends AppCompatActivity {
     static LayoutInflater inflater;
     private View view1;
     private String pk;
+    private static int pro=-1;
 
     private static String FOLDER = "/sdcard/DCIM/Camera/";
     private String archive = "foto.jpg";
@@ -80,13 +83,10 @@ public class CreateDVIActivity extends AppCompatActivity {
             Variables.setLanid(settings.getString("USR_LANID", ""));
             Variables.setUrl(settings.getString("Conection", ""));
         }
-
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Blank_Tittle);
-        Accounts.sync_dvi(balance_bolivar, balance_dollar, Variables.getIdDVI().toString(), image, context, view1);
+        Accounts.sync_dvi(balance_bolivar, balance_dollar, Variables.getIdDVI(), image, context, view1);
         Accounts.sync_proAll(spinProvider, context, view1);
-        //Picasso.with(context).load(Variables.getDireccion_fotos() + "dvi/" + Accounts.listDVI.get(0).getDVIFOTO() + "&width=250").into(image);
-
-
+        Providers();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +139,58 @@ public class CreateDVIActivity extends AppCompatActivity {
             }
             }
         });
+
+
+    }
+
+    private void Providers(){
+        try{
+            if(Accounts.listProviders!=null){
+                if(Accounts.listDVI.size() > 0){
+                    balance_bolivar.setText(Accounts.listDVI.get(0).getDVIMONTOB());
+                    balance_dollar.setText(Accounts.listDVI.get(0).getDVIMONTOD());
+                    //Picasso.with(context).load(Variables.getDireccion_fotos() + "dvi/" + Accounts.listDVI.get(0).getDVIFOTO() + "&width=250").into(image);
+                }
+                Accounts.listProviders.size();
+                String array_spinner[]=new String[Accounts.listProviders.size()+1];
+                array_spinner[0] = "Seleccione Proveedor";
+                int j = 0;
+                for (int i = 0; i< Accounts.listProviders.size(); i++){
+                    array_spinner[i+1] = Accounts.listProviders.get(i).getPRONOMBRE();
+                    if(Accounts.listDVI.size()>0 && Accounts.listProviders.get(i).getPROPK().equals(Accounts.listDVI.get(0).getDVIPROFK()) ){
+                        j=i+1;
+                    }
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, array_spinner);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinProvider.setAdapter(adapter);
+                spinProvider.setSelection(j);
+                spinProvider.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                        try{
+                            pro = Integer.parseInt(Accounts.listProviders.get(spinProvider.getSelectedItemPosition()-1).getPROPK());
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+                            alertDialog.setTitle(Accounts.listProviders.get(spinProvider.getSelectedItemPosition()-1).getPRONOMBRE());
+                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            });
+                            alertDialog.show();
+
+                            Variables.set_pro_dvi(pro);
+                        }catch (Exception e){}
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                        // TODO Auto-generated method stub
+                    }
+                });
+            }
+        }catch (Exception e){
+
+        }
     }
 
     @Override

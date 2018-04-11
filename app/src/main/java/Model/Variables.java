@@ -23,10 +23,10 @@ public class Variables {
     private static String emailCliN = "";
     private static String idDVI = "";
     private static String idDetalleDVI = "";
-    private static int j_dvi = 0;
     private static int pro_dvi = 0;
     private static String iD="";
     private static String idpro="";
+    private static String Position="";
 
 
 
@@ -128,10 +128,6 @@ public class Variables {
 
     public static String getUrl_local() {return url_local; }
 
-    public static int get_j_dvi() {return j_dvi; }
-
-    public static void set_j_dvi(int j_dvi) {Variables.j_dvi = j_dvi;}
-
     public static int get_pro_dvi() {return pro_dvi; }
 
     public static void set_pro_dvi(int pro_dvi) {
@@ -153,6 +149,24 @@ public class Variables {
         else {
             return String.valueOf(valor);
         }
+    }
+
+    public static String getiD() {return iD;}
+
+    public static void setiD(String iD) {
+        Variables.iD = iD;
+    }
+
+    public static String getidpro() {return idpro;}
+
+    public static void setidpro(String idpro) {
+        Variables.idpro = idpro;
+    }
+
+    public static String getPosition() {return Position;}
+
+    public static void setPosition(String Position) {
+        Variables.Position = Position;
     }
 
 }
