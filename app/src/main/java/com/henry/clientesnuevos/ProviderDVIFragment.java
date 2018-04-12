@@ -5,34 +5,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import Connection.Accounts;
-import Model.CLI;
 import Model.PRO;
-import Model.Search;
 import Model.Variables;
-
-import static android.view.View.GONE;
 
 
 /**
@@ -71,9 +61,7 @@ public class ProviderDVIFragment extends Fragment {
         // Inflate the layout for this fragment
 
         list = (ListView) view.findViewById(R.id.list);
-        final FloatingActionsMenu floatingActionsMenu = (FloatingActionsMenu) view.findViewById(R.id.menu_fab);
-        final com.getbase.floatingactionbutton.FloatingActionButton fab_search = (com.getbase.floatingactionbutton.FloatingActionButton) view.findViewById(R.id.accion_browser3);
-        final com.getbase.floatingactionbutton.FloatingActionButton fab_new = (com.getbase.floatingactionbutton.FloatingActionButton) view.findViewById(R.id.accion_newProvider);
+        final FloatingActionButton fab_new = (FloatingActionButton) view.findViewById(R.id.accion_newProvider);
         linear1 = (LinearLayout) view.findViewById(R.id.Linear1);
         tvToolBarSearch = (TextView) view.findViewById(R.id.textViewToolBarSearch);
 
@@ -101,30 +89,31 @@ public class ProviderDVIFragment extends Fragment {
                 builder.setItems(colors, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                Variables.setFragment("CreateDVIActivity");
-                                Variables.setIdDVI(posActual.getPRODVIPK());
-                                Intent intent = new Intent(context, CreateDVIActivity.class);
-                                intent.putExtra("state", "0");
-                                startActivity(intent);
-                                break;
-                            case 1:
-                                Variables.setFragment("PaymentDetailFragment");
-                                PaymentDetailFragment fragment1 = new PaymentDetailFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()), Integer.valueOf(position));
-                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                transaction.replace(R.id.frament, fragment1);
-                                transaction.addToBackStack(null);
-                                transaction.commit();
-                                Variables.setiD(posActual.getPRODVIPK());
-                                Variables.setidpro(posActual.getPROPK());
-                                Variables.setPosition(String.valueOf(position));
-                                break;
-                            case 2:
-                                Variables.setIdDVI(posActual.getPRODVIPK());
-                                Accounts.sendMAIL(Variables.getIdDVI(), view);
-                                break;
-                        }
+                    switch (which) {
+                        case 0:
+                            Variables.setFragment("CreateDVIActivity");
+                            Accounts.sync_proAll(view);
+                            Variables.setIdDVI(posActual.getPRODVIPK());
+                            Intent intent = new Intent(context, CreateDVIActivity.class);
+                            intent.putExtra("state", "0");
+                            startActivity(intent);
+                            break;
+                        case 1:
+                            Variables.setFragment("PaymentDetailFragment");
+                            PaymentDetailFragment fragment1 = new PaymentDetailFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()), Integer.valueOf(position));
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.replace(R.id.frament, fragment1);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            Variables.setiD(posActual.getPRODVIPK());
+                            Variables.setidpro(posActual.getPROPK());
+                            Variables.setPosition(String.valueOf(position));
+                            break;
+                        case 2:
+                            Variables.setIdDVI(posActual.getPRODVIPK());
+                            Accounts.sendMAIL(Variables.getIdDVI(), view);
+                            break;
+                    }
                     }
                 });
                 builder.show();
@@ -132,16 +121,16 @@ public class ProviderDVIFragment extends Fragment {
         });
 
         fab_new.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Variables.setFragment("CreateDVIActivity");
-                        Variables.setIdDVI("");
-                        Intent intent = new Intent(context, CreateDVIActivity.class);
-                        startActivity(intent);
-                        floatingActionsMenu.collapse();
-                    }
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Variables.setFragment("CreateDVIActivity");
+                    Variables.setIdDVI("");
+                    Accounts.sync_proAll(view);
+                    Intent intent = new Intent(context, CreateDVIActivity.class);
+                    startActivity(intent);
                 }
+            }
         );
 
 

@@ -77,7 +77,6 @@ public class AccountsReceivableGroupFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-
                     Variables.setFragment("ClientListFragment");
                     final GCL posActual = Accounts.listGroup.get(position);
                     Variables.setGruPK(String.valueOf(posActual.getGCLPK()));

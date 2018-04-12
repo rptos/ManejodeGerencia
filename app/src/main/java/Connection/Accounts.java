@@ -50,6 +50,7 @@ import retrofit2.Response;
  */
 
 public class Accounts {
+    public  static List<INV> listProducts;
     public static List<GCL> listGroup;
     public static List<CLI> listClient;
     public static List<CXC> listCXC;
@@ -216,8 +217,8 @@ public class Accounts {
             public void onResponse(Call<List<INV>> call, Response<List<INV>> response) {
                 if(response.isSuccessful()) {
                     try {
-                        ProductsList.listProducts = response.body();
-                        list.setAdapter(new ProductsListFragmentAdapter(context,ProductsList.listProducts));
+                        listProducts = response.body();
+                        list.setAdapter(new ProductsListFragmentAdapter(context,listProducts));
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
@@ -553,7 +554,7 @@ public class Accounts {
         });
     }
 
-    public static void sync_proAll(final Spinner sp, final Context context, final View view) {
+    public static void sync_proAll(final View view) {
         Factory.getIntance()
                 .sync_proAll().enqueue(new Callback<List<PRO>>() {
             @Override
@@ -577,15 +578,57 @@ public class Accounts {
         });
     }
 
-    public static void sync_dvi(final TextInputEditText balance_bolivar, final TextInputEditText balance_dollar, String pk, final ImageView image, final Context context, final View view) {
+    public static void sync_dvi(final TextInputEditText balance_bolivar, final TextInputEditText balance_dollar, final Spinner spinProvider, final ImageView image, String id, final Context context, final View view) {
         Factory.getIntance()
-                .sync_dvi(pk).enqueue(new Callback<List<DVI>>() {
+                .sync_dvi(id).enqueue(new Callback<List<DVI>>() {
             @Override
             public void onResponse(Call<List<DVI>> call, Response<List<DVI>> response) {
                 if(response.isSuccessful()) {
                     try {
                         listDVI = response.body();
+                        //if(Accounts.listProviders!=null){
+                            if(Accounts.listDVI.size() > 0){
+                                balance_bolivar.setText(Accounts.listDVI.get(0).getDVIMONTOB());
+                                balance_dollar.setText(Accounts.listDVI.get(0).getDVIMONTOD());
+                                Picasso.with(context).load(Variables.getDireccion_fotos() + "dvi/" + Accounts.listDVI.get(0).getDVIFOTO() + "&width=250").into(image);
+                            }
+                            String array_spinner[]=new String[Accounts.listProviders.size()+1];
+                            array_spinner[0] = "Seleccione Proveedor";
+                            int j = 0;
+                            for (int i = 0; i< Accounts.listProviders.size(); i++){
+                                array_spinner[i+1] = Accounts.listProviders.get(i).getPRONOMBRE();
+                                if(Accounts.listDVI.size()>0 && Accounts.listProviders.get(i).getPROPK().equals(Accounts.listDVI.get(0).getDVIPROFK()) ){
+                                    j=i+1;
+                                }
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, array_spinner);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinProvider.setAdapter(adapter);
+                            spinProvider.setSelection(j);
+                            spinProvider.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                                    try{
+                                        //pro = Integer.parseInt(Accounts.listProviders.get(spinProvider.getSelectedItemPosition()-1).getPROPK());
+                                        Variables.set_pro_dvi(Integer.parseInt(Accounts.listProviders.get(spinProvider.getSelectedItemPosition()-1).getPROPK()));
 
+                                        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+                                        alertDialog.setTitle(Accounts.listProviders.get(spinProvider.getSelectedItemPosition()-1).getPRONOMBRE());
+                                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                return;
+                                            }
+                                        });
+                                        alertDialog.show();
+
+                                        //Variables.set_pro_dvi(pro);
+                                    }catch (Exception e){}
+                                }
+                                @Override
+                                public void onNothingSelected(AdapterView<?> arg0) {
+                                    // TODO Auto-generated method stub
+                                }
+                            });
+                        //}
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)

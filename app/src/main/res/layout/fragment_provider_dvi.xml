@@ -89,44 +89,6 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/menu_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:fab_addButtonColorNormal="?attr/colorPrimary"
-        app:fab_addButtonPlusIconColor="@color/white"
-        app:fab_expandDirection="up"
-        app:fab_labelStyle="@style/Etiquetas"
-        app:layout_anchorGravity="center_vertical|right">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/accion_browser3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:fab_colorNormal="?attr/colorPrimary"
-            app:fab_icon="@android:drawable/ic_menu_search"
-            app:fab_size="mini"
-            app:fab_title="@string/modal_search_head" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/accion_newProvider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="?attr/colorPrimary"
-            app:fab_icon="@drawable/ic_new"
-            app:fab_size="mini"
-            app:fab_title="Agregar" />
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
     <ImageView
         android:id="@+id/progress"
         android:layout_width="50dp"
@@ -135,4 +97,18 @@
         android:layout_centerVertical="true"
         android:visibility="gone"
         app:srcCompat="@drawable/logo_animado" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/accion_newProvider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_add_white"
+        android:visibility="visible"
+        app:backgroundTint="@color/colorBlueHeaven" />
 </RelativeLayout>

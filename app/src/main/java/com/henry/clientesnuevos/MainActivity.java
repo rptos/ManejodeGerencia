@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity
                     Variables.setFragment("ClientListFragment");
                 }else if(Variables.getFragment().equals("CreateDVIActivity")){
                     Variables.setFragment(("ProviderDVIFragment"));
+                    Variables.set_pro_dvi(-1);
                 }else if(Variables.getFragment().equals("CPAFragment")){
                     Variables.setFragment("ClientListFragment");
                     ClientListFragment fragment = new ClientListFragment();

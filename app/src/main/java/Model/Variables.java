@@ -23,7 +23,7 @@ public class Variables {
     private static String emailCliN = "";
     private static String idDVI = "";
     private static String idDetalleDVI = "";
-    private static int pro_dvi = 0;
+    private static int pro_dvi = -1;
     private static String iD="";
     private static String idpro="";
     private static String Position="";
