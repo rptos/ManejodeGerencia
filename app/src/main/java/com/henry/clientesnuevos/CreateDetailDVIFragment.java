@@ -161,11 +161,11 @@ public class CreateDetailDVIFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PaymentDetailFragment fragment1 = new PaymentDetailFragment(id, idPro, Integer.valueOf(position));
-                FragmentManager fragmentManager1 = getFragmentManager();
-                FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-                fragmentTransaction1.replace(R.id.frament, fragment1);
-                fragmentTransaction1.commit();
+            PaymentDetailFragment fragment1 = new PaymentDetailFragment(id, idPro, Integer.valueOf(position));
+            FragmentManager fragmentManager1 = getFragmentManager();
+            FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+            fragmentTransaction1.replace(R.id.frament, fragment1);
+            fragmentTransaction1.commit();
             }
         });
 

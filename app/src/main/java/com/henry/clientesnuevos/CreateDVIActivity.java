@@ -56,6 +56,7 @@ public class CreateDVIActivity extends AppCompatActivity {
     private String encodedImage = "";
 
     Spinner spinProvider;
+    Uri selectedImage;
     android.support.design.widget.TextInputEditText balance_dollar;
     android.support.design.widget.TextInputEditText balance_bolivar;
     ImageView image;
@@ -65,6 +66,10 @@ public class CreateDVIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_dvi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        context = getApplicationContext();
+        this.inflater = LayoutInflater.from(context);
+
         android.support.design.widget.CollapsingToolbarLayout collapsingToolbarLayout = (android.support.design.widget.CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         spinProvider = (Spinner) findViewById(R.id.spinnerProvider);
@@ -72,12 +77,10 @@ public class CreateDVIActivity extends AppCompatActivity {
         balance_bolivar = (android.support.design.widget.TextInputEditText) findViewById(R.id.etBalanceB);
         image = (ImageView) findViewById(R.id.image_taken);
         view1 = findViewById(android.R.id.content);
-        //Accounts.sync_proAll(view1);
-        Accounts.sync_dvi(balance_bolivar,balance_dollar,spinProvider,image,Variables.getIdDVI(),context, view1);
-        setSupportActionBar(toolbar);
 
-        context = (Context) this;
-        this.inflater = LayoutInflater.from(context);
+        //Accounts.sync_proAll(view1);
+        //Accounts.sync_dvi(balance_bolivar,balance_dollar,spinProvider,image,Variables.getIdDVI(),context, view1);
+        Accounts.sync_pro_Dvi(balance_bolivar,balance_dollar,spinProvider,image,Variables.getIdDVI(),context, view1);//         AQUI ES LO QUE NO LOGRO QUE CARGUE EL SPINNER  t____t
 
         SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
         if (settings.getString("USR_PK", null) != null) {
@@ -203,7 +206,7 @@ public class CreateDVIActivity extends AppCompatActivity {
         if(requestCode == -1)
         {
 
-            //PENDIENTE
+            //PENDIENTE-----------------------------------------------------------------------------------------------------------------------------
             DVI dvi = new DVI();
             dvi.setDVIFOTO(encodedImage);
             Accounts.doFileUploadDVI(dvi, archive, Variables.getIdDVI(), view1);

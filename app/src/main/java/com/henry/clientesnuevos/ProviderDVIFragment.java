@@ -92,7 +92,6 @@ public class ProviderDVIFragment extends Fragment {
                     switch (which) {
                         case 0:
                             Variables.setFragment("CreateDVIActivity");
-                            Accounts.sync_proAll(view);
                             Variables.setIdDVI(posActual.getPRODVIPK());
                             Intent intent = new Intent(context, CreateDVIActivity.class);
                             intent.putExtra("state", "0");
@@ -126,7 +125,6 @@ public class ProviderDVIFragment extends Fragment {
                 public void onClick(View v) {
                     Variables.setFragment("CreateDVIActivity");
                     Variables.setIdDVI("");
-                    Accounts.sync_proAll(view);
                     Intent intent = new Intent(context, CreateDVIActivity.class);
                     startActivity(intent);
                 }

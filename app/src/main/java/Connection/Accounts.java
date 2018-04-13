@@ -578,6 +578,31 @@ public class Accounts {
         });
     }
 
+    public static void sync_pro_Dvi(final TextInputEditText balance_bolivar, final TextInputEditText balance_dollar, final Spinner spinProvider, final ImageView image, final String id, final Context context, final View view) {
+        Factory.getIntance()
+                .sync_proAll().enqueue(new Callback<List<PRO>>() {
+            @Override
+            public void onResponse(Call<List<PRO>> call, Response<List<PRO>> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        listProviders = response.body();
+                        Accounts.sync_dvi(balance_bolivar, balance_dollar, spinProvider, image,id, context, view);
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PRO>> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
     public static void sync_dvi(final TextInputEditText balance_bolivar, final TextInputEditText balance_dollar, final Spinner spinProvider, final ImageView image, String id, final Context context, final View view) {
         Factory.getIntance()
                 .sync_dvi(id).enqueue(new Callback<List<DVI>>() {
@@ -586,18 +611,18 @@ public class Accounts {
                 if(response.isSuccessful()) {
                     try {
                         listDVI = response.body();
-                        //if(Accounts.listProviders!=null){
+                        if(Accounts.listProviders!=null){
                             if(Accounts.listDVI.size() > 0){
                                 balance_bolivar.setText(Accounts.listDVI.get(0).getDVIMONTOB());
                                 balance_dollar.setText(Accounts.listDVI.get(0).getDVIMONTOD());
-                                Picasso.with(context).load(Variables.getDireccion_fotos() + "dvi/" + Accounts.listDVI.get(0).getDVIFOTO() + "&width=250").into(image);
+                                Picasso.with(context).load(Variables.getDireccion_fotos() + "dvi/" + Accounts.listDVI.get(0).getDVIFOTO()).into(image);
                             }
                             String array_spinner[]=new String[Accounts.listProviders.size()+1];
                             array_spinner[0] = "Seleccione Proveedor";
                             int j = 0;
                             for (int i = 0; i< Accounts.listProviders.size(); i++){
                                 array_spinner[i+1] = Accounts.listProviders.get(i).getPRONOMBRE();
-                                if(Accounts.listDVI.size()>0 && Accounts.listProviders.get(i).getPROPK().equals(Accounts.listDVI.get(0).getDVIPROFK()) ){
+                                if(Accounts.listDVI.size()>0 && Accounts.listProviders.get(i).getPROPK().equals(Accounts.listDVI.get(0).getDVIPROFK())){
                                     j=i+1;
                                 }
                             }
@@ -608,7 +633,6 @@ public class Accounts {
                             spinProvider.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                                     try{
-                                        //pro = Integer.parseInt(Accounts.listProviders.get(spinProvider.getSelectedItemPosition()-1).getPROPK());
                                         Variables.set_pro_dvi(Integer.parseInt(Accounts.listProviders.get(spinProvider.getSelectedItemPosition()-1).getPROPK()));
 
                                         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
@@ -619,8 +643,6 @@ public class Accounts {
                                             }
                                         });
                                         alertDialog.show();
-
-                                        //Variables.set_pro_dvi(pro);
                                     }catch (Exception e){}
                                 }
                                 @Override
@@ -628,7 +650,7 @@ public class Accounts {
                                     // TODO Auto-generated method stub
                                 }
                             });
-                        //}
+                        }
                     }
                     catch (Exception x){
                         Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
@@ -643,6 +665,7 @@ public class Accounts {
                         .setAction("Action", null).show();
             }
         });
+
     }
 
     public static void save_DVI(DVI dvi, final View view) {
