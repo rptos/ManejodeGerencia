@@ -8,16 +8,34 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/tbet_rif"
+        <Spinner
+            android:id="@+id/spinnerRif"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/rif" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="20dp"
+
+            android:layout_weight="6" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tbet_rif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/rif"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -27,7 +45,8 @@
             android:id="@+id/tbet_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/first_name" />
+            android:hint="@string/first_name"
+            android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 
     <TextView
@@ -50,7 +69,8 @@
             android:id="@+id/tbet_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/phone" />
+            android:hint="@string/phone"
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -61,7 +81,8 @@
             android:id="@+id/tbet_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email" />
+            android:hint="@string/email"
+            android:inputType="textWebEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -72,7 +93,8 @@
             android:id="@+id/tbet_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/address" />
+            android:hint="@string/address"
+            android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
