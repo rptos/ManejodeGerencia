@@ -80,7 +80,7 @@ public class CreateDVIActivity extends AppCompatActivity {
 
         //Accounts.sync_proAll(view1);
         //Accounts.sync_dvi(balance_bolivar,balance_dollar,spinProvider,image,Variables.getIdDVI(),context, view1);
-        Accounts.sync_pro_Dvi(balance_bolivar,balance_dollar,spinProvider,image,Variables.getIdDVI(),context, view1);//         AQUI ES LO QUE NO LOGRO QUE CARGUE EL SPINNER  t____t
+        Accounts.sync_pro_Dvi(balance_bolivar,balance_dollar,spinProvider,image,Variables.getIdDVI().toString().trim(),context, view1);//         AQUI ES LO QUE NO LOGRO QUE CARGUE EL SPINNER  t____t
 
         SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
         if (settings.getString("USR_PK", null) != null) {

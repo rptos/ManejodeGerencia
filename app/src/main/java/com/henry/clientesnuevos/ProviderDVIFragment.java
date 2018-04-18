@@ -124,7 +124,7 @@ public class ProviderDVIFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Variables.setFragment("CreateDVIActivity");
-                    Variables.setIdDVI("");
+                    Variables.setIdDVI("1");
                     Intent intent = new Intent(context, CreateDVIActivity.class);
                     startActivity(intent);
                 }
