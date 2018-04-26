@@ -27,12 +27,31 @@ import Model.Variables;
  */
 public class CheckPriceListFragment extends Fragment {
 
+    private static final String ARG_PARAM1 = "param1";
+
     private View view;
     private Context context;
     private static LayoutInflater inflater;
+    private Integer position;//Customer position
 
     public CheckPriceListFragment() {
         // Required empty public constructor
+    }
+
+    public static CheckPriceListFragment newInstance(String param1, String param2) {
+        CheckPriceListFragment fragment = new CheckPriceListFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            position = Integer.valueOf(getArguments().getString(ARG_PARAM1));
+        }
     }
 
     @Override
@@ -54,8 +73,11 @@ public class CheckPriceListFragment extends Fragment {
         // Inflate the layout for this fragment
         Accounts.Sync_Group(spinMark, context, view);
 
-        if (!Variables.getEmailCliN().equals(""))
-            etEemail.setText(Variables.getEmailCliN());
+        if(!Accounts.listClient.get(position).getCLIEMAIL().toString().trim().equals(""))
+            etEemail.setText(Accounts.listClient.get(position).getCLIEMAIL().toString());
+
+        /*if (!Variables.getEmailCliN().equals(""))
+            etEemail.setText(Variables.getEmailCliN());*/
 
         fab_search.setOnClickListener(
                 new View.OnClickListener() {

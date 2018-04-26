@@ -121,6 +121,7 @@ public class ClientListFragment extends Fragment {
                 module1.setText("Clientes Credito");
                 module2.setText("Clientes Credito");}
             Accounts.getClientsCxc(pk,search, list, context, view, progressView);
+            //Accounts.getClientsCredit(list,context,view,progressView);
         }
 
 
@@ -156,6 +157,8 @@ public class ClientListFragment extends Fragment {
                 }else if(type.equals("0")){
                     Variables.setFragment("CheckPriceListFragment");
                     CheckPriceListFragment fragment = new CheckPriceListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("param1", String.valueOf(position));
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frament, fragment);
                     transaction.addToBackStack(null);
