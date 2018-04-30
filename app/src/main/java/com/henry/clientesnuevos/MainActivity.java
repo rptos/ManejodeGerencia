@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
             }
             else {
                 if(Variables.getFragment().equals("AccountsReceivableGroupFragment")
-                        ||(Variables.getFragment().equals("ClientListFragment")&&Variables.getType_GruPK().equals(""))
+                        ||(Variables.getFragment().equals("ClientsOnCreditGroupFragment"))
                         ||Variables.getFragment().equals("NewClientsFragment")
                         ||Variables.getFragment().equals("ProviderDVIFragment")
                         ||Variables.getFragment().equals("ConfigurationFragment")){
@@ -211,13 +211,19 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_ClientsOnCredit) {
-            Variables.setFragment("ClientListFragment");Variables.setEmailCliN("");
+            /*Variables.setFragment("ClientListFragment");Variables.setEmailCliN("");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             ClientListFragment fragment = new ClientListFragment();
             Bundle bundle = new Bundle();
             bundle.putString("param1", Variables.getPositionGru());
             bundle.putString("param2", Variables.getGruPK());
             fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frament, fragment)
+                    .commit();*/
+            Variables.setFragment("ClientsOnCreditGroupFragment");Variables.setEmailCliN("");
+            Variables.setGruPK("0"); Variables.sePositionGru("0");
+            ClientsOnCreditGroupFragment fragment = new ClientsOnCreditGroupFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
                     .commit();
