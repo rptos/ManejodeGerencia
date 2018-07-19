@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TabHost;
 
 import Model.Variables;
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity
 
     Context context;
     static LayoutInflater inflater;
+    private static final String TAG = "myTag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +196,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_AccountsReceivable) {
             Variables.setFragment("AccountsReceivableGroupFragment");
             Variables.setType_GruPK("cxc");Variables.setEmailCliN("");
+            Log.d(TAG, Variables.getType_GruPK());
             AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
             Bundle bundle = new Bundle();
             bundle.putString("param1","cxc");
@@ -241,6 +245,13 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
                     .commit();
+        } else if (id == R.id.nav_ImportWeb) {
+            /*Variables.setFragment("ProviderDVIFragment");Variables.setEmailCliN("");
+            Variables.setGruPK(""); Variables.sePositionGru("0");
+            ProviderDVIFragment fragment = new ProviderDVIFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frament, fragment)
+                    .commit();*/
         } else if (id == R.id.nav_Configuration) {
             Variables.setFragment("ConfigurationFragment");
             ConfigurationFragment fragment = new ConfigurationFragment();
