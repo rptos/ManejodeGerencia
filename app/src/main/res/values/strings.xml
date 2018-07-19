@@ -36,7 +36,7 @@
     <string name="navdrawer_ClientsOnCredit">Clientes a Credito</string>
     <string name="navdrawer_NewClients">Clientes Nuevos</string>
     <string name="navdrawer_ProvidersDVI">Proveedores DVI</string>
-    <string name="navdrawer_ImportWEB">Importar WEB Cotizacion</string>
+    <string name="navdrawer_ImportWEB">Importar WEB a Cotizacion</string>
     <string name="navdrawer_Configuration">Configuracion</string>
     <string name="navdrawer_contact">Datos de Usuario</string>
     <string name="navdrawer_share">Compartir Aplicacion</string>
@@ -105,4 +105,5 @@
     <string name="title_import">Importar</string>
     <string name="title_export">Exportar</string>
     <string name="send_mail">Enviar Correo</string>
+    <string name="title_date">Seleccione Fecha</string>
 </resources>

@@ -54,5 +54,55 @@ public class connection {
         });
         return code;
     }
+
+    public static void ImportWeb(String DateI, String DateF, String order, final View view) {
+        Factory.getIntance()
+                .ImportWeb(DateI, DateF, order).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        Snackbar.make(view, response.body().string().trim().replace("\"",""), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    public static void ExportWeb(String id, final View view) {
+        Factory.getIntance()
+                .ExportWeb(id).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        Snackbar.make(view, response.body().string().trim().replace("\"",""), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    catch (Exception x){
+                        Snackbar.make(view, "Error de conexion " + x.getMessage(), Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
 }
 

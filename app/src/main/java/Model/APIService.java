@@ -98,4 +98,12 @@ public interface APIService {
 
     @POST("Servicio.svc/CorreoDVI/{id}")
     Call<ResponseBody> sentMail(@Path("id") String id);
+
+    @POST("Servicio.svc/ImportWebCotizacion/{dateI}/{dateF}/{order}")
+    Call<ResponseBody> ImportWeb(@Path("dateI") String DateI,
+                                 @Path("dateF") String DateF,
+                                 @Path("order") String order);
+
+    @POST("Servicio.svc/ExportWebCotizacion/{id}")
+    Call<ResponseBody> ExportWeb(@Path("id") String id);
 }

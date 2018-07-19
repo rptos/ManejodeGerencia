@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity
                         ||(Variables.getFragment().equals("ClientsOnCreditGroupFragment"))
                         ||Variables.getFragment().equals("NewClientsFragment")
                         ||Variables.getFragment().equals("ProviderDVIFragment")
-                        ||Variables.getFragment().equals("ConfigurationFragment")){
+                        ||Variables.getFragment().equals("ConfigurationFragment")
+                        ||Variables.getFragment().equals("ImportWebActivity")){
                     Variables.setFragment("");
                     Variables.setType_GruPK("");
                     Variables.setEmailCliN("");
@@ -215,16 +216,6 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_ClientsOnCredit) {
-            /*Variables.setFragment("ClientListFragment");Variables.setEmailCliN("");
-            Variables.setGruPK("0"); Variables.sePositionGru("0");
-            ClientListFragment fragment = new ClientListFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("param1", Variables.getPositionGru());
-            bundle.putString("param2", Variables.getGruPK());
-            fragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frament, fragment)
-                    .commit();*/
             Variables.setFragment("ClientsOnCreditGroupFragment");Variables.setEmailCliN("");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             ClientsOnCreditGroupFragment fragment = new ClientsOnCreditGroupFragment();
@@ -246,12 +237,10 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_ImportWeb) {
-            /*Variables.setFragment("ProviderDVIFragment");Variables.setEmailCliN("");
+            Variables.setFragment("ImportWebActivity");Variables.setEmailCliN("");
             Variables.setGruPK(""); Variables.sePositionGru("0");
-            ProviderDVIFragment fragment = new ProviderDVIFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frament, fragment)
-                    .commit();*/
+            Intent intent = new Intent(context, ImportWebActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_Configuration) {
             Variables.setFragment("ConfigurationFragment");
             ConfigurationFragment fragment = new ConfigurationFragment();
