@@ -73,7 +73,7 @@ public class ImportWebActivity extends AppCompatActivity {
                     String dateInitial = anioI+monthI+dayI;
                     String dateFinal = anioF+monthF+dayF;
                     connection.ImportWeb(dateInitial, dateFinal, Et_nro_order.getText().toString().trim(), v);
-                    Snackbar.make(v, "Importando...", Snackbar.LENGTH_LONG)
+                    Snackbar.make(v, "Importando...", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                 }
             }
@@ -84,7 +84,7 @@ public class ImportWebActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     connection.ExportWeb(Et_id_user.getText().toString().trim(), v);
-                    Snackbar.make(v, "Exportando...", Snackbar.LENGTH_LONG)
+                    Snackbar.make(v, "Exportando...", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                 }
             }
@@ -110,10 +110,10 @@ public class ImportWebActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(Integer.valueOf(anioI) > Date.getYear()
+                        if(type_calendar != "01" && (Integer.valueOf(anioI) > Date.getYear()
                                 || Integer.valueOf(monthI) > (Date.getMonth()+1)
                                 || Integer.valueOf(monthI) >= (Date.getMonth()+1)
-                                && Integer.valueOf(dayI) > Date.getDayOfMonth()) {
+                                && Integer.valueOf(dayI) > Date.getDayOfMonth())) {
                             Snackbar.make(v, "Fecha Seleccionada No Valida", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }else{

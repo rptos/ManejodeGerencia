@@ -57,7 +57,7 @@ public class connection {
 
     public static void ImportWeb(String DateI, String DateF, String order, final View view) {
         Factory.getIntance()
-                .ImportWeb(DateI, DateF, order).enqueue(new Callback<ResponseBody>() {
+                .Importweb(DateI, DateF, order).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
@@ -82,7 +82,7 @@ public class connection {
 
     public static void ExportWeb(String id, final View view) {
         Factory.getIntance()
-                .ExportWeb(id).enqueue(new Callback<ResponseBody>() {
+                .Exportweb(id).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
