@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.EditText;
 
+import Model.IMPORT;
 import Model.Search;
 import Model.Variables;
 import okhttp3.ResponseBody;
@@ -56,8 +57,14 @@ public class connection {
     }
 
     public static void ImportWeb(String DateI, String DateF, String order, final View view) {
+
+        IMPORT Import = new IMPORT();
+        Import.setDateI(DateI);
+        Import.setDateF(DateF);
+        Import.setOrder(order);
+
         Factory.getIntance()
-                .Importweb(DateI, DateF, order).enqueue(new Callback<ResponseBody>() {
+                .Importweb(Import).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
@@ -81,8 +88,12 @@ public class connection {
     }
 
     public static void ExportWeb(String id, final View view) {
+
+        IMPORT Import = new IMPORT();
+        Import.setId(id);
+
         Factory.getIntance()
-                .Exportweb(id).enqueue(new Callback<ResponseBody>() {
+                .Exportweb(Import).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {

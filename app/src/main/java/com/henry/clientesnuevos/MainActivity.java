@@ -247,6 +247,8 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
                     .commit();
+        } else if (id == R.id.nav_accounts_bank) {
+            //datos a compartir del banco
         } else if (id == R.id.nav_share) {
             try {
                 Intent i = new Intent(Intent.ACTION_SEND);
