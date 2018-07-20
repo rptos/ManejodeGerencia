@@ -100,8 +100,6 @@
     <string name="Date_final">Fecha Final</string>
     <string name="Nro_order">Nro de Pedido</string>
     <string name="id_user_web">Id de Usuario Web</string>
-    <string name="spares">Repuestos</string>
-    <string name="KoreaJapon">Kjapon</string>
     <string name="title_import">Importar</string>
     <string name="title_export">Exportar</string>
     <string name="send_mail">Enviar Correo</string>

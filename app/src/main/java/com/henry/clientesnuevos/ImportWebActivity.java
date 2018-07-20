@@ -41,8 +41,6 @@ public class ImportWebActivity extends AppCompatActivity {
         ImageButton calendar02 = (ImageButton) findViewById(R.id.ImageButtonCalendar02);
         Button btnImport = (Button) findViewById(R.id.btn_import);
         Button btnExport = (Button) findViewById(R.id.btn_export);
-        RadioButton rptos = (RadioButton) findViewById(R.id.radioBtn_rptos);
-        RadioButton apk2 = (RadioButton) findViewById(R.id.radioBtn_apk2);
 
         Calendar calendar = Calendar.getInstance();
         dayI = dayF = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
