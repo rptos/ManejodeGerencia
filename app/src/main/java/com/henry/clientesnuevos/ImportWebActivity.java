@@ -22,7 +22,6 @@ public class ImportWebActivity extends AppCompatActivity {
 
     Context context;
     static LayoutInflater inflater;
-    private View view1;
     String dayI = "", monthI = "", anioI = "";
     String dayF = "", monthF = "", anioF = "";
 
@@ -53,7 +52,6 @@ public class ImportWebActivity extends AppCompatActivity {
         calendar01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view1 = view;
                 createDialogSearch("01", Et_date_initial, Et_date_final);
             }
         });
@@ -61,7 +59,6 @@ public class ImportWebActivity extends AppCompatActivity {
         calendar02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view1 = view;
                 createDialogSearch("02", Et_date_initial, Et_date_final);
             }
         });
