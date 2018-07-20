@@ -74,7 +74,7 @@ public class connection {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Error de conexion al Importar", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -99,7 +99,7 @@ public class connection {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Snackbar.make(view, "Error de conexion ", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Error de conexion al Exportar ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
