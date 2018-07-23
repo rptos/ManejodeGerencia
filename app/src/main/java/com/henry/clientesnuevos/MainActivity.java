@@ -252,17 +252,8 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_accounts_bank) {
-            sAux = "\nNuestras Cuentas Bancarias:\n";
+            sAux = "\nPermiteme Recomendarte la/s Cuenta Bancaria:\n";
             SelectAccountsBank();
-            try {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
-                i.putExtra(Intent.EXTRA_TEXT, sAux);
-                startActivity(Intent.createChooser(i, "Compartir en"));
-            } catch(Exception e) {
-                //e.toString();
-            }
 
         } else if (id == R.id.nav_share) {
             try {
@@ -336,6 +327,7 @@ public class MainActivity extends AppCompatActivity
                             if(checkBoxExteriorJ.isChecked()) sAux += accountsBank.getExterior_Factura();
                             if (checkBoxMercantilJ.isChecked()) sAux += accountsBank.getMercantil_Factura();
                             if (checkBoxMercantilP.isChecked()) sAux += accountsBank.getMercantil_Nota();
+                            shareBank();
                             alert.cancel();
                         }
                     }
@@ -351,5 +343,17 @@ public class MainActivity extends AppCompatActivity
         );
 
         alert.show();
+    }
+
+    private void shareBank(){
+        try {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
+            i.putExtra(Intent.EXTRA_TEXT, sAux);
+            startActivity(Intent.createChooser(i, "Compartir en"));
+        } catch(Exception e) {
+            //e.toString();
+        }
     }
 }
