@@ -1,6 +1,8 @@
 package Model;
 
 public class AccountsBank {
+    AccountsBank(){}
+
     /**    FACTURA     **/
     String Mercantil_Factura = "\n\n Banco MERCANTIL: solo depósitos y transferencias\n" +
                                     "Tipo de cuenta: Corriente\n" +

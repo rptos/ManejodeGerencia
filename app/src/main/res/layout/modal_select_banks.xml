@@ -96,7 +96,7 @@
                 android:text="@string/account_mercantil_note" />
 
             <Button
-                android:id="@+id/buttonSearch2"
+                android:id="@+id/buttonAccept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
