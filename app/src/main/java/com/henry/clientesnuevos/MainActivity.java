@@ -248,7 +248,18 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_accounts_bank) {
-            //datos a compartir del banco
+            try {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
+                String sAux = "\nPermíteme recomendarte esta aplicación\n\n";
+                sAux = sAux + "https://play.google.com/store/apps/details?id=com.henry.clientesnuevos";
+                i.putExtra(Intent.EXTRA_TEXT, sAux);
+                startActivity(Intent.createChooser(i, "Compartir en"));
+            } catch(Exception e) {
+                //e.toString();
+            }
+
         } else if (id == R.id.nav_share) {
             try {
                 Intent i = new Intent(Intent.ACTION_SEND);
@@ -291,5 +302,14 @@ public class MainActivity extends AppCompatActivity
         );
         alert.show();
 
+    }
+
+    private void SelectAccountsBank(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View layout = inflater.inflate(R.layout.modal_select_banks, null);
+        builder.setView(layout);
+        final AlertDialog alert = builder.create();
+
+        alert.show();
     }
 }

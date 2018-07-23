@@ -105,4 +105,11 @@
     <string name="title_export">Exportar</string>
     <string name="send_mail">Enviar Correo</string>
     <string name="title_date">Seleccione Fecha</string>
+    <string name="title_modal_bank">Seleccione Cuentas Bancarias</string>
+    <string name="title_invoice">Factura</string>
+    <string name="title_delivery_note">Nota de Entrega</string>
+    <string name="account_mercantil_invoice">Mercantil Juridico</string>
+    <string name="account_bnc_invoice">Bnc Juridico</string>
+    <string name="account_exterior_invoice">Exterior Juridico</string>
+    <string name="account_mercantil_note">Mercantil Personal</string>
 </resources>
