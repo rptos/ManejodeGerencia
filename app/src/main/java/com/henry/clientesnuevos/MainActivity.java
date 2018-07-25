@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,10 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-
-import Model.AccountsBank;
 
 import Model.Variables;
 
@@ -32,8 +27,6 @@ public class MainActivity extends AppCompatActivity
     Context context;
     static LayoutInflater inflater;
     private static final String TAG = "myTag";
-    AccountsBank accountsBank;
-    private String sAux = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +75,8 @@ public class MainActivity extends AppCompatActivity
                         ||Variables.getFragment().equals("NewClientsFragment")
                         ||Variables.getFragment().equals("ProviderDVIFragment")
                         ||Variables.getFragment().equals("ConfigurationFragment")
-                        ||Variables.getFragment().equals("ImportWebActivity")){
+                        ||Variables.getFragment().equals("ImportWebActivity")
+                        ||Variables.getFragment().equals("AccountBankActivity")){
                     Variables.setFragment("");
                     Variables.setType_GruPK("");
                     Variables.setEmailCliN("");
@@ -252,15 +246,16 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_accounts_bank) {
-            sAux = "\nPermiteme Recomendarte la/s Cuenta Bancaria:\n";
-            SelectAccountsBank();
-
+            Variables.setFragment("AccountBankActivity");Variables.setEmailCliN("");
+            Variables.setGruPK(""); Variables.sePositionGru("0");
+            Intent intent = new Intent(context, AccountBankActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
             try {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
-                sAux = "\nPermíteme recomendarte esta aplicación\n\n";
+                String sAux = "\nPermíteme recomendarte esta aplicación\n\n";
                 sAux = sAux + "https://play.google.com/store/apps/details?id=com.henry.clientesnuevos";
                 i.putExtra(Intent.EXTRA_TEXT, sAux);
                 startActivity(Intent.createChooser(i, "Compartir en"));
@@ -297,63 +292,5 @@ public class MainActivity extends AppCompatActivity
         );
         alert.show();
 
-    }
-
-    private void SelectAccountsBank(){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View layout = inflater.inflate(R.layout.modal_select_banks, null);
-        builder.setView(layout);
-        final AlertDialog alert = builder.create();
-
-        final CheckBox checkBoxMercantilJ = (CheckBox) layout.findViewById(R.id.checkBoxMercantilFactura);
-        final CheckBox checkBoxBncJ = (CheckBox) layout.findViewById(R.id.checkBoxBncFactura);
-        final CheckBox checkBoxExteriorJ = (CheckBox) layout.findViewById(R.id.checkBoxExteriorFactura);
-        final CheckBox checkBoxMercantilP = (CheckBox) layout.findViewById(R.id.checkBoxMercantilNota);
-        ImageButton close = (ImageButton) layout.findViewById(R.id.imageButtonClose);
-        Button btnAccept = (Button) layout.findViewById(R.id.buttonAccept);
-
-        btnAccept.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(!checkBoxBncJ.isChecked()
-                                && !checkBoxMercantilJ.isChecked()
-                                && !checkBoxExteriorJ.isChecked()
-                                && !checkBoxMercantilP.isChecked()){
-                            Snackbar.make(v, "Seleccione Una Cuenta", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        }else{
-                            if(checkBoxBncJ.isChecked()) sAux += accountsBank.getBNC_Factura();
-                            if(checkBoxExteriorJ.isChecked()) sAux += accountsBank.getExterior_Factura();
-                            if (checkBoxMercantilJ.isChecked()) sAux += accountsBank.getMercantil_Factura();
-                            if (checkBoxMercantilP.isChecked()) sAux += accountsBank.getMercantil_Nota();
-                            shareBank();
-                            alert.cancel();
-                        }
-                    }
-                }
-        );
-        close.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alert.cancel();
-                    }
-                }
-        );
-
-        alert.show();
-    }
-
-    private void shareBank(){
-        try {
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("text/plain");
-            i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
-            i.putExtra(Intent.EXTRA_TEXT, sAux);
-            startActivity(Intent.createChooser(i, "Compartir en"));
-        } catch(Exception e) {
-            //e.toString();
-        }
     }
 }

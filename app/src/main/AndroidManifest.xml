@@ -51,7 +51,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ImportWebActivity" />
-        <activity android:name=".AccountBankActivity"></activity>
+        <activity android:name=".AccountBankActivity" />
     </application>
 
 </manifest>
