@@ -99,9 +99,9 @@ public interface APIService {
     @POST("Servicio.svc/CorreoDVI/{id}")
     Call<ResponseBody> sentMail(@Path("id") String id);
 
-    @POST("Servicio.svc/ImportWebCotizacion")
+    @POST("Servicio.svc/importWeb")
     Call<ResponseBody> Importweb(@Body IMPORT Import);
 
-    @POST("Servicio.svc/ExportWebCotizacion")
-    Call<ResponseBody> Exportweb(@Body IMPORT Import);
+    @POST("Servicio.svc/exportWeb")
+    Call<ResponseBody> Exportweb();
 }

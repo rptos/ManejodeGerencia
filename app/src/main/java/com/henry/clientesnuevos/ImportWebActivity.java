@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import Connection.connection;
+import Model.IMPORT;
 
 public class ImportWebActivity extends AppCompatActivity {
 
@@ -67,9 +68,19 @@ public class ImportWebActivity extends AppCompatActivity {
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String dateInitial = anioI+monthI+dayI;
-                    String dateFinal = anioF+monthF+dayF;
-                    connection.ImportWeb(dateInitial, dateFinal, Et_nro_order.getText().toString().trim(), v);
+                    IMPORT Import = new IMPORT();
+                    String dateInitial = dayI+"-"+monthI+"-"+anioI;
+                    String dateFinal = dayF+"-"+monthF+"-"+anioF;
+                    Import.setDateI(dateInitial);
+                    Import.setDateF(dateFinal);
+                    if(Et_nro_order.getText().toString()!="") {
+                        Import.setOrder(Et_nro_order.getText().toString().trim());
+                        Import.setId("");
+                    }else if(Et_id_user.getText().toString()!="") {
+                        Import.setId(Et_id_user.getText().toString().trim());
+                        Import.setOrder("");
+                    }
+                    connection.ImportWeb(Import, v);
                     Snackbar.make(v, "Importando...", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                 }
@@ -80,7 +91,7 @@ public class ImportWebActivity extends AppCompatActivity {
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    connection.ExportWeb(Et_id_user.getText().toString().trim(), v);
+                    connection.ExportWeb(v);
                     Snackbar.make(v, "Exportando...", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
                 }

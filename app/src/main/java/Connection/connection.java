@@ -56,12 +56,7 @@ public class connection {
         return code;
     }
 
-    public static void ImportWeb(String DateI, String DateF, String order, final View view) {
-
-        IMPORT Import = new IMPORT();
-        Import.setDateI(DateI);
-        Import.setDateF(DateF);
-        Import.setOrder(order);
+    public static void ImportWeb(IMPORT Import, final View view) {
 
         Factory.getIntance()
                 .Importweb(Import).enqueue(new Callback<ResponseBody>() {
@@ -87,13 +82,10 @@ public class connection {
         });
     }
 
-    public static void ExportWeb(String id, final View view) {
-
-        IMPORT Import = new IMPORT();
-        Import.setId(id);
+    public static void ExportWeb(final View view) {
 
         Factory.getIntance()
-                .Exportweb(Import).enqueue(new Callback<ResponseBody>() {
+                .Exportweb().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
