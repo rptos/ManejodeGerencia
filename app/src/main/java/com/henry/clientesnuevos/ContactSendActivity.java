@@ -97,7 +97,7 @@ public class ContactSendActivity extends AppCompatActivity {
                         && !checkBox_client.isChecked()
                         && !checkBox_gerent.isChecked()
                         && !checkBox_admin.isChecked()){
-                    Snackbar.make(view, "Seleccione Una Cuenta", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Seleccione Un Contacto", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }else{
 
