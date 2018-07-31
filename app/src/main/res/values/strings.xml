@@ -41,6 +41,7 @@
     <string name="navdrawer_contact">Datos de Usuario</string>
     <string name="navdrawer_share">Compartir Aplicacion</string>
     <string name="navdrawer_share_accounts">Compartir CUENTAS</string>
+    <string name="navdrawer_share_contacts">Compartir Contactos</string>
     <string name="modal_search_head">Buscar</string>
     <string name="toggleButton_cot">COTIZACION</string>
     <string name="toggleButton_fact">FACTURA</string>
@@ -112,4 +113,5 @@
     <string name="account_bnc_invoice">Bnc Juridico</string>
     <string name="account_exterior_invoice">Exterior Juridico</string>
     <string name="account_mercantil_note">Mercantil Personal</string>
+    <string name="title_select_contacts">Seleccione Contactos a Compartir</string>
 </resources>

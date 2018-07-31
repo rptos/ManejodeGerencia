@@ -250,6 +250,9 @@ public class MainActivity extends AppCompatActivity
             Variables.setGruPK(""); Variables.sePositionGru("0");
             Intent intent = new Intent(context, AccountBankActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_send_contact) {
+            Intent intent = new Intent(context, ContactSendActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
             try {
                 Intent i = new Intent(Intent.ACTION_SEND);

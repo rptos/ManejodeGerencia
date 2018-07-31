@@ -50,8 +50,13 @@
                 android:icon="@drawable/bank"
                 android:title="@string/navdrawer_share_accounts" />
             <item
+                android:id="@+id/nav_send_contact"
+                android:icon="@drawable/contact_card"
+                android:title="@string/navdrawer_share_contacts" />
+            <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
+                android:visible="false"
                 android:title="@string/navdrawer_share" />
         </menu>
     </item>
