@@ -118,7 +118,7 @@ public class ContactSendActivity extends AppCompatActivity {
             i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
             i.putExtra(Intent.EXTRA_TEXT, sAux);
             startActivity(Intent.createChooser(i, "Compartir en"));
-            sAux="\nPermiteme Recomendarte la/s Cuenta Bancaria:\n";
+            sAux="\nPermiteme Recomendarte lo/s Siguientes Contactos:\n";
         } catch(Exception e) {
             //e.toString();
         }
