@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity
                         ||Variables.getFragment().equals("NewClientsFragment")
                         ||Variables.getFragment().equals("ProviderDVIFragment")
                         ||Variables.getFragment().equals("ConfigurationFragment")
+                        ||Variables.getFragment().equals("ProductsListFragment")
                         ||Variables.getFragment().equals("ImportWebActivity")
                         ||Variables.getFragment().equals("AccountBankActivity")){
                     Variables.setFragment("");
@@ -228,9 +229,24 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frament, fragment)
                     .commit();
         } else if (id == R.id.nav_ProvidersDVI) {
-            Variables.setFragment("ProviderDVIFragment");Variables.setEmailCliN("");
-            Variables.setGruPK(""); Variables.sePositionGru("0");
+            Variables.setFragment("ProviderDVIFragment");
+            Variables.setEmailCliN("");
+            Variables.setGruPK("");
+            Variables.sePositionGru("0");
             ProviderDVIFragment fragment = new ProviderDVIFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frament, fragment)
+                    .commit();
+        }else if(id == R.id.nav_ListProducts) {
+            Variables.setFragment("ProductsListFragment");
+            Variables.setEmailCliN("");
+            Variables.setGruPK("");
+            Variables.sePositionGru("0");
+            ProductsListFragment fragment = new ProductsListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("param1","");
+            bundle.putString("param2", "");
+            fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
                     .commit();

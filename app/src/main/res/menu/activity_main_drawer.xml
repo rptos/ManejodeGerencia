@@ -25,6 +25,10 @@
             android:icon="@drawable/dvi"
             android:title="@string/navdrawer_ProvidersDVI" />
         <item
+            android:id="@+id/nav_ListProducts"
+            android:icon="@drawable/box2"
+            android:title="@string/navdrawer_ListProducts" />
+        <item
             android:id="@+id/nav_ImportWeb"
             android:icon="@drawable/flechas"
             android:title="@string/navdrawer_ImportWEB" />
@@ -36,15 +40,15 @@
                 android:id="@+id/nav_Configuration"
                 android:icon="@drawable/ic_menu_manage"
                 android:title="@string/navdrawer_Configuration" />
+            <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/navdrawer_contact" />
         </menu>
     </item>
 
     <item android:title="Communicate">
         <menu>
-            <item
-                android:id="@+id/nav_contact"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/navdrawer_contact" />
             <item
                 android:id="@+id/nav_accounts_bank"
                 android:icon="@drawable/bank"

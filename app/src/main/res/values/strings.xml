@@ -27,7 +27,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="company_name">Repuestos Coreanos Smith Rodriguez C.A</string>
 
-    <string name="navdrawer_SearchProducts">Buscar Productos</string>
+    <string name="navdrawer_ListProducts">Lista de Productos</string>
     <string name="navdrawer_SearchProductsByPurchase">Buscar Productos por Compra</string>
     <string name="navdrawer_PerformInventory">Realizar Inventario</string>
     <string name="navdrawer_TakePhoto">Tomar Fotos Cot, Ped, Fac, Com</string>

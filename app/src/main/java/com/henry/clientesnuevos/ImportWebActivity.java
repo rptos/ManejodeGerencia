@@ -1,6 +1,7 @@
 package com.henry.clientesnuevos;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +19,7 @@ import java.util.Date;
 
 import Connection.connection;
 import Model.IMPORT;
+import Model.Variables;
 
 public class ImportWebActivity extends AppCompatActivity {
 
@@ -32,6 +34,13 @@ public class ImportWebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_import_web);
         context = (Context) this;
         this.inflater = LayoutInflater.from(context);
+
+        SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
+        if (settings.getString("USR_PK", null) != null) {
+            Variables.setId(settings.getString("USR_PK", ""));
+            Variables.setLanid(settings.getString("USR_LANID", ""));
+            Variables.setUrl(settings.getString("Conection", ""));
+        }
 
         final TextInputEditText Et_date_initial = (TextInputEditText) findViewById(R.id.et_date_initial);
         final TextInputEditText Et_date_final = (TextInputEditText) findViewById(R.id.et_date_final);

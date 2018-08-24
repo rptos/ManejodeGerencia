@@ -53,13 +53,15 @@ public class ProductsListFragmentAdapter extends ArrayAdapter {
         public final TextView textViewName;
         public final TextView textViewCode;
         public final TextView textViewExistence;
+        public final TextView textViewPrice;
         public final LinearLayout rootView;
         public final ImageView image;
 
-        private ViewHolder(TextView textViewName, TextView textViewCode, TextView textViewExistence, LinearLayout rootView, ImageView image) {
+        private ViewHolder(TextView textViewName, TextView textViewCode, TextView textViewExistence, TextView textViewPrice, LinearLayout rootView, ImageView image) {
             this.textViewName = textViewName;
             this.textViewCode = textViewCode;
             this.textViewExistence = textViewExistence;
+            this.textViewPrice = textViewPrice;
             this.rootView = rootView;
             this.image = image;
         }
@@ -68,8 +70,9 @@ public class ProductsListFragmentAdapter extends ArrayAdapter {
             TextView textViewName = (TextView) rootView.findViewById(R.id.textViewName);
             TextView textViewCode = (TextView) rootView.findViewById(R.id.textViewCode);
             TextView textViewExistence = (TextView) rootView.findViewById(R.id.textViewExistence);
+            TextView textViewPrice = (TextView) rootView.findViewById(R.id.textViewPrice);
             ImageView image = (ImageView) rootView.findViewById(R.id.imageViewPhoto);
-            return new ViewHolder(textViewName, textViewCode, textViewExistence, rootView, image);
+            return new ViewHolder(textViewName, textViewCode, textViewExistence, textViewPrice, rootView, image);
         }
     }
 
@@ -87,8 +90,10 @@ public class ProductsListFragmentAdapter extends ArrayAdapter {
         INV item = items.get(position);
 
         vh.textViewName.setText(item.getINVNOMBRE());
-        vh.textViewCode.setText(item.getINVCODIGO());
-        vh.textViewExistence.setText("");
+        vh.textViewCode.setText("COD: "+ item.getINVCODIGO());
+        vh.textViewExistence.setText("Existencia:  "+String.valueOf((int)Float.parseFloat(item.getINVEXISTENCIA())));
+        vh.textViewPrice.setText("\rPRECIO 1:  "+ item.getINVPRECIO1()+"\n"
+                                +"\rPRECIO 3:  "+ item.getINVPRECIO3());
         Picasso.with(context).load(Variables.getDireccion_fotos() + item.getINVFOTO() + "&width=250").into(vh.image);
         return vh.rootView;
     }

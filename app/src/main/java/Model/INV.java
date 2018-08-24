@@ -73,10 +73,10 @@ public class INV {
     private Integer iNVPK;
     @SerializedName("INV_PRECIO1")
     @Expose
-    private Object iNVPRECIO1;
+    private String iNVPRECIO1;
     @SerializedName("INV_PRECIO3")
     @Expose
-    private Object iNVPRECIO3;
+    private String iNVPRECIO3;
     @SerializedName("user")
     @Expose
     private Object user;
@@ -225,19 +225,19 @@ public class INV {
         this.iNVPK = iNVPK;
     }
 
-    public Object getINVPRECIO1() {
+    public String getINVPRECIO1() {
         return iNVPRECIO1;
     }
 
-    public void setINVPRECIO1(Object iNVPRECIO1) {
+    public void setINVPRECIO1(String iNVPRECIO1) {
         this.iNVPRECIO1 = iNVPRECIO1;
     }
 
-    public Object getINVPRECIO3() {
+    public String getINVPRECIO3() {
         return iNVPRECIO3;
     }
 
-    public void setINVPRECIO3(Object iNVPRECIO3) {
+    public void setINVPRECIO3(String iNVPRECIO3) {
         this.iNVPRECIO3 = iNVPRECIO3;
     }
 

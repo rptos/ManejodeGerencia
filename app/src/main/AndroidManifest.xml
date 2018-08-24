@@ -52,7 +52,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ImportWebActivity" />
         <activity android:name=".AccountBankActivity" />
-        <activity android:name=".ContactSendActivity"></activity>
+        <activity android:name=".ContactSendActivity" />
+        <activity android:name=".ShareProductActivity"></activity>
     </application>
 
 </manifest>
