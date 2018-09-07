@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.henry.clientesnuevos.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 import Model.INV;
@@ -80,6 +82,12 @@ public class ProductsListFragmentAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final ViewHolder vh;
+
+        DecimalFormatSymbols symbol=new DecimalFormatSymbols();
+        symbol.setDecimalSeparator(',');
+        symbol.setGroupingSeparator('.');
+        DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
+
         if (convertView == null) {
             View view = mInflater.inflate(R.layout.product_list, parent, false);
             vh = ViewHolder.create((LinearLayout) view);
@@ -92,8 +100,8 @@ public class ProductsListFragmentAdapter extends ArrayAdapter {
         vh.textViewName.setText(item.getINVNOMBRE());
         vh.textViewCode.setText("COD: "+ item.getINVCODIGO());
         vh.textViewExistence.setText("Existencia:  "+String.valueOf((int)Float.parseFloat(item.getINVEXISTENCIA())));
-        vh.textViewPrice.setText("\rPRECIO 1:  "+ item.getINVPRECIO1()+"\n"
-                                +"\rPRECIO 3:  "+ item.getINVPRECIO3());
+        vh.textViewPrice.setText("\rPRECIO 1:  "+ formatter.format(Float.parseFloat(item.getINVPRECIO1().replace(",","."))) +"\n"
+                                +"\rPRECIO 3:  "+ formatter.format(Float.parseFloat(item.getINVPRECIO3().replace(",", "."))));
         Picasso.with(context).load(Variables.getDireccion_fotos() + item.getINVFOTO() + "&width=250").into(vh.image);
         return vh.rootView;
     }

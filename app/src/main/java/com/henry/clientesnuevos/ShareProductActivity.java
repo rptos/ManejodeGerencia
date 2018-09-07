@@ -16,6 +16,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 import Connection.ProductsList;
 import Model.Variables;
 
@@ -63,12 +66,12 @@ public class ShareProductActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!ProductsList.listProducts.get(position).getINVPRECIO1().equals("")
-                                && ProductsList.listProducts.get(position).getINVPRECIO1().equals("null")){
-                            setTextType("price1", ProductsList.listProducts.get(position).getINVPRECIO1());
-                        }else{
+                        if(ProductsList.listProducts.get(position).getINVPRECIO1().equals("")
+                                || ProductsList.listProducts.get(position).getINVPRECIO1().equals(null)){
                             Snackbar.make(v, "error: PRECIO 1 con valor NULL", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                        }else{
+                            setTextType("price1", String.valueOf(ProductsList.listProducts.get(position).getINVPRECIO1().replace(",",".")));
                         }
                     }
                 }
@@ -77,12 +80,12 @@ public class ShareProductActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!ProductsList.listProducts.get(position).getINVPRECIO3().equals("")
-                                && !ProductsList.listProducts.get(position).getINVPRECIO3().equals("null")){
-                            setTextType("price3", ProductsList.listProducts.get(position).getINVPRECIO3());
-                        }else {
+                        if(ProductsList.listProducts.get(position).getINVPRECIO3().equals("")
+                                || ProductsList.listProducts.get(position).getINVPRECIO3().equals(null)){
                             Snackbar.make(v, "error: PRECIO 3 con valor NULL", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                        }else {
+                            setTextType("price3", String.valueOf(ProductsList.listProducts.get(position).getINVPRECIO3().replace(",",".")));
                         }
                     }
                 }
@@ -110,14 +113,18 @@ public class ShareProductActivity extends AppCompatActivity {
                                     .setAction("Action", null).show();
                         }else{
                             float price = 0;
-                            float Percentage = Float.parseFloat(percentage.getText().toString().trim());;
+                            DecimalFormatSymbols symbol=new DecimalFormatSymbols();
+                            symbol.setDecimalSeparator(',');
+                            symbol.setGroupingSeparator('.');
+                            DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
+                            float Percentage = Integer.parseInt(percentage.getText().toString().trim()) / 100;
                             if(togglePrice1.isChecked() && !togglePrice3.isChecked()){
-                                price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO1());
+                                price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO1().replace(",","."));
                             }else if(!togglePrice1.isChecked() && togglePrice3.isChecked()){
-                                price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO3());
+                                price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO3().replace(",","."));
                             }
-                            amount = price * Percentage;
-                            textViewPrice.setText(String.valueOf(amount));
+                            amount = price + (price * Percentage);
+                            textViewPrice.setText(String.valueOf(formatter.format(amount)));
                         }
                     }
                 }
@@ -142,8 +149,12 @@ public class ShareProductActivity extends AppCompatActivity {
     }
 
     void setTextType(String t, String price) {
-        float Percentage = Integer.parseInt(percentage.getText().toString().trim());
-        amount = Float.parseFloat(price) * Percentage;
+        DecimalFormatSymbols symbol=new DecimalFormatSymbols();
+        symbol.setDecimalSeparator(',');
+        symbol.setGroupingSeparator('.');
+        DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
+        float Percentage = Float.parseFloat(price) * (Integer.parseInt(percentage.getText().toString().trim()) / 100);
+        amount = Float.parseFloat(price) + Percentage;
         switch (t) {
             case "price1":
                 togglePrice1.setChecked(true);
@@ -154,6 +165,6 @@ public class ShareProductActivity extends AppCompatActivity {
                 togglePrice1.setChecked(false);
                 break;
         }
-        textViewPrice.setText(String.valueOf(amount));
+        textViewPrice.setText(String.valueOf(formatter.format(amount)));
     }
 }
