@@ -70,6 +70,11 @@ public class ShareProductActivity extends AppCompatActivity {
                                 || ProductsList.listProducts.get(position).getINVPRECIO1().equals(null)){
                             Snackbar.make(v, "error: PRECIO 1 con valor NULL", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                        }else if(percentage.getText().toString().trim().equals("")){
+                            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
+                            Snackbar.make(v, "Ingrese Valor de Porcentaje", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }else{
                             setTextType("price1", String.valueOf(ProductsList.listProducts.get(position).getINVPRECIO1().replace(",",".")));
                         }
@@ -83,6 +88,11 @@ public class ShareProductActivity extends AppCompatActivity {
                         if(ProductsList.listProducts.get(position).getINVPRECIO3().equals("")
                                 || ProductsList.listProducts.get(position).getINVPRECIO3().equals(null)){
                             Snackbar.make(v, "error: PRECIO 3 con valor NULL", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }else if(percentage.getText().toString().trim().equals("")){
+                            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
+                            Snackbar.make(v, "Ingrese Valor de Porcentaje", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }else {
                             setTextType("price3", String.valueOf(ProductsList.listProducts.get(position).getINVPRECIO3().replace(",",".")));
@@ -108,8 +118,13 @@ public class ShareProductActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!togglePrice1.isChecked() && !togglePrice3.isChecked()){
+                        if(!togglePrice1.isChecked() && !togglePrice3.isChecked()) {
                             Snackbar.make(v, "Seleccione tipo de Precio", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }else if(percentage.getText().toString().trim().equals("")){
+                            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
+                            Snackbar.make(v, "Ingrese Valor de Porcentaje", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }else{
                             float price = 0;
@@ -117,7 +132,9 @@ public class ShareProductActivity extends AppCompatActivity {
                             symbol.setDecimalSeparator(',');
                             symbol.setGroupingSeparator('.');
                             DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
-                            float Percentage = Integer.parseInt(percentage.getText().toString().trim()) / 100;
+                            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
+                            float Percentage = Float.parseFloat(percentage.getText().toString().trim()) / 100;
                             if(togglePrice1.isChecked() && !togglePrice3.isChecked()){
                                 price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO1().replace(",","."));
                             }else if(!togglePrice1.isChecked() && togglePrice3.isChecked()){
@@ -137,9 +154,9 @@ public class ShareProductActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.putExtra(Intent.EXTRA_SUBJECT, "Catalogo Movil de " + getResources().getString(R.string.company_name));
             i.putExtra(Intent.EXTRA_TEXT, "\n" + ProductsList.listProducts.get(position).getINVNOMBRE() +
-                    "\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO() +
-                    "\n" + "PRECIO:  " +amount + "\n");
-            i.putExtra(Intent.EXTRA_STREAM, Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO());
+                    "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO() +
+                    "\n" + "PRECIO:  " +amount + " Bs.S\n");
+            //i.putExtra(Intent.EXTRA_STREAM, Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO());
             i.setType("text/plain");
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(i, "Compartir en"));
@@ -153,7 +170,9 @@ public class ShareProductActivity extends AppCompatActivity {
         symbol.setDecimalSeparator(',');
         symbol.setGroupingSeparator('.');
         DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
-        float Percentage = Float.parseFloat(price) * (Integer.parseInt(percentage.getText().toString().trim()) / 100);
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
+        float Percentage = Float.parseFloat(price) * (Float.parseFloat(percentage.getText().toString().trim()) / 100);
         amount = Float.parseFloat(price) + Percentage;
         switch (t) {
             case "price1":
