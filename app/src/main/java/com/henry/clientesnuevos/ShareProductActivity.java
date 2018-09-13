@@ -156,7 +156,7 @@ public class ShareProductActivity extends AppCompatActivity {
             symbol.setGroupingSeparator('.');
             DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
             Intent i = new Intent(Intent.ACTION_SEND);
-            i.putExtra(Intent.EXTRA_SUBJECT, "Catalogo Movil de " + getResources().getString(R.string.company_name));
+            i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
             i.putExtra(Intent.EXTRA_TEXT, "\n" + ProductsList.listProducts.get(position).getINVNOMBRE() +
                     "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO() +
                     "\n" + "PRECIO:  " +formatter.format(amount) + " Bs.S\n\n");
