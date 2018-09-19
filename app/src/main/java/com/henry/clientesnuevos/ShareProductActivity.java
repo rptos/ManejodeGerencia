@@ -160,10 +160,23 @@ public class ShareProductActivity extends AppCompatActivity {
             i.putExtra(Intent.EXTRA_TEXT, "\n" + ProductsList.listProducts.get(position).getINVNOMBRE() +
                     "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO() +
                     "\n" + "PRECIO:  " +formatter.format(amount) + " Bs.S\n\n");
-            //i.putExtra(Intent.EXTRA_STREAM, Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO());
-            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_STREAM, Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO() + "&width=250");
+            i.setType("*/*");
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(i, "Compartir en"));
+
+
+            /*
+            Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/drawable/" + "ic_launcher");
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            shareIntent.setType("image/jpeg");
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(Intent.createChooser(shareIntent, "send"));
+             */
+
         } catch (Exception e) {
             //e.toString();
         }
