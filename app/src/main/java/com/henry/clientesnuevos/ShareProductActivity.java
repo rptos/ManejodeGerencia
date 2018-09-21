@@ -161,7 +161,7 @@ public class ShareProductActivity extends AppCompatActivity {
                     "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO() +
                     "\n" + "PRECIO:  " +formatter.format(amount) + " Bs.S\n\n");
             i.putExtra(Intent.EXTRA_STREAM, Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO() + "&width=250");
-            i.setType("*/*");
+            i.setType("text/plain");
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(i, "Compartir en"));
 
