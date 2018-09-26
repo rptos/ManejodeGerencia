@@ -150,7 +150,7 @@ public class ShareProductActivity extends AppCompatActivity {
                                 price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO3().replace(",","."));
                             }
                             amount = price + (price * Percentage);
-                            textViewPrice.setText(String.valueOf(formatter.format(amount)));
+                            textViewPrice.setText(String.valueOf(formatter.format(amount)) + " Bs.S");
                         }
                     }
                 }
@@ -211,6 +211,6 @@ public class ShareProductActivity extends AppCompatActivity {
                 togglePrice1.setChecked(false);
                 break;
         }
-        textViewPrice.setText(String.valueOf(formatter.format(amount)));
+        textViewPrice.setText(String.valueOf(formatter.format(amount)) + " Bs.S");
     }
 }
