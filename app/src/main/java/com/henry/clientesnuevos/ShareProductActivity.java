@@ -3,6 +3,8 @@ package com.henry.clientesnuevos;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -13,9 +15,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
@@ -31,6 +38,7 @@ public class ShareProductActivity extends AppCompatActivity {
     ToggleButton togglePrice3;
     TextInputEditText percentage;
     TextView textViewPrice;
+    ImageView imageView;
     float amount;
     Integer position;
 
@@ -58,8 +66,9 @@ public class ShareProductActivity extends AppCompatActivity {
             ImageButton buttonRecalculate = (ImageButton) findViewById(R.id.imageButtonAct);
             textViewPrice = (TextView) findViewById(R.id.textViewPrice);
             TextView textViewName = (TextView) findViewById(R.id.textViewName);
+            imageView = (ImageView) findViewById(R.id.imageView);
             FloatingActionButton accept = (FloatingActionButton) findViewById(R.id.fabAccept);
-
+            Picasso.with(context).load(Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO() + "&width=250").into(imageView);
             textViewName.setText(ProductsList.listProducts.get(position).getINVNOMBRE().toString().trim());
 
             togglePrice1.setOnClickListener(
@@ -150,32 +159,32 @@ public class ShareProductActivity extends AppCompatActivity {
     }
 
     private void shareProducts(){
+        imageView.buildDrawingCache();
+        Bitmap bitmap = imageView.getDrawingCache();
         try {
             DecimalFormatSymbols symbol=new DecimalFormatSymbols();
             symbol.setDecimalSeparator(',');
             symbol.setGroupingSeparator('.');
             DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
+
+            File file = new File(imageView.getContext().getCacheDir(), bitmap + ".png");
+            FileOutputStream fOut = null;
+            fOut = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            file.setReadable(true, false);
+
             Intent i = new Intent(Intent.ACTION_SEND);
             i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
             i.putExtra(Intent.EXTRA_TEXT, "\n" + ProductsList.listProducts.get(position).getINVNOMBRE() +
                     "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO() +
                     "\n" + "PRECIO:  " +formatter.format(amount) + " Bs.S\n\n");
-            i.putExtra(Intent.EXTRA_STREAM, Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO() + "&width=250");
-            i.setType("text/plain");
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            i.setType("image/png");
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(i, "Compartir en"));
-
-            /*
-            Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/drawable/" + "ic_launcher");
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Hello");
-            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-            shareIntent.setType("image/jpeg");
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(shareIntent, "send"));
-             */
-
         } catch (Exception e) {
             //e.toString();
         }
