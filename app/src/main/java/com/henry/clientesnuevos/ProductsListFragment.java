@@ -40,6 +40,7 @@ public class ProductsListFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
+    private static final String ARG_PARAM4 = "param4";
 
     View view;
     Context context;
@@ -52,6 +53,7 @@ public class ProductsListFragment extends Fragment {
     static String typeNumber = "";
     static String stringType = "";
     static float amount;
+    String Warehouse= "";
 
     static ToggleButton tbCot;
     static ToggleButton tbFact;
@@ -65,6 +67,7 @@ public class ProductsListFragment extends Fragment {
     static TextView textViewPrice;
 
     static LinearLayout linear1;
+    static TextView tvToolBarSearch;
 
     static LinearLayout linear2;
     static TextView tvToolBarSearch1;
@@ -79,12 +82,13 @@ public class ProductsListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ProductsListFragment newInstance(String param1, String param2, String param3) {
+    public static ProductsListFragment newInstance(String param1, String param2, String param3, String param4) {
         ProductsListFragment fragment = new ProductsListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         args.putString(ARG_PARAM3, param3);
+        args.putString(ARG_PARAM4, param4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -96,6 +100,7 @@ public class ProductsListFragment extends Fragment {
             type = getArguments().getString(ARG_PARAM1);
             typeNumber = getArguments().getString(ARG_PARAM2);
             valueTemp = getArguments().getString(ARG_PARAM3);
+            Warehouse = getArguments().getString(ARG_PARAM4);
         }
     }
 
@@ -105,7 +110,7 @@ public class ProductsListFragment extends Fragment {
         ListView list = (ListView) view.findViewById(R.id.listViewProductsList);
         try {
             if (number==null){
-                ProductsList.getPost(valueSearch, list, context, view, progressView);
+                ProductsList.getPost(valueSearch, Warehouse, list, context, view, progressView);
             }
         }
         catch (Exception x){
@@ -125,6 +130,7 @@ public class ProductsListFragment extends Fragment {
         final ListView list = (ListView) view.findViewById(R.id.listViewProductsList);
 
         linear1 = (LinearLayout) view.findViewById(R.id.Linear1);
+        tvToolBarSearch = (TextView) view.findViewById(R.id.textViewToolBarSearch);
 
         linear2 = (LinearLayout) view.findViewById(R.id.Linear2);
         tvToolBarSearch1 = (TextView) view.findViewById(R.id.textViewToolBarSearch1);
@@ -174,7 +180,8 @@ public class ProductsListFragment extends Fragment {
 
         //condicion de type si esta vacio de otra manera traer el de la compra
         if(type=="")
-            ProductsList.getPost("", list, context, view, progressView);
+            ProductsList.getPost("", Warehouse.trim(), list, context, view, progressView);
+        setTextType(Warehouse.toString());
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -196,120 +203,6 @@ public class ProductsListFragment extends Fragment {
 
         return  view;
     }
-
-    /*private void shareProducts(final int pos){
-        try {
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.putExtra(Intent.EXTRA_SUBJECT, "Catalogo Movil de " + getResources().getString(R.string.company_name));
-            i.putExtra(Intent.EXTRA_TEXT, "\n" + ProductsList.listProducts.get(pos).getINVNOMBRE() +
-                    "\n" + "COD: "+ ProductsList.listProducts.get(pos).getINVCODIGO() +
-                    "\n" + "PRECIO:  " +amount + "\n");
-            i.putExtra(Intent.EXTRA_STREAM, Variables.getDireccion_fotos() + ProductsList.listProducts.get(pos).getINVFOTO());
-            i.setType("text/plain");
-            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(i, "Compartir en"));
-        } catch (Exception e) {
-            //e.toString();
-        }
-    }
-
-    private boolean selectPercentage(final int position){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View layout = inflater.inflate(R.layout.modal_share_product, null);
-        builder.setView(layout);
-        final boolean[] bool = {false};
-        final AlertDialog alert = builder.create();
-        percentage = (TextInputEditText) layout.findViewById(R.id.TextInputEditTextPercentage);
-        togglePrice1 = (ToggleButton) layout.findViewById(R.id.toggleButtonPrice1);
-        togglePrice3 = (ToggleButton) layout.findViewById(R.id.toggleButtonPrice3);
-        ImageButton buttonRecalculate = (ImageButton) layout.findViewById(R.id.imageButtonAct);
-        textViewPrice = (TextView) layout.findViewById(R.id.textViewPrice);
-        Button accept = (Button) layout.findViewById(R.id.buttonAccept);
-        ImageButton cancel = (ImageButton) layout.findViewById(R.id.imageButtonClose);
-
-        togglePrice1.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!ProductsList.listProducts.get(position).getINVPRECIO1().equals("")){
-                        setTextType("price1", ProductsList.listProducts.get(position).getINVPRECIO1());
-                    }else{
-                        Snackbar.make(v, "error: PRECIO 1 con valor NULL", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                }
-            }
-        );
-        togglePrice3.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!ProductsList.listProducts.get(position).getINVPRECIO3().equals("")){
-                        setTextType("price3", ProductsList.listProducts.get(position).getINVPRECIO3());
-                    }else {
-                        Snackbar.make(v, "error: PRECIO 3 con valor NULL", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                }
-            }
-        );
-
-        accept.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!togglePrice1.isChecked() && !togglePrice3.isChecked()){
-                        Snackbar.make(v, "Seleccione tipo de Precio", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        bool[0] = false;                    }else{
-                        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
-                        alert.cancel();
-                        bool[0] = true;
-                    }
-                }
-            }
-        );
-        buttonRecalculate.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!togglePrice1.isChecked() && !togglePrice3.isChecked()){
-                        Snackbar.make(v, "Seleccione tipo de Precio", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }else{
-                        float price = 0;
-                        float Percentage = Float.parseFloat(percentage.getText().toString().trim());;
-                        if(togglePrice1.isChecked() && !togglePrice3.isChecked()){
-                            price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO1());
-                        }else if(!togglePrice1.isChecked() && togglePrice3.isChecked()){
-                            price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO3());
-                        }
-                        amount = price * Percentage;
-                        textViewPrice.setText(String.valueOf(amount));
-                    }
-                    InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
-                    alert.cancel();
-                }
-            }
-        );
-        cancel.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
-                    alert.cancel();
-                }
-            }
-        );
-        alert.show();
-        if(bool[0])
-            return true;
-        else
-            return false;
-    }*/
 
     private void createDialogSearch(final ListView list) {
 
@@ -348,7 +241,7 @@ public class ProductsListFragment extends Fragment {
                             !number.getText().toString().equals("")) {
                         if (number.getText().toString().equals("")) {
                             typeNumber = "";
-                            ProductsList.getPost(value.getText().toString().trim(), list, context, v, progressView);
+                            ProductsList.getPost(value.getText().toString().trim(), Warehouse, list, context, v, progressView);
                             stringType = value.getText().toString().trim();
                             InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                             inputMethodManager.hideSoftInputFromWindow(number.getWindowToken(), 0);
@@ -362,20 +255,20 @@ public class ProductsListFragment extends Fragment {
                             linear1.setVisibility(View.GONE);
                             linear2.setVisibility(View.VISIBLE);
                             linear3.setVisibility(View.GONE);
-                            tvToolBarSearch1.setText(R.string.TvToolBarListProducts_all);
+                            //tvToolBarSearch1.setText(R.string.TvToolBarListProducts_all);
                             tvToolBarSearchCode1.setText(value.getText().toString().trim());
                         }else if(!number.getText().toString().equals("") && !value.getText().toString().equals("")){
                             linear1.setVisibility(View.GONE);
                             linear2.setVisibility(View.GONE);
                             linear3.setVisibility(View.VISIBLE);
-                            tvToolBarSearch2.setText(stringType);
+                            //tvToolBarSearch2.setText(stringType);
                             tvToolBarSearchCode2.setText(typeNumber);
                             tvToolBarSearchExt2.setText(value.getText().toString().trim());
                         }else if(!number.getText().toString().equals("") && value.getText().toString().equals("")){
                             linear1.setVisibility(View.GONE);
                             linear2.setVisibility(View.VISIBLE);
                             linear3.setVisibility(View.GONE);
-                            tvToolBarSearch1.setText(stringType);
+                            //tvToolBarSearch1.setText(stringType);
                             tvToolBarSearchCode1.setText(typeNumber);
                         }
 
@@ -403,19 +296,29 @@ public class ProductsListFragment extends Fragment {
         alert.show();
     }
 
-    /*void setTextType(String t, String price) {
-        float Percentage = Integer.parseInt(percentage.getText().toString().trim());
-        amount = Float.parseFloat(price) * Percentage;
-        switch (t) {
-            case "price1":
-                togglePrice1.setChecked(true);
-                togglePrice3.setChecked(false);
+    void setTextType(String opction) {
+        switch (opction){
+            case "1":
+                tvToolBarSearch.setText(R.string.main_warehouse);
+                tvToolBarSearch1.setText(R.string.main_warehouse);
+                tvToolBarSearch2.setText(R.string.main_warehouse);
                 break;
-            case "price3":
-                togglePrice3.setChecked(true);
-                togglePrice1.setChecked(false);
+            case "2":
+                tvToolBarSearch.setText(R.string.other_warerhouse);
+                tvToolBarSearch1.setText(R.string.other_warerhouse);
+                tvToolBarSearch2.setText(R.string.other_warerhouse);
+                break;
+            case "3":
+                tvToolBarSearch.setText(R.string.senior_warehouse);
+                tvToolBarSearch1.setText(R.string.senior_warehouse);
+                tvToolBarSearch2.setText(R.string.senior_warehouse);
+                break;
+            case "4":
+                tvToolBarSearch.setText(R.string.retail_warehouse);
+                tvToolBarSearch1.setText(R.string.retail_warehouse);
+                tvToolBarSearch2.setText(R.string.retail_warehouse);
                 break;
         }
-        textViewPrice.setText(String.valueOf(amount));
-    }*/
+
+    }
 }

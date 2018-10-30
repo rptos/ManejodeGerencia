@@ -18,8 +18,8 @@ public interface APIService {
     @POST("Servicio.svc/SignIn")
     Call<USR> savePost(@Body USR usr);
 
-    @POST("Servicio.svc/buscar")
-    Call<List<INV>> invPost(@Body Search search);
+    @POST("Servicio.svc/buscarGerencia/{warehouse}")
+    Call<List<INV>> invPost(@Path("warehouse") String warehouse, @Body Search search);
 
     @POST("Servicio.svc/correlativo")
     Call<ResponseBody> getCorrelative(@Body Search search);

@@ -114,4 +114,9 @@
     <string name="account_exterior_invoice">Exterior Juridico</string>
     <string name="account_mercantil_note">Mercantil Personal</string>
     <string name="title_select_contacts">Seleccione Contactos a Compartir</string>
+    <string name="main_warehouse">ALMACEN PRINCIPAL</string>
+    <string name="other_warerhouse">Almacen Otro</string>
+    <string name="senior_warehouse">Almacen Mayor</string>
+    <string name="retail_warehouse">Almacen Detal</string>
+    <string name="title_select_warehouse">Seleccione Almacen</string>
 </resources>

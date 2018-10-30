@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
 
 import Model.Variables;
 
@@ -242,14 +244,15 @@ public class MainActivity extends AppCompatActivity
             Variables.setEmailCliN("");
             Variables.setGruPK("");
             Variables.sePositionGru("0");
-            ProductsListFragment fragment = new ProductsListFragment();
+            SelectWarehouse();
+            /*ProductsListFragment fragment = new ProductsListFragment();
             Bundle bundle = new Bundle();
             bundle.putString("param1","");
             bundle.putString("param2", "");
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frament, fragment)
-                    .commit();
+                    .commit();*/
         } else if (id == R.id.nav_ImportWeb) {
             Variables.setFragment("ImportWebActivity");Variables.setEmailCliN("");
             Variables.setGruPK(""); Variables.sePositionGru("0");
@@ -310,6 +313,54 @@ public class MainActivity extends AppCompatActivity
                 }
         );
         alert.show();
+    }
 
+    private void SelectWarehouse(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View layout = inflater.inflate(R.layout.modal_select_warehouse, null);
+        builder.setView(layout);
+        final AlertDialog alert = builder.create();
+        ImageButton cancel = (ImageButton) layout.findViewById(R.id.imageButtonClose);
+        Button accept = (Button) layout.findViewById(R.id.buttonAccept);
+        final RadioButton alm1 = (RadioButton) layout.findViewById(R.id.radioButton_alm1);
+        final RadioButton alm2 = (RadioButton) layout.findViewById(R.id.radioButton_alm2);
+        final RadioButton alm3 = (RadioButton) layout.findViewById(R.id.radioButton_alm3);
+        final RadioButton alm4 = (RadioButton) layout.findViewById(R.id.radioButton_alm4);
+
+        cancel.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alert.cancel();
+                }
+            }
+        );
+
+        accept.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ProductsListFragment fragment = new ProductsListFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("param1","");
+                    bundle.putString("param2", "");
+                    if(alm1.isChecked())
+                        bundle.putString("param4", "1");
+                    else if(alm2.isChecked())
+                        bundle.putString("param4", "2");
+                    else if(alm3.isChecked())
+                        bundle.putString("param4", "3");
+                    else if(alm4.isChecked())
+                        bundle.putString("param4", "4");
+
+                    fragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frament, fragment)
+                            .commit();
+                    alert.cancel();
+                }
+            }
+        );
+        alert.show();
     }
 }

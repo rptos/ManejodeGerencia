@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:padding="10dp"
+            android:text="@string/title_select_warehouse"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonClose"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/ic_cancel" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/radioButton_alm1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/main_warehouse" />
+
+            <RadioButton
+                android:id="@+id/radioButton_alm2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_weight="1"
+                android:text="@string/other_warerhouse" />
+
+            <RadioButton
+                android:id="@+id/radioButton_alm3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_weight="1"
+                android:text="@string/senior_warehouse" />
+
+            <RadioButton
+                android:id="@+id/radioButton_alm4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/retail_warehouse" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorButton"
+            android:drawableLeft="@drawable/tilde"
+            android:drawablePadding="8dp"
+            android:text="@string/accept" />
+    </LinearLayout>
+</LinearLayout>

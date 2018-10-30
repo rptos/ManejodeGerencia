@@ -24,14 +24,14 @@ public class ProductsList {
 
     public static List<INV> listProducts;
 
-    public static void getPost(String value, final ListView list, final Context context, final View view, final ImageView p) {
+    public static void getPost(String value, String warehouse, final ListView list, final Context context, final View view, final ImageView p) {
 
         Search search = new Search();
         search.setValor(value);
         search.setUser(Variables.getId());
         search.setClase("");
         Factory.getIntance()
-                .invPost(search).enqueue(new Callback<List<INV>>() {
+                .invPost(warehouse, search).enqueue(new Callback<List<INV>>() {
             @Override
             public void onResponse(Call<List<INV>> call, Response<List<INV>> response) {
                 if(response.isSuccessful()) {
