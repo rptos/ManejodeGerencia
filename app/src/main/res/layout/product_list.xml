@@ -36,28 +36,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="" />
+                    android:text="textViewName" />
 
                 <TextView
                     android:id="@+id/textViewPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="" />
+                    android:text="textViewPrice" />
 
                 <TextView
                     android:id="@+id/textViewCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="" />
+                    android:text="textViewCode" />
 
                 <TextView
                     android:id="@+id/textViewExistence"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="" />
+                    android:text="textViewExistence" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
