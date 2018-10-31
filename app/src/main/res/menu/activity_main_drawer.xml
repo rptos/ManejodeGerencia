@@ -34,19 +34,6 @@
             android:title="@string/navdrawer_ImportWEB" />
     </group>
 
-    <item android:title="Configuracion">
-        <menu>
-            <item
-                android:id="@+id/nav_Configuration"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/navdrawer_Configuration" />
-            <item
-                android:id="@+id/nav_contact"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/navdrawer_contact" />
-        </menu>
-    </item>
-
     <item android:title="Communicate">
         <menu>
             <item
@@ -62,6 +49,19 @@
                 android:icon="@drawable/ic_menu_share"
                 android:visible="false"
                 android:title="@string/navdrawer_share" />
+        </menu>
+    </item>
+
+    <item android:title="Configuracion">
+        <menu>
+            <item
+                android:id="@+id/nav_Configuration"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/navdrawer_Configuration" />
+            <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/navdrawer_contact" />
         </menu>
     </item>
 
