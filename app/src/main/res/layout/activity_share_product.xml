@@ -82,15 +82,60 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textViewPrice"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.8"
-                android:paddingLeft="15dp"
-                android:paddingTop="17dp"
-                android:text="0.00"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxPriceDollar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                    <TextView
+                        android:id="@+id/textViewPriceDollar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="2dp"
+                        android:text="0.00 $"
+                        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                    <TextView
+                        android:id="@+id/textViewPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="3dp"
+                        android:text="0.00"
+                        android:textAppearance="@style/TextAppearance.AppCompat" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -103,9 +148,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
+                    android:cursorVisible="false"
                     android:hint="Porcentaje %"
                     android:inputType="number"
-                    android:text="0"
+                    android:text="30"
                     android:textColorHint="@color/colorBlack" />
             </android.support.design.widget.TextInputLayout>
 

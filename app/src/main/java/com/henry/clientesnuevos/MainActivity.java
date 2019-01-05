@@ -245,14 +245,6 @@ public class MainActivity extends AppCompatActivity
             Variables.setGruPK("");
             Variables.sePositionGru("0");
             SelectWarehouse();
-            /*ProductsListFragment fragment = new ProductsListFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("param1","");
-            bundle.putString("param2", "");
-            fragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frament, fragment)
-                    .commit();*/
         } else if (id == R.id.nav_ImportWeb) {
             Variables.setFragment("ImportWebActivity");Variables.setEmailCliN("");
             Variables.setGruPK(""); Variables.sePositionGru("0");

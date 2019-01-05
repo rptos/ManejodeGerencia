@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,8 +21,10 @@ import android.widget.ToggleButton;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
@@ -167,7 +169,7 @@ public class ShareProductActivity extends AppCompatActivity {
             symbol.setGroupingSeparator('.');
             DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
 
-            File file = new File(imageView.getContext().getCacheDir(), bitmap + ".png");
+            File file = new File(getCacheDir(), bitmap + ".png");
             FileOutputStream fOut = null;
             fOut = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
@@ -176,20 +178,54 @@ public class ShareProductActivity extends AppCompatActivity {
             file.setReadable(true, false);
 
             Intent i = new Intent(Intent.ACTION_SEND);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
             i.putExtra(Intent.EXTRA_TEXT, "\n" + ProductsList.listProducts.get(position).getINVNOMBRE() +
                     "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO() +
                     "\n" + "PRECIO:  " +formatter.format(amount) + " Bs.S\n\n");
 
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 
-            i.setType("image/png");
+            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            i.setType("*/*");
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(i, "Compartir en"));
         } catch (Exception e) {
             //e.toString();
         }
+    }
+
+    private void comparteView(View viewShare) {
+        // Creamos un bitmap con el tamaño de la vista
+        Bitmap bitmap = Bitmap.createBitmap(viewShare.getWidth(),
+                viewShare.getHeight(), Bitmap.Config.ARGB_8888);
+        // Creamos el canvas para pintar en el bitmap
+        Canvas canvas = new Canvas(bitmap);
+        // Pintamos el contenido de la vista en el canvas y así en el bitmap
+        viewShare.draw(canvas);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+        Uri uriF = null;
+        try {
+            File f = File.createTempFile("sharedImage", ".jpg",
+                    getExternalCacheDir());
+            f.deleteOnExit();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(stream.toByteArray());
+            fo.close();
+
+            uriF = Uri.fromFile(f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("image/jpeg");
+
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, uriF);
+        startActivity(sharingIntent);
+
     }
 
     void setTextType(String t, String price) {

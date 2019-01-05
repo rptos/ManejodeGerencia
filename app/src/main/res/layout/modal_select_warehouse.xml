@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:layout_weight="1"
-                android:checked="true"
+                android:checked="false"
                 android:text="@string/main_warehouse" />
 
             <RadioButton
@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:layout_weight="1"
+                android:checked="true"
                 android:text="@string/senior_warehouse" />
 
             <RadioButton

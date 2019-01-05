@@ -77,6 +77,9 @@ public class INV {
     @SerializedName("INV_PRECIO3")
     @Expose
     private String iNVPRECIO3;
+    @SerializedName("INV_PRECIO6")
+    @Expose
+    private String iNVPRECIO6;
     @SerializedName("user")
     @Expose
     private Object user;
@@ -239,6 +242,14 @@ public class INV {
 
     public void setINVPRECIO3(String iNVPRECIO3) {
         this.iNVPRECIO3 = iNVPRECIO3;
+    }
+
+    public String getINVPRECIO6() {
+        return iNVPRECIO6;
+    }
+
+    public void setINVPRECIO6(String iNVPRECIO6) {
+        this.iNVPRECIO6 = iNVPRECIO6;
     }
 
     public Object getUser() {
