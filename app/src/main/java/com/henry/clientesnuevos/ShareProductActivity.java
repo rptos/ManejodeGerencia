@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,8 +41,12 @@ public class ShareProductActivity extends AppCompatActivity {
     ToggleButton togglePrice3;
     TextInputEditText percentage;
     TextView textViewPrice;
+    TextView textViewPriceDollar;
     ImageView imageView;
-    float amount;
+    CheckBox checkBoxPrice;
+    CheckBox checkBoxPriceDollar;
+    float amountInBolivar;
+    float amonutInDollar;
     Integer position;
 
     @Override
@@ -67,11 +72,16 @@ public class ShareProductActivity extends AppCompatActivity {
             togglePrice3 = (ToggleButton) findViewById(R.id.toggleButtonPrice3);
             ImageButton buttonRecalculate = (ImageButton) findViewById(R.id.imageButtonAct);
             textViewPrice = (TextView) findViewById(R.id.textViewPrice);
+            textViewPriceDollar = (TextView) findViewById(R.id.textViewPriceDollar);
             TextView textViewName = (TextView) findViewById(R.id.textViewName);
             imageView = (ImageView) findViewById(R.id.imageView);
+            checkBoxPrice = (CheckBox) findViewById(R.id.checkBoxPrice);
+            checkBoxPriceDollar = (CheckBox) findViewById(R.id.checkBoxPriceDollar);
             FloatingActionButton accept = (FloatingActionButton) findViewById(R.id.fabAccept);
             Picasso.with(context).load(Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO() + "&width=250").into(imageView);
             textViewName.setText(ProductsList.listProducts.get(position).getINVNOMBRE().toString().trim());
+            //textViewPriceDollar.setText(ProductsList.listProducts.get(position).getINVPRECIO6().toString().trim());
+            setTextType("price6", String.valueOf(ProductsList.listProducts.get(position).getINVPRECIO6().replace(",",".")));
 
             togglePrice1.setOnClickListener(
                 new View.OnClickListener() {
@@ -151,8 +161,8 @@ public class ShareProductActivity extends AppCompatActivity {
                             }else if(!togglePrice1.isChecked() && togglePrice3.isChecked()){
                                 price = Float.valueOf(ProductsList.listProducts.get(position).getINVPRECIO3().replace(",","."));
                             }
-                            amount = price + (price * Percentage);
-                            textViewPrice.setText(String.valueOf(formatter.format(amount)) + " Bs.S");
+                            amountInBolivar = price + (price * Percentage);
+                            textViewPrice.setText(String.valueOf(formatter.format(amountInBolivar)) + " Bs.S");
                         }
                     }
                 }
@@ -161,32 +171,40 @@ public class ShareProductActivity extends AppCompatActivity {
     }
 
     private void shareProducts(){
-        imageView.buildDrawingCache();
-        Bitmap bitmap = imageView.getDrawingCache();
+        //imageView.buildDrawingCache();
+        //Bitmap bitmap = imageView.getDrawingCache();
+        String TextSend = "";
         try {
             DecimalFormatSymbols symbol=new DecimalFormatSymbols();
             symbol.setDecimalSeparator(',');
             symbol.setGroupingSeparator('.');
             DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
 
-            File file = new File(getCacheDir(), bitmap + ".png");
+            /*File file = new File(getCacheDir(), bitmap + ".png");
             FileOutputStream fOut = null;
             fOut = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
             fOut.flush();
             fOut.close();
-            file.setReadable(true, false);
+            file.setReadable(true, false);*/
 
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
-            i.putExtra(Intent.EXTRA_TEXT, "\n" + ProductsList.listProducts.get(position).getINVNOMBRE() +
+            /*i.putExtra(Intent.EXTRA_TEXT, "\n" + ProductsList.listProducts.get(position).getINVNOMBRE() +
                     "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO() +
-                    "\n" + "PRECIO:  " +formatter.format(amount) + " Bs.S\n\n");
+                    "\n" + "PRECIO:  " +formatter.format(amountInBolivar) + " Bs.S\n\n");*/
 
+            TextSend += "\n" + ProductsList.listProducts.get(position).getINVNOMBRE();
+            TextSend += "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO();
+            if(checkBoxPriceDollar.isChecked())
+                TextSend += "\n" + "PRECIO:  " +formatter.format(amonutInDollar) + " $";
+            if(checkBoxPrice.isChecked())
+                TextSend += "\n" + "PRECIO:  " +formatter.format(amountInBolivar) + " Bs.S\n\n";
 
-            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-            i.setType("*/*");
+            i.putExtra(Intent.EXTRA_TEXT, TextSend);
+            //i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            i.setType("text/plain");
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(i, "Compartir en"));
         } catch (Exception e) {
@@ -236,7 +254,11 @@ public class ShareProductActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
         float Percentage = Float.parseFloat(price) * (Float.parseFloat(percentage.getText().toString().trim()) / 100);
-        amount = Float.parseFloat(price) + Percentage;
+        if(!price.equals("price6"))
+            amountInBolivar = Float.parseFloat(price) + Percentage;
+        else
+            amonutInDollar = Float.parseFloat(price) + Percentage;
+
         switch (t) {
             case "price1":
                 togglePrice1.setChecked(true);
@@ -247,6 +269,10 @@ public class ShareProductActivity extends AppCompatActivity {
                 togglePrice1.setChecked(false);
                 break;
         }
-        textViewPrice.setText(String.valueOf(formatter.format(amount)) + " Bs.S");
+        if(t.equals("price1") || t.equals("price3")) {
+            textViewPrice.setText(String.valueOf(formatter.format(amountInBolivar)) + " Bs.S");
+        }else if(t.equals("price6")){
+            textViewPriceDollar.setText(String.valueOf(formatter.format(amountInBolivar)) + " $");
+        }
     }
 }
