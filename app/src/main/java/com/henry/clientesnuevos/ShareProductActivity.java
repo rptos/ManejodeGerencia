@@ -80,24 +80,24 @@ public class ShareProductActivity extends AppCompatActivity {
             FloatingActionButton accept = (FloatingActionButton) findViewById(R.id.fabAccept);
             Picasso.with(context).load(Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO() + "&width=250").into(imageView);
             textViewName.setText(ProductsList.listProducts.get(position).getINVNOMBRE().toString().trim());
-            //textViewPriceDollar.setText(ProductsList.listProducts.get(position).getINVPRECIO6().toString().trim());
             setTextType("price6", String.valueOf(ProductsList.listProducts.get(position).getINVPRECIO6().replace(",",".")));
 
             togglePrice1.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(ProductsList.listProducts.get(position).getINVPRECIO1().equals("")
+                        /*if(ProductsList.listProducts.get(position).getINVPRECIO1().equals("")
                                 || ProductsList.listProducts.get(position).getINVPRECIO1().equals(null)){
                             Snackbar.make(v, "error: PRECIO 1 con valor NULL", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-                        }else if(percentage.getText().toString().trim().equals("")){
+                        }else*/ if(percentage.getText().toString().trim().equals("")){
                             InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                             inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
                             Snackbar.make(v, "Ingrese Valor de Porcentaje", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }else{
                             setTextType("price1", String.valueOf(ProductsList.listProducts.get(position).getINVPRECIO1().replace(",",".")));
+                            checkBoxPrice.setChecked(true);
                         }
                     }
                 }
@@ -106,17 +106,18 @@ public class ShareProductActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(ProductsList.listProducts.get(position).getINVPRECIO3().equals("")
+                        /*if(ProductsList.listProducts.get(position).getINVPRECIO3().equals("")
                                 || ProductsList.listProducts.get(position).getINVPRECIO3().equals(null)){
                             Snackbar.make(v, "error: PRECIO 3 con valor NULL", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-                        }else if(percentage.getText().toString().trim().equals("")){
+                        }else*/ if(percentage.getText().toString().trim().equals("")){
                             InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                             inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
                             Snackbar.make(v, "Ingrese Valor de Porcentaje", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }else {
                             setTextType("price3", String.valueOf(ProductsList.listProducts.get(position).getINVPRECIO3().replace(",",".")));
+                            checkBoxPrice.setChecked(true);
                         }
                     }
                 }
@@ -126,8 +127,9 @@ public class ShareProductActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!togglePrice1.isChecked() && !togglePrice3.isChecked()){
-                            Snackbar.make(v, "SELECCIONE TIPO DE PRECIO", Snackbar.LENGTH_LONG)
+                        if(!checkBoxPrice.isChecked() && !checkBoxPriceDollar.isChecked()){
+                        //if(!togglePrice1.isChecked() && !togglePrice3.isChecked()){
+                            Snackbar.make(v, "SELECCIONE MONTO", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }else{
                             shareProducts();
@@ -139,10 +141,10 @@ public class ShareProductActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(!togglePrice1.isChecked() && !togglePrice3.isChecked()) {
+                        /*if(!togglePrice1.isChecked() && !togglePrice3.isChecked()) {
                             Snackbar.make(v, "Seleccione tipo de Precio", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-                        }else if(percentage.getText().toString().trim().equals("")){
+                        }else*/ if(percentage.getText().toString().trim().equals("")){
                             InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                             inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
                             Snackbar.make(v, "Ingrese Valor de Porcentaje", Snackbar.LENGTH_LONG)
@@ -254,11 +256,11 @@ public class ShareProductActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(percentage.getWindowToken(), 0);
         float Percentage = Float.parseFloat(price) * (Float.parseFloat(percentage.getText().toString().trim()) / 100);
-        if(!price.equals("price6"))
+        if(t.equals("price1") || t.equals("price3")) {
             amountInBolivar = Float.parseFloat(price) + Percentage;
-        else
+        }else if(t.equals("price6")){
             amonutInDollar = Float.parseFloat(price) + Percentage;
-
+        }
         switch (t) {
             case "price1":
                 togglePrice1.setChecked(true);
@@ -272,7 +274,7 @@ public class ShareProductActivity extends AppCompatActivity {
         if(t.equals("price1") || t.equals("price3")) {
             textViewPrice.setText(String.valueOf(formatter.format(amountInBolivar)) + " Bs.S");
         }else if(t.equals("price6")){
-            textViewPriceDollar.setText(String.valueOf(formatter.format(amountInBolivar)) + " $");
+            textViewPriceDollar.setText(String.valueOf(formatter.format(amonutInDollar)) + " $");
         }
     }
 }
