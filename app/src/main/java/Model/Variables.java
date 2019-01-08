@@ -27,6 +27,7 @@ public class Variables {
     private static String iD="";
     private static String idpro="";
     private static String Position="";
+    private static String OptionTypeMenu = "";
 
 
 
@@ -167,6 +168,12 @@ public class Variables {
 
     public static void setPosition(String Position) {
         Variables.Position = Position;
+    }
+
+    public static String getTypeMenu() {return OptionTypeMenu;}
+
+    public static void setTypeMenu(String OptionTypeMenu) {
+        Variables.OptionTypeMenu = OptionTypeMenu;
     }
 
 }

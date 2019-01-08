@@ -34,8 +34,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Calendar;
 
-import javax.xml.xpath.XPathVariableResolver;
-
 import Connection.Accounts;
 import Model.BitmapRe;
 import Model.MED;
@@ -164,7 +162,7 @@ public class CreateDetailDVIFragment extends Fragment {
             PaymentDetailFragment fragment1 = new PaymentDetailFragment(id, idPro, Integer.valueOf(position));
             FragmentManager fragmentManager1 = getFragmentManager();
             FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-            fragmentTransaction1.replace(R.id.frament, fragment1);
+            fragmentTransaction1.replace(R.id.fragmentReside, fragment1);
             fragmentTransaction1.commit();
             }
         });

@@ -87,6 +87,7 @@ public class CreateDVIActivity extends AppCompatActivity {
             Variables.setId(settings.getString("USR_PK", ""));
             Variables.setLanid(settings.getString("USR_LANID", ""));
             Variables.setUrl(settings.getString("Conection", ""));
+            Variables.setTypeMenu(settings.getString("Menu", ""));
         }
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.Blank_Tittle);
 

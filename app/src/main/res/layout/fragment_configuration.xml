@@ -35,4 +35,21 @@
             android:textOn="@string/title_url_remote" />
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_weight="1" >
+
+        <Switch
+            android:id="@+id/switchMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:padding="20dp"
+            android:text="@string/type_menu"
+            android:textOff="@string/type_menu_NavigationDrawer"
+            android:textOn="@string/type_menu_Reside" />
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>

@@ -119,4 +119,7 @@
     <string name="senior_warehouse">Almacen Mayor</string>
     <string name="retail_warehouse">Almacen Detal</string>
     <string name="title_select_warehouse">Seleccione Almacen</string>
+    <string name="type_menu_NavigationDrawer">Lateral</string>
+    <string name="type_menu_Reside">Slide</string>
+    <string name="type_menu">MENU</string>
 </resources>

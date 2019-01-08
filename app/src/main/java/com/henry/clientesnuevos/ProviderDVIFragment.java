@@ -101,7 +101,7 @@ public class ProviderDVIFragment extends Fragment {
                             Variables.setFragment("PaymentDetailFragment");
                             PaymentDetailFragment fragment1 = new PaymentDetailFragment(posActual.getPRODVIPK(), String.valueOf(posActual.getPROPK()), Integer.valueOf(position));
                             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.replace(R.id.frament, fragment1);
+                            transaction.replace(R.id.fragmentReside, fragment1);
                             transaction.addToBackStack(null);
                             transaction.commit();
                             Variables.setiD(posActual.getPRODVIPK());

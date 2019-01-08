@@ -3,85 +3,60 @@ package com.henry.clientesnuevos;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
+import com.special.ResideMenu.ResideMenu;
+import com.special.ResideMenu.ResideMenuItem;
+
 import Model.Variables;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+public class MainResideActivity extends AppCompatActivity implements View.OnClickListener {
     Context context;
     static LayoutInflater inflater;
     private static final String TAG = "myTag";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        context = (Context) this;
-        this.inflater = LayoutInflater.from(context);
-
-        SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
-        if (settings.getString("USR_PK", null)!=null) {
-            Variables.setId(settings.getString("USR_PK", ""));
-            Variables.setLanid(settings.getString("USR_LANID", ""));
-            Variables.setUrl(settings.getString("Conection", ""));
-            Variables.setTypeMenu(settings.getString("Menu", ""));
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        HomeFragment fragment = new HomeFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentReside, fragment)
-                .commit();
-    }
+    private ResideMenu resideMenu;
+    private ResideMenuItem itemAccountsReceivable;
+    private ResideMenuItem itemPaidAccounts;
+    private ResideMenuItem itemClientsOnCredit;
+    private ResideMenuItem itemNewClients;
+    private ResideMenuItem itemProvidersDVI;
+    private ResideMenuItem itemListProducts;
+    private ResideMenuItem itemImportWeb;
+    private ResideMenuItem itemConfiguration;
+    private ResideMenuItem itemAccountsBank;
+    private ResideMenuItem itemSendContact;
+    private ResideMenuItem itemContact;
+    private ResideMenuItem itemCloseSession;
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+    public void onBackPressed(){
+        if (resideMenu.isOpened()) {
+            resideMenu.closeMenu();
         } else {
-            //super.onBackPressed();
-            if (Variables.getFragment().equals("")){
+            if (Variables.getFragment().equals("")) {
                 //super.onBackPressed();
-            }
-            else {
-                if(Variables.getFragment().equals("AccountsReceivableGroupFragment")
-                        ||(Variables.getFragment().equals("ClientsOnCreditGroupFragment"))
-                        ||Variables.getFragment().equals("NewClientsFragment")
-                        ||Variables.getFragment().equals("ProviderDVIFragment")
-                        ||Variables.getFragment().equals("ConfigurationFragment")
-                        ||Variables.getFragment().equals("ProductsListFragment")
-                        ||Variables.getFragment().equals("ImportWebActivity")
-                        ||Variables.getFragment().equals("AccountBankActivity")
-                        ||Variables.getFragment().equals("ShareProductActivity")){
+            } else {
+                if (Variables.getFragment().equals("AccountsReceivableGroupFragment")
+                        || (Variables.getFragment().equals("ClientsOnCreditGroupFragment"))
+                        || Variables.getFragment().equals("NewClientsFragment")
+                        || Variables.getFragment().equals("ProviderDVIFragment")
+                        || Variables.getFragment().equals("ConfigurationFragment")
+                        || Variables.getFragment().equals("ProductsListFragment")
+                        || Variables.getFragment().equals("ImportWebActivity")
+                        || Variables.getFragment().equals("AccountBankActivity")
+                        || Variables.getFragment().equals("ShareProductActivity")) {
                     Variables.setFragment("");
                     Variables.setType_GruPK("");
                     Variables.setEmailCliN("");
@@ -89,46 +64,49 @@ public class MainActivity extends AppCompatActivity
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentReside, fragment)
                             .commit();
-                }else if(Variables.getFragment().equals("ClientListFragment") && !Variables.getGruPK().equals("0")){
+                } else if (Variables.getFragment().equals("ClientListFragment") && !Variables.getGruPK().equals("0")) {
                     Variables.setFragment("AccountsReceivableGroupFragment");
                     AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
                     Bundle bundle = new Bundle();
-                    if(Variables.getType_GruPK().equals("cxc"))
-                        bundle.putString("param1","cxc");
+                    if (Variables.getType_GruPK().equals("cxc"))
+                        bundle.putString("param1", "cxc");
 
-                    else if(Variables.getType_GruPK().equals("cpa"))
-                        bundle.putString("param1","cpa");
+                    else if (Variables.getType_GruPK().equals("cpa"))
+                        bundle.putString("param1", "cpa");
                     fragment.setArguments(bundle);
 
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentReside, fragment)
                             .commit();
-                }else if(Variables.getFragment().equals("ClientDetailActivity")) {
+                } else if (Variables.getFragment().equals("ClientDetailActivity")) {
                     Variables.setFragment("ClientListFragment");
-                }else if(Variables.getFragment().equals("CreateDVIActivity")){
+                } else if (Variables.getFragment().equals("CreateDVIActivity")) {
                     Variables.setFragment(("ProviderDVIFragment"));
                     Variables.set_pro_dvi(-1);
-                }else if(Variables.getFragment().equals("CPAFragment")){
+                } else if (Variables.getFragment().equals("CPAFragment")) {
                     Variables.setFragment("ClientListFragment");
                     ClientListFragment fragment = new ClientListFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("param1",Variables.getPositionGru());
-                    bundle.putString("param2","cpa");
+                    bundle.putString("param1", Variables.getPositionGru());
+                    bundle.putString("param2", "cpa");
                     fragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentReside, fragment)
                             .commit();
-                }else if(Variables.getFragment().equals("CheckPriceListFragment")){
-                    if(!Variables.getEmailCliN().equals("")){
-                        Variables.setFragment("NewClientsFragment");Variables.setEmailCliN("");
-                        Variables.setGruPK("0"); Variables.sePositionGru("0");
+                } else if (Variables.getFragment().equals("CheckPriceListFragment")) {
+                    if (!Variables.getEmailCliN().equals("")) {
+                        Variables.setFragment("NewClientsFragment");
+                        Variables.setEmailCliN("");
+                        Variables.setGruPK("0");
+                        Variables.sePositionGru("0");
                         NewClientsFragment fragment = new NewClientsFragment();
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragmentReside, fragment)
                                 .commit();
-                    }else{
+                    } else {
                         Variables.setFragment("ClientListFragment");
-                       Variables.setGruPK("0"); Variables.sePositionGru("0");
+                        Variables.setGruPK("0");
+                        Variables.sePositionGru("0");
                         ClientListFragment fragment = new ClientListFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString("param1", Variables.getPositionGru());
@@ -138,23 +116,27 @@ public class MainActivity extends AppCompatActivity
                                 .replace(R.id.fragmentReside, fragment)
                                 .commit();
                     }
-                }else if(Variables.getFragment().equals("RegisterClientFragment")){
-                    Variables.setFragment("NewClientsFragment");Variables.setEmailCliN("");
-                    Variables.setGruPK("0"); Variables.sePositionGru("0");
+                } else if (Variables.getFragment().equals("RegisterClientFragment")) {
+                    Variables.setFragment("NewClientsFragment");
+                    Variables.setEmailCliN("");
+                    Variables.setGruPK("0");
+                    Variables.sePositionGru("0");
                     NewClientsFragment fragment = new NewClientsFragment();
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentReside, fragment)
                             .commit();
-                }else if(Variables.getFragment().equals("CreateDVIActivity")){
+                } else if (Variables.getFragment().equals("CreateDVIActivity")) {
                     Variables.setFragment("ProviderDVIFragment");
-                }else if(Variables.getFragment().equals("PaymentDetailFragment")){
-                    Variables.setFragment("ProviderDVIFragment");Variables.setEmailCliN("");
-                    Variables.setGruPK(""); Variables.sePositionGru("0");
+                } else if (Variables.getFragment().equals("PaymentDetailFragment")) {
+                    Variables.setFragment("ProviderDVIFragment");
+                    Variables.setEmailCliN("");
+                    Variables.setGruPK("");
+                    Variables.sePositionGru("0");
                     ProviderDVIFragment fragment = new ProviderDVIFragment();
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentReside, fragment)
                             .commit();
-                }else if(Variables.getFragment().equals("CreateDetailDVIFragment")){
+                } else if (Variables.getFragment().equals("CreateDetailDVIFragment")) {
                     Variables.setFragment("PaymentDetailFragment");
                     PaymentDetailFragment fragment1 = new PaymentDetailFragment(Variables.getiD(), Variables.getidpro(), Integer.valueOf(Variables.getPosition()));
                     getSupportFragmentManager().beginTransaction()
@@ -166,38 +148,101 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_reside);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        context = (Context) this;
+        setUpMenu();
+        this.inflater = LayoutInflater.from(context);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.sign_off) {
-            SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
-            settings.edit().clear().apply();
-            Intent intent = new Intent(context, LoginActivity.class);
-            startActivity(intent);
-            this.finish();
+        SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
+        if (settings.getString("USR_PK", null)!=null) {
+            Variables.setId(settings.getString("USR_PK", ""));
+            Variables.setLanid(settings.getString("USR_LANID", ""));
+            Variables.setUrl(settings.getString("Conection", ""));
+            Variables.setTypeMenu(settings.getString("Menu", ""));
         }
 
-        return super.onOptionsItemSelected(item);
+        HomeFragment fragment = new HomeFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentReside, fragment)
+                .commit();
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    private void setUpMenu(){
+        resideMenu = new ResideMenu(this);
 
-        if (id == R.id.nav_AccountsReceivable) {
+        resideMenu.setBackground(R.drawable.fondo_movil2);
+        resideMenu.attachToActivity(this);
+        resideMenu.setShadowVisible(true);
+        resideMenu.setMenuListener(menuListener);
+
+        resideMenu.setScaleValue(0.52f);
+
+        itemAccountsReceivable = new ResideMenuItem(this, R.drawable.cxc, R.string.navdrawer_AccountsReceivable);
+        itemPaidAccounts       = new ResideMenuItem(this, R.drawable.cp, R.string.navdrawer_PaidAccounts);
+        itemClientsOnCredit    = new ResideMenuItem(this, R.drawable.credit, R.string.navdrawer_ClientsOnCredit);
+        itemNewClients         = new ResideMenuItem(this, R.drawable.newuser, R.string.navdrawer_NewClients);
+        itemProvidersDVI       = new ResideMenuItem(this, R.drawable.dvi, R.string.navdrawer_ProvidersDVI);
+        itemListProducts       = new ResideMenuItem(this, R.drawable.box2, R.string.navdrawer_ListProducts);
+        itemImportWeb          = new ResideMenuItem(this, R.drawable.flechas, R.string.navdrawer_ImportWEB);
+        itemAccountsBank       = new ResideMenuItem(this, R.drawable.bank, R.string.navdrawer_share_accounts);
+        itemSendContact        = new ResideMenuItem(this, R.drawable.contact_card, R.string.navdrawer_share_contacts);
+        itemConfiguration      = new ResideMenuItem(this, R.drawable.ic_menu_manage, R.string.navdrawer_Configuration);
+        itemContact            = new ResideMenuItem(this, R.drawable.ic_menu_send, R.string.navdrawer_contact);
+        itemCloseSession       = new ResideMenuItem(this, R.drawable.ic_close, R.string.sign_off);
+
+        itemAccountsReceivable.setOnClickListener(this);
+        itemPaidAccounts.setOnClickListener(this);
+        itemClientsOnCredit.setOnClickListener(this);
+        itemNewClients.setOnClickListener(this);
+        itemProvidersDVI.setOnClickListener(this);
+        itemListProducts.setOnClickListener(this);
+        itemImportWeb.setOnClickListener(this);
+        itemAccountsBank.setOnClickListener(this);
+        itemSendContact.setOnClickListener(this);
+        itemConfiguration.setOnClickListener(this);
+        itemContact.setOnClickListener(this);
+        itemCloseSession.setOnClickListener(this);
+
+        resideMenu.addMenuItem(itemAccountsReceivable, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemPaidAccounts, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemClientsOnCredit, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemNewClients, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemProvidersDVI, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemListProducts, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemImportWeb, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(itemAccountsBank, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(itemSendContact, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(itemConfiguration, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(itemContact, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(itemCloseSession, ResideMenu.DIRECTION_RIGHT);
+
+
+        findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
+            }
+        });
+        findViewById(R.id.title_bar_right_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
+            }
+        });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return resideMenu.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == itemAccountsReceivable) {
             Variables.setFragment("AccountsReceivableGroupFragment");
             Variables.setType_GruPK("cxc");Variables.setEmailCliN("");
             Log.d(TAG, Variables.getType_GruPK());
@@ -208,7 +253,7 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentReside, fragment)
                     .commit();
-        } else if (id == R.id.nav_PaidAccounts) {
+        } else if (view == itemPaidAccounts) {
             Variables.setFragment("AccountsReceivableGroupFragment");
             Variables.setType_GruPK("cpa");Variables.setEmailCliN("");
             AccountsReceivableGroupFragment fragment = new AccountsReceivableGroupFragment();
@@ -218,21 +263,21 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentReside, fragment)
                     .commit();
-        } else if (id == R.id.nav_ClientsOnCredit) {
+        } else if (view == itemClientsOnCredit) {
             Variables.setFragment("ClientsOnCreditGroupFragment");Variables.setEmailCliN("");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             ClientsOnCreditGroupFragment fragment = new ClientsOnCreditGroupFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentReside, fragment)
                     .commit();
-        } else if (id == R.id.nav_NewClients) {
+        } else if (view == itemNewClients) {
             Variables.setFragment("NewClientsFragment");Variables.setEmailCliN("");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             NewClientsFragment fragment = new NewClientsFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentReside, fragment)
                     .commit();
-        } else if (id == R.id.nav_ProvidersDVI) {
+        } else if (view == itemProvidersDVI) {
             Variables.setFragment("ProviderDVIFragment");
             Variables.setEmailCliN("");
             Variables.setGruPK("");
@@ -241,51 +286,64 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentReside, fragment)
                     .commit();
-        }else if(id == R.id.nav_ListProducts) {
+        }else if(view == itemListProducts) {
             Variables.setFragment("ProductsListFragment");
             Variables.setEmailCliN("");
             Variables.setGruPK("");
             Variables.sePositionGru("0");
             SelectWarehouse();
-        } else if (id == R.id.nav_ImportWeb) {
+        } else if (view == itemImportWeb) {
             Variables.setFragment("ImportWebActivity");Variables.setEmailCliN("");
             Variables.setGruPK(""); Variables.sePositionGru("0");
             Intent intent = new Intent(context, ImportWebActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_Configuration) {
+        } else if (view == itemConfiguration) {
             Variables.setFragment("ConfigurationFragment");
             ConfigurationFragment fragment = new ConfigurationFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentReside, fragment)
                     .commit();
-        } else if (id == R.id.nav_accounts_bank) {
+        } else if (view == itemAccountsBank) {
             Variables.setFragment("AccountBankActivity");Variables.setEmailCliN("");
             Variables.setGruPK(""); Variables.sePositionGru("0");
             Intent intent = new Intent(context, AccountBankActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_send_contact) {
+        } else if (view == itemSendContact) {
             Intent intent = new Intent(context, ContactSendActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
-            try {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
-                String sAux = "\nPermíteme recomendarte esta aplicación\n\n";
-                sAux = sAux + "https://play.google.com/store/apps/details?id=com.henry.clientesnuevos";
-                i.putExtra(Intent.EXTRA_TEXT, sAux);
-                startActivity(Intent.createChooser(i, "Compartir en"));
-            } catch(Exception e) {
-                //e.toString();
-            }
-
-        } else if (id == R.id.nav_contact) {
+        } else if (view == itemContact) {
             ViewUserData();
+        }else if (view == itemCloseSession){
+            SharedPreferences sp = context.getSharedPreferences("profile", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("Menu", "modern");
+            Variables.setTypeMenu("modern");
+            editor.commit();
+
+            SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
+            settings.edit().clear().apply();
+            Intent intent = new Intent(context, LoginActivity.class);
+            startActivity(intent);
+            this.finish();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        resideMenu.closeMenu();
+    }
+
+    private ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
+        @Override
+        public void openMenu() {
+            //Toast.makeText(context, "Menu is opened!", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void closeMenu() {
+            //Toast.makeText(context, "Menu is closed!", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public ResideMenu getResideMenu(){
+        return resideMenu;
     }
 
     private void ViewUserData(){
@@ -323,11 +381,11 @@ public class MainActivity extends AppCompatActivity
 
         cancel.setOnClickListener(
             new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alert.cancel();
+                    @Override
+                    public void onClick(View v) {
+                        alert.cancel();
+                    }
                 }
-            }
         );
 
         accept.setOnClickListener(

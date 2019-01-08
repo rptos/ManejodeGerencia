@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:buttonTint="@color/colorButton"
-                android:checked="false"
+                android:checked="true"
                 android:text="PRECIO 1"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textOff="PRECIO 1"
@@ -122,7 +122,7 @@
                         android:id="@+id/checkBoxPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="false" />
+                        android:checked="true" />
 
                     <TextView
                         android:id="@+id/textViewPrice"

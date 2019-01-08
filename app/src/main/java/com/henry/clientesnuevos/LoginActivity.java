@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Variables.setId(settings.getString("USR_PK", ""));
             Variables.setLanid(settings.getString("USR_LANID", ""));
             Variables.setUrl(settings.getString("Conection", ""));
+            Variables.setTypeMenu(settings.getString("Menu", ""));
             goMain();
         }
 
@@ -315,9 +316,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void goMain(){
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent;
+        if(Variables.getTypeMenu().equals("modern")){
+            intent = new Intent(context, MainResideActivity.class);
+            startActivity(intent);
+        }else if(Variables.getTypeMenu().equals("classic")){
+            intent = new Intent(context, MainActivity.class);
+            startActivity(intent);
+        }
+        /*Intent intent = new Intent(context, MainActivity.class);
         startActivity(intent);
-        this.finish();
+        this.finish();*/
     }
 }
 

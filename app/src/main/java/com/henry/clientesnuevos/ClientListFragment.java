@@ -141,7 +141,7 @@ public class ClientListFragment extends Fragment {
                     Variables.setCliPK(String.valueOf(posActual.getCLIPK()));
                     CPAFragment fragment = new CPAFragment();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.frament, fragment);
+                    transaction.replace(R.id.fragmentReside, fragment);
                     transaction.commit();
 
                     /*Snackbar.make(view, "Detalle de CPA en Mantenimiento...", Snackbar.LENGTH_LONG)
@@ -160,7 +160,7 @@ public class ClientListFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("param1", String.valueOf(position));
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.frament, fragment);
+                    transaction.replace(R.id.fragmentReside, fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }

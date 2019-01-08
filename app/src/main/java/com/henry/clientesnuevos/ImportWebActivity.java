@@ -40,6 +40,7 @@ public class ImportWebActivity extends AppCompatActivity {
             Variables.setId(settings.getString("USR_PK", ""));
             Variables.setLanid(settings.getString("USR_LANID", ""));
             Variables.setUrl(settings.getString("Conection", ""));
+            Variables.setTypeMenu(settings.getString("Menu", ""));
         }
 
         final TextInputEditText Et_date_initial = (TextInputEditText) findViewById(R.id.et_date_initial);

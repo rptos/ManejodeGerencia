@@ -29,15 +29,18 @@ public class SendPostSignIn {
                 if(response.isSuccessful()) {
                     //showResponse(response.body().toString());
                     Log.i("Valores", "post submitted to API." + response.body().toString());
+                    Variables.setId(response.body().getUSRNOTES());
+                    Variables.setLanid(response.body().getUSRLANID());
+                    Variables.setUrl(Variables.getUrl_local());
+                    Variables.setTypeMenu("modern");
+
                     SharedPreferences sp = c.getSharedPreferences("profile", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putString("USR_LANID", String.valueOf(response.body().getUSRLANID()));
                     editor.putString("USR_PK", String.valueOf(response.body().getUSRNOTES()));
                     editor.putString("Conection", Variables.getUrl_local());
+                    editor.putString("Menu", Variables.getTypeMenu());
                     editor.commit();
-                    Variables.setId(response.body().getUSRNOTES());
-                    Variables.setLanid(response.body().getUSRLANID());
-                    Variables.setUrl(Variables.getUrl_local());
                     loginActivity.goMain();
                 }
             }
