@@ -87,7 +87,7 @@ public class PaymentDetailFragment extends Fragment {
                         Variables.setIdDetalleDVI("");
                         CreateDetailDVIFragment fragment2 = new CreateDetailDVIFragment(id, idPro, position);
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragmentReside, fragment2);
+                        transaction.replace(R.id.fragment, fragment2);
                         transaction.addToBackStack(null);
                         transaction.commit();
 
@@ -103,7 +103,7 @@ public class PaymentDetailFragment extends Fragment {
                 Variables.setFragment("CreateDetailDVIFragment");
                 CreateDetailDVIFragment fragment2 = new CreateDetailDVIFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragmentReside, fragment2);
+                transaction.replace(R.id.fragment, fragment2);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

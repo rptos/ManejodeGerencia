@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
 
         HomeFragment fragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentReside, fragment)
+                .replace(R.id.fragment, fragment)
                 .commit();
     }
 
@@ -79,15 +79,16 @@ public class MainActivity extends AppCompatActivity
                         ||Variables.getFragment().equals("ProviderDVIFragment")
                         ||Variables.getFragment().equals("ConfigurationFragment")
                         ||Variables.getFragment().equals("ProductsListFragment")
-                        ||Variables.getFragment().equals("ImportWebActivity")
-                        ||Variables.getFragment().equals("AccountBankActivity")
+                        ||Variables.getFragment().equals("ImportWebFragment")
+                        ||Variables.getFragment().equals("AccountBankFragment")
+                        ||Variables.getFragment().equals("ContactSendFragment")
                         ||Variables.getFragment().equals("ShareProductActivity")){
                     Variables.setFragment("");
                     Variables.setType_GruPK("");
                     Variables.setEmailCliN("");
                     HomeFragment fragment = new HomeFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentReside, fragment)
+                            .replace(R.id.fragment, fragment)
                             .commit();
                 }else if(Variables.getFragment().equals("ClientListFragment") && !Variables.getGruPK().equals("0")){
                     Variables.setFragment("AccountsReceivableGroupFragment");
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity
                     fragment.setArguments(bundle);
 
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentReside, fragment)
+                            .replace(R.id.fragment, fragment)
                             .commit();
                 }else if(Variables.getFragment().equals("ClientDetailActivity")) {
                     Variables.setFragment("ClientListFragment");
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity
                     bundle.putString("param2","cpa");
                     fragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentReside, fragment)
+                            .replace(R.id.fragment, fragment)
                             .commit();
                 }else if(Variables.getFragment().equals("CheckPriceListFragment")){
                     if(!Variables.getEmailCliN().equals("")){
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity
                         Variables.setGruPK("0"); Variables.sePositionGru("0");
                         NewClientsFragment fragment = new NewClientsFragment();
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragmentReside, fragment)
+                                .replace(R.id.fragment, fragment)
                                 .commit();
                     }else{
                         Variables.setFragment("ClientListFragment");
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity
                         bundle.putString("param2", Variables.getGruPK());
                         fragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragmentReside, fragment)
+                                .replace(R.id.fragment, fragment)
                                 .commit();
                     }
                 }else if(Variables.getFragment().equals("RegisterClientFragment")){
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity
                     Variables.setGruPK("0"); Variables.sePositionGru("0");
                     NewClientsFragment fragment = new NewClientsFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentReside, fragment)
+                            .replace(R.id.fragment, fragment)
                             .commit();
                 }else if(Variables.getFragment().equals("CreateDVIActivity")){
                     Variables.setFragment("ProviderDVIFragment");
@@ -152,13 +153,13 @@ public class MainActivity extends AppCompatActivity
                     Variables.setGruPK(""); Variables.sePositionGru("0");
                     ProviderDVIFragment fragment = new ProviderDVIFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentReside, fragment)
+                            .replace(R.id.fragment, fragment)
                             .commit();
                 }else if(Variables.getFragment().equals("CreateDetailDVIFragment")){
                     Variables.setFragment("PaymentDetailFragment");
                     PaymentDetailFragment fragment1 = new PaymentDetailFragment(Variables.getiD(), Variables.getidpro(), Integer.valueOf(Variables.getPosition()));
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentReside, fragment1)
+                            .replace(R.id.fragment, fragment1)
                             .commit();
                 }
             }
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity
             bundle.putString("param1","cxc");
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentReside, fragment)
+                    .replace(R.id.fragment, fragment)
                     .commit();
         } else if (id == R.id.nav_PaidAccounts) {
             Variables.setFragment("AccountsReceivableGroupFragment");
@@ -216,21 +217,21 @@ public class MainActivity extends AppCompatActivity
             bundle.putString("param1","cpa");
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentReside, fragment)
+                    .replace(R.id.fragment, fragment)
                     .commit();
         } else if (id == R.id.nav_ClientsOnCredit) {
             Variables.setFragment("ClientsOnCreditGroupFragment");Variables.setEmailCliN("");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             ClientsOnCreditGroupFragment fragment = new ClientsOnCreditGroupFragment();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentReside, fragment)
+                    .replace(R.id.fragment, fragment)
                     .commit();
         } else if (id == R.id.nav_NewClients) {
             Variables.setFragment("NewClientsFragment");Variables.setEmailCliN("");
             Variables.setGruPK("0"); Variables.sePositionGru("0");
             NewClientsFragment fragment = new NewClientsFragment();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentReside, fragment)
+                    .replace(R.id.fragment, fragment)
                     .commit();
         } else if (id == R.id.nav_ProvidersDVI) {
             Variables.setFragment("ProviderDVIFragment");
@@ -239,7 +240,7 @@ public class MainActivity extends AppCompatActivity
             Variables.sePositionGru("0");
             ProviderDVIFragment fragment = new ProviderDVIFragment();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentReside, fragment)
+                    .replace(R.id.fragment, fragment)
                     .commit();
         }else if(id == R.id.nav_ListProducts) {
             Variables.setFragment("ProductsListFragment");
@@ -248,24 +249,38 @@ public class MainActivity extends AppCompatActivity
             Variables.sePositionGru("0");
             SelectWarehouse();
         } else if (id == R.id.nav_ImportWeb) {
-            Variables.setFragment("ImportWebActivity");Variables.setEmailCliN("");
+            Variables.setFragment("ImportWebFragment");Variables.setEmailCliN("");
             Variables.setGruPK(""); Variables.sePositionGru("0");
-            Intent intent = new Intent(context, ImportWebActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(context, ImportWebActivity.class);
+            startActivity(intent);*/
+            ImportWebFragment fragment = new ImportWebFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment, fragment)
+                    .commit();
         } else if (id == R.id.nav_Configuration) {
             Variables.setFragment("ConfigurationFragment");
             ConfigurationFragment fragment = new ConfigurationFragment();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentReside, fragment)
+                    .replace(R.id.fragment, fragment)
                     .commit();
         } else if (id == R.id.nav_accounts_bank) {
-            Variables.setFragment("AccountBankActivity");Variables.setEmailCliN("");
+            Variables.setFragment("AccountBankFragment");Variables.setEmailCliN("");
             Variables.setGruPK(""); Variables.sePositionGru("0");
-            Intent intent = new Intent(context, AccountBankActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(context, AccountBankActivity.class);
+            startActivity(intent);*/
+            AccountBankFragment fragment = new AccountBankFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment, fragment)
+                    .commit();
         } else if (id == R.id.nav_send_contact) {
-            Intent intent = new Intent(context, ContactSendActivity.class);
-            startActivity(intent);
+            Variables.setFragment("ContactSendFragment");Variables.setEmailCliN("");
+            Variables.setGruPK(""); Variables.sePositionGru("0");
+            /*Intent intent = new Intent(context, ContactSendActivity.class);
+            startActivity(intent);*/
+            ContactSendFragment fragment = new ContactSendFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment, fragment)
+                    .commit();
         } else if (id == R.id.nav_share) {
             try {
                 Intent i = new Intent(Intent.ACTION_SEND);
@@ -349,7 +364,7 @@ public class MainActivity extends AppCompatActivity
 
                     fragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentReside, fragment)
+                            .replace(R.id.fragment, fragment)
                             .commit();
                     alert.cancel();
                 }

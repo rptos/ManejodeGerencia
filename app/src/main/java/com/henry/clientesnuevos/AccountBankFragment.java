@@ -1,19 +1,26 @@
 package com.henry.clientesnuevos;
 
+
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-public class AccountBankActivity extends AppCompatActivity {
 
-    Context context;
-    static LayoutInflater inflater;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class AccountBankFragment extends Fragment {
+
+    private View view;
+    private Context context;
+    private static LayoutInflater inflater;
     private String sAux = "\nPermiteme Recomendarte la/s Cuenta Bancaria:\n";
 
     String Mercantil_Factura = "\n\n Banco MERCANTIL: solo depósitos y transferencias\n" +
@@ -48,17 +55,24 @@ public class AccountBankActivity extends AppCompatActivity {
             "Correo: Repuestoscoreanos85@gmail.com\n" +
             "Teléfono: 0424-9734593 / 0414-9064235";
 
+    public AccountBankFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_bank);
-        context = (Context) this;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view =  inflater.inflate(R.layout.fragment_account_bank, container, false);
+        context = (Context) getActivity();
         this.inflater = LayoutInflater.from(context);
-        final CheckBox checkBoxMercantilJ = (CheckBox) findViewById(R.id.checkBoxMercantilFactura);
-        final CheckBox checkBoxBncJ = (CheckBox) findViewById(R.id.checkBoxBncFactura);
-        final CheckBox checkBoxExteriorJ = (CheckBox) findViewById(R.id.checkBoxExteriorFactura);
-        final CheckBox checkBoxMercantilP = (CheckBox) findViewById(R.id.checkBoxMercantilNota);
-        FloatingActionButton fab_sent = (FloatingActionButton) findViewById(R.id.fabSent);
+
+        final CheckBox checkBoxMercantilJ = (CheckBox) view.findViewById(R.id.checkBoxMercantilFactura);
+        final CheckBox checkBoxBncJ = (CheckBox) view.findViewById(R.id.checkBoxBncFactura);
+        final CheckBox checkBoxExteriorJ = (CheckBox) view.findViewById(R.id.checkBoxExteriorFactura);
+        final CheckBox checkBoxMercantilP = (CheckBox) view.findViewById(R.id.checkBoxMercantilNota);
+        FloatingActionButton fab_sent = (FloatingActionButton) view.findViewById(R.id.fabSent);
 
         fab_sent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +93,8 @@ public class AccountBankActivity extends AppCompatActivity {
                 }
             }
         });
+
+        return view;
     }
 
     private void shareBank(){
@@ -93,4 +109,5 @@ public class AccountBankActivity extends AppCompatActivity {
             //e.toString();
         }
     }
+
 }

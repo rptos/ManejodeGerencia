@@ -98,7 +98,7 @@ public class NewClientsFragment extends Fragment {
                 Variables.setEmailCliN(posActual.getCLIEMAIL().toString().trim());
                 CheckPriceListFragment fragment = new CheckPriceListFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragmentReside, fragment);
+                transaction.replace(R.id.fragment, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -121,7 +121,7 @@ public class NewClientsFragment extends Fragment {
                         Variables.setFragment("RegisterClientFragment");
                         RegisterClientFragment fragment = new RegisterClientFragment();
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragmentReside, fragment);
+                        transaction.replace(R.id.fragment, fragment);
                         transaction.addToBackStack(null);
                         transaction.commit();
                         floatingActionsMenu.collapse();

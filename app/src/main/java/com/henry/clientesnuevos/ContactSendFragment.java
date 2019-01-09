@@ -1,23 +1,27 @@
 package com.henry.clientesnuevos;
 
+
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-import Model.Variables;
 
-public class ContactSendActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ContactSendFragment extends Fragment {
 
-    Context context;
-    static LayoutInflater inflater;
+    private View view;
+    private Context context;
+    private static LayoutInflater inflater;
     private String sAux = "\nPermiteme Recomendarte lo/s Siguientes Contactos:\n";
 
     private String ped = "\n\n PEDIDOS\n"+
@@ -36,30 +40,27 @@ public class ContactSendActivity extends AppCompatActivity {
             "+58 0414-8546014\n"+
             "administracion@rptos.com";
 
+    public ContactSendFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_send);
-        context = (Context) this;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view =  inflater.inflate(R.layout.fragment_contact_send, container, false);
+        context = (Context) getActivity();
         this.inflater = LayoutInflater.from(context);
 
-        SharedPreferences settings = getSharedPreferences("profile", MODE_PRIVATE);
-        if (settings.getString("USR_PK", null) != null) {
-            Variables.setId(settings.getString("USR_PK", ""));
-            Variables.setLanid(settings.getString("USR_LANID", ""));
-            Variables.setUrl(settings.getString("Conection", ""));
-        }
-
-        CardView cardView_ped = (CardView) findViewById(R.id.CardViewPed);
-        CardView cardView_client = (CardView) findViewById(R.id.CardViewClient);
-        CardView cardView_gerent = (CardView) findViewById(R.id.CardViewGerent);
-        CardView cardView_admin = (CardView) findViewById(R.id.CardViewAdmin);
-        final CheckBox checkBox_ped = (CheckBox) findViewById(R.id.checkBoxPed);
-        final CheckBox checkBox_client = (CheckBox) findViewById(R.id.checkBoxClient);
-        final CheckBox checkBox_gerent = (CheckBox) findViewById(R.id.checkBoxGerent);
-        final CheckBox checkBox_admin = (CheckBox) findViewById(R.id.checkBoxAdmin);
-        FloatingActionButton fab_sent = (FloatingActionButton) findViewById(R.id.fabSent2);
+        CardView cardView_ped = (CardView) view.findViewById(R.id.CardViewPed);
+        CardView cardView_client = (CardView) view.findViewById(R.id.CardViewClient);
+        CardView cardView_gerent = (CardView) view.findViewById(R.id.CardViewGerent);
+        CardView cardView_admin = (CardView) view.findViewById(R.id.CardViewAdmin);
+        final CheckBox checkBox_ped = (CheckBox) view.findViewById(R.id.checkBoxPed);
+        final CheckBox checkBox_client = (CheckBox) view.findViewById(R.id.checkBoxClient);
+        final CheckBox checkBox_gerent = (CheckBox) view.findViewById(R.id.checkBoxGerent);
+        final CheckBox checkBox_admin = (CheckBox) view.findViewById(R.id.checkBoxAdmin);
+        FloatingActionButton fab_sent = (FloatingActionButton) view.findViewById(R.id.fabSent2);
 
         cardView_ped.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +121,8 @@ public class ContactSendActivity extends AppCompatActivity {
                 }
             }
         });
+
+        return view;
     }
 
     private void shareAccounts(){

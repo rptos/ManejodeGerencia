@@ -55,7 +55,7 @@ public class ClientsOnCreditGroupFragment extends Fragment {
                 bundle.putString("param2", Variables.getGruPK());
                 fragment.setArguments(bundle);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragmentReside, fragment);
+                transaction.replace(R.id.fragment, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
 

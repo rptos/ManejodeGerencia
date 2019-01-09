@@ -162,7 +162,7 @@ public class CreateDetailDVIFragment extends Fragment {
             PaymentDetailFragment fragment1 = new PaymentDetailFragment(id, idPro, Integer.valueOf(position));
             FragmentManager fragmentManager1 = getFragmentManager();
             FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-            fragmentTransaction1.replace(R.id.fragmentReside, fragment1);
+            fragmentTransaction1.replace(R.id.fragment, fragment1);
             fragmentTransaction1.commit();
             }
         });
