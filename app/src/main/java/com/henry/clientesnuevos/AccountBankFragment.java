@@ -55,6 +55,10 @@ public class AccountBankFragment extends Fragment {
             "Correo: Repuestoscoreanos85@gmail.com\n" +
             "Teléfono: 0424-9734593 / 0414-9064235";
 
+    String Wells_Fargo   =  "\n\n Banco: WELLS FARGO\n" +
+            "De: Rafael Barrios\n" +
+            "Correo: rbarrios@drgroupltd.com\n";
+
     public AccountBankFragment() {
         // Required empty public constructor
     }
@@ -72,6 +76,7 @@ public class AccountBankFragment extends Fragment {
         final CheckBox checkBoxBncJ = (CheckBox) view.findViewById(R.id.checkBoxBncFactura);
         final CheckBox checkBoxExteriorJ = (CheckBox) view.findViewById(R.id.checkBoxExteriorFactura);
         final CheckBox checkBoxMercantilP = (CheckBox) view.findViewById(R.id.checkBoxMercantilNota);
+        final CheckBox checkBoxWF = (CheckBox) view.findViewById(R.id.checkBoxWellsFargo);
         FloatingActionButton fab_sent = (FloatingActionButton) view.findViewById(R.id.fabSent);
 
         fab_sent.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +85,8 @@ public class AccountBankFragment extends Fragment {
                 if(!checkBoxBncJ.isChecked()
                         && !checkBoxMercantilJ.isChecked()
                         && !checkBoxExteriorJ.isChecked()
-                        && !checkBoxMercantilP.isChecked()){
+                        && !checkBoxMercantilP.isChecked()
+                        && !checkBoxWF.isChecked()){
                     Snackbar.make(view, "Seleccione Una Cuenta", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }else{
@@ -89,6 +95,7 @@ public class AccountBankFragment extends Fragment {
                     if(checkBoxExteriorJ.isChecked()) sAux += Exterior_Factura;
                     if (checkBoxMercantilJ.isChecked()) sAux += Mercantil_Factura;
                     if (checkBoxMercantilP.isChecked()) sAux += Mercantil_Nota;
+                    if (checkBoxWF.isChecked()) sAux += Wells_Fargo;
                     shareBank();
                 }
             }

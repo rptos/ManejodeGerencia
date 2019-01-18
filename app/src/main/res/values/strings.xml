@@ -122,4 +122,6 @@
     <string name="type_menu_NavigationDrawer">Lateral</string>
     <string name="type_menu_Reside">Slide</string>
     <string name="type_menu">MENU</string>
+    <string name="title_zelle">Zelle®</string>
+    <string name="title_Wells_Fargo">Wells Fargo</string>
 </resources>
