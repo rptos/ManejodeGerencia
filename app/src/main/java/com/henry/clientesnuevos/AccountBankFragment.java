@@ -57,7 +57,8 @@ public class AccountBankFragment extends Fragment {
 
     String Wells_Fargo   =  "\n\n Banco: WELLS FARGO\n" +
             "De: Rafael Barrios\n" +
-            "Correo: rbarrios@drgroupltd.com\n";
+            "Correo: repuestoscoreanos85@gmail.com\n";
+            //"Correo: rbarrios@drgroupltd.com\n";
 
     public AccountBankFragment() {
         // Required empty public constructor
