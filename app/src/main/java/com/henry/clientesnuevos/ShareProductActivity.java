@@ -162,7 +162,7 @@ public class ShareProductActivity extends AppCompatActivity {
         }
     }
 
-    private void shareProducts(){
+    /*private void shareProducts(){
         //imageView.buildDrawingCache();
         //Bitmap bitmap = imageView.getDrawingCache();
         String TextSend = "";
@@ -172,13 +172,13 @@ public class ShareProductActivity extends AppCompatActivity {
             symbol.setGroupingSeparator('.');
             DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
 
-            /*File file = new File(getCacheDir(), bitmap + ".png");
-            FileOutputStream fOut = null;
-            fOut = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-            fOut.flush();
-            fOut.close();
-            file.setReadable(true, false);*/
+            //File file = new File(getCacheDir(), bitmap + ".png");
+            //FileOutputStream fOut = null;
+            //fOut = new FileOutputStream(file);
+            //bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            //fOut.flush();
+            //fOut.close();
+            //file.setReadable(true, false);
 
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -199,16 +199,19 @@ public class ShareProductActivity extends AppCompatActivity {
         } catch (Exception e) {
             //e.toString();
         }
-    }
+    }*/
 
-    private void comparteView(View viewShare) {
-        // Creamos un bitmap con el tamaño de la vista
-        Bitmap bitmap = Bitmap.createBitmap(viewShare.getWidth(),
-                viewShare.getHeight(), Bitmap.Config.ARGB_8888);
-        // Creamos el canvas para pintar en el bitmap
+    private void shareProducts() {
+        String TextSend = "";
+        DecimalFormatSymbols symbol=new DecimalFormatSymbols();
+        symbol.setDecimalSeparator(',');
+        symbol.setGroupingSeparator('.');
+        DecimalFormat formatter = new DecimalFormat("###,###.##",symbol);
+
+        Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(),
+                imageView.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        // Pintamos el contenido de la vista en el canvas y así en el bitmap
-        viewShare.draw(canvas);
+        imageView.draw(canvas);
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -227,12 +230,18 @@ public class ShareProductActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        sharingIntent.setType("image/jpeg");
-
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, uriF);
-        startActivity(sharingIntent);
-
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("image/jpeg");
+        i.putExtra(Intent.EXTRA_SUBJECT, "Manejo de Gerencia de " + getResources().getString(R.string.company_name));
+        TextSend += "\n" + ProductsList.listProducts.get(position).getINVNOMBRE();
+        TextSend += "\n\n" + "COD: "+ ProductsList.listProducts.get(position).getINVCODIGO();
+        if(checkBoxPriceDollar.isChecked())
+            TextSend += "\n" + "PRECIO:  " +formatter.format(amonutInDollar) + " $";
+        if(checkBoxPrice.isChecked())
+            TextSend += "\n" + "PRECIO:  " +formatter.format(amountInBolivar) + " Bs.S\n\n";
+        i.putExtra(Intent.EXTRA_TEXT, TextSend);
+        i.putExtra(Intent.EXTRA_STREAM, uriF);
+        startActivity(Intent.createChooser(i, "Compartir en"));
     }
 
     void setTextType(String t, String price) {
