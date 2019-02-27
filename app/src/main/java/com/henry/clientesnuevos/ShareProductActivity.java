@@ -78,6 +78,7 @@ public class ShareProductActivity extends AppCompatActivity {
             imageView = (ImageView) findViewById(R.id.imageView);
             checkBoxPrice = (CheckBox) findViewById(R.id.checkBoxPrice);
             checkBoxPriceDollar = (CheckBox) findViewById(R.id.checkBoxPriceDollar);
+            final CheckBox SendWithImage = (CheckBox) findViewById(R.id.checkBoxLoadImage);
             FloatingActionButton accept = (FloatingActionButton) findViewById(R.id.fabAccept);
             Picasso.with(context).load(Variables.getDireccion_fotos() + ProductsList.listProducts.get(position).getINVFOTO() + "&width=250").into(imageView);
             textViewName.setText(ProductsList.listProducts.get(position).getINVNOMBRE().toString().trim());
@@ -125,7 +126,11 @@ public class ShareProductActivity extends AppCompatActivity {
                             Snackbar.make(v, "SELECCIONE MONTO", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }else{
-                            shareProducts();
+                            if(SendWithImage.isChecked()){
+                                shareProductsImage();
+                            }else{
+                                shareProducts();
+                            }
                         }
                     }
                 }
@@ -162,7 +167,7 @@ public class ShareProductActivity extends AppCompatActivity {
         }
     }
 
-    /*private void shareProducts(){
+    private void shareProducts(){
         //imageView.buildDrawingCache();
         //Bitmap bitmap = imageView.getDrawingCache();
         String TextSend = "";
@@ -199,9 +204,9 @@ public class ShareProductActivity extends AppCompatActivity {
         } catch (Exception e) {
             //e.toString();
         }
-    }*/
+    }
 
-    private void shareProducts() {
+    private void shareProductsImage() {
         String TextSend = "";
         DecimalFormatSymbols symbol=new DecimalFormatSymbols();
         symbol.setDecimalSeparator(',');
